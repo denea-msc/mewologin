@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MAC Tools – MSC Portal (Paw Edition)</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#fff;--grey-medium:#dbdeea;--grey-dark:#69757b;
+  --blue-dark:#343945;--blue-medium:#3fa7fc;--green-dark:#149c48;
+}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Lato',sans-serif,system-ui;}
+.page{position:relative;width:100%;height:100vh;overflow:hidden;background:linear-gradient(135deg,#c8dff5 0%,#deeeff 40%,#c5e8d8 100%);}
+.bg-blur{position:absolute;inset:0;background:rgba(243,249,255,0.82);backdrop-filter:blur(7.5px);-webkit-backdrop-filter:blur(7.5px);z-index:1;}
+.panel-wrap{position:absolute;right:54px;top:21px;z-index:10;width:350px;}
+.login-card{background:rgba(255,255,255,0.93);border:1px solid var(--grey-medium);border-radius:8px;box-shadow:3px 3px 11px rgba(34,46,57,0.06);padding:20px;}
+.login-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px;}
+.logo-box{flex-shrink:0;width:60px;height:60px;background:#fff;border:1px solid var(--grey-medium);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.welcome-text{display:flex;flex-direction:column;gap:2px;padding-top:4px;}
+.welcome-title{font-size:22px;font-weight:400;line-height:26px;color:var(--blue-dark);}
+.welcome-name{font-size:16px;font-weight:700;color:var(--green-dark);}
+.field-label{font-size:14px;color:var(--blue-dark);margin-bottom:6px;}
+.pw-wrap{margin-bottom:10px;}
+.pw-field{width:100%;height:36px;border:1px solid var(--grey-medium);border-radius:4px;background:#fff;padding:0 12px;font-size:14px;color:var(--blue-dark);outline:none;letter-spacing:3px;}
+.pw-field:focus{border-color:var(--blue-medium);}
+.links-row{display:flex;justify-content:space-between;margin-bottom:14px;}
+.link-text{font-size:10px;color:var(--blue-dark);cursor:pointer;text-decoration:none;}
+.link-text:hover{text-decoration:underline;}
+
+#login-btn{
+  position:fixed;
+  width:310px;height:40px;
+  background:var(--green-dark);border:none;border-radius:5px;
+  color:#fff;font-size:14px;font-weight:600;cursor:pointer;
+  font-family:inherit;z-index:20;
+  transition:background 0.18s;
+  will-change:left,top;
+}
+#login-btn:hover{background:#118a3f;}
+.btn-spacer{height:40px;}
+
+.cat-spacer{height:130px;display:flex;align-items:center;justify-content:center;}
+.tabs-card{background:transparent;}
+.tabs-header{display:flex;position:relative;}
+.tab{flex:1;height:39px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;font-size:14px;font-weight:600;border:1px solid var(--grey-medium);position:relative;}
+.tab-news{background:rgba(255,255,255,0.93);border-radius:4px 4px 0 0;color:var(--blue-dark);border-bottom:none;z-index:2;}
+.tab-news::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--blue-medium);border-radius:8px 8px 0 0;}
+.tab-learning{background:rgba(251,251,253,0.93);border-radius:0 8px 0 0;color:var(--grey-dark);z-index:1;}
+.tab-divider{position:absolute;left:50%;top:50%;transform:translateY(-50%);width:1px;height:36px;background:var(--grey-medium);z-index:3;}
+.tab-body{background:rgba(255,255,255,0.93);border:1px solid var(--grey-medium);border-top:none;border-radius:0 0 8px 8px;padding:18px 20px 22px;}
+.tab-body-text{font-size:12px;color:var(--blue-dark);line-height:1.6;margin-bottom:16px;}
+.get-trained-btn{display:flex;align-items:center;justify-content:center;width:120px;height:40px;border:1px solid var(--grey-medium);border-radius:4px;background:#fff;color:var(--blue-medium);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+.get-trained-btn:hover{background:#eef6ff;}
+
+#info-tip{
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(30,30,30,0.78);
+  color:#fff;
+  font-size:12px;
+  font-family:'Lato',sans-serif;
+  padding:8px 16px;
+  border-radius:20px;
+  white-space:nowrap;
+  z-index:1000;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity 0.4s ease;
+  letter-spacing:0.2px;
+}
+#info-tip.visible{opacity:1;}
+
+#cat-wrap{
+  position:fixed;z-index:999;pointer-events:none;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+}
+#cat-svg{display:block;overflow:visible;}
+#cat-badge{
+  background:rgba(20,20,20,0.7);color:#fff;font-size:10px;
+  font-family:system-ui,sans-serif;padding:2px 8px;border-radius:10px;
+  white-space:nowrap;letter-spacing:0.3px;
+}
+#paw-svg{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:998;
+}
+
+@keyframes tailWag{0%,100%{transform-origin:85px 52px;transform:rotate(-10deg)}50%{transform-origin:85px 52px;transform:rotate(16deg)}}
+@keyframes earTwitch{0%,100%{transform:none}35%{transform:skewX(-10deg)}65%{transform:skewX(8deg)}}
+@keyframes breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(0.94)}}
+@keyframes tailPlay{0%,100%{transform-origin:80px 56px;transform:rotate(-14deg)}50%{transform-origin:80px 56px;transform:rotate(16deg)}}
+@keyframes groundIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+.anim-breathe{animation:breathe 2.8s ease-in-out infinite;}
+.anim-tail{animation:tailWag 0.6s ease-in-out infinite;}
+.anim-tail-play{animation:tailPlay 0.38s ease-in-out infinite;}
+.anim-ear{animation:earTwitch 0.4s ease-in-out infinite;}
+.anim-ground{animation:groundIdle 1.4s ease-in-out infinite;}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="bg-blur"></div>
+  <svg id="paw-svg"></svg>
+  <div id="info-tip">Move your mouse further from the pussy and she will calm down</div>
+
+  <div class="panel-wrap">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="logo-box">
+          <svg width="46" height="32" viewBox="0 0 46 32"><rect width="46" height="32" rx="4" fill="#149c48"/><text x="23" y="21" text-anchor="middle" fill="white" font-family="system-ui,sans-serif" font-size="12" font-weight="900">MAC</text></svg>
+        </div>
+        <div class="welcome-text">
+          <span class="welcome-title">Welcome Back</span>
+          <span class="welcome-name">Anne Marie Shea</span>
+        </div>
+      </div>
+      <p class="field-label">Password</p>
+      <div class="pw-wrap">
+        <input class="pw-field" type="password" value="password" autocomplete="current-password"/>
+      </div>
+      <div class="links-row">
+        <a class="link-text" href="#">Forgot Password?</a>
+        <a class="link-text" href="#">Switch Accounts</a>
+      </div>
+      <div class="btn-spacer"></div>
+    </div>
+
+    <div class="cat-spacer"></div>
+
+    <div class="tabs-card">
+      <div class="tabs-header" style="position:relative;">
+        <div class="tab tab-news">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="2" stroke="#343945" stroke-width="1.1"/><line x1="4" y1="6.5" x2="12" y2="6.5" stroke="#343945" stroke-width="0.9"/><line x1="4" y1="9.5" x2="9" y2="9.5" stroke="#343945" stroke-width="0.9"/></svg>
+          News
+        </div>
+        <div class="tab-divider"></div>
+        <div class="tab tab-learning">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3L14 6.5L8 10L2 6.5L8 3Z" stroke="#69757b" stroke-width="1.1"/><path d="M5 8.5V11.5C5 11.5 6.3 13 8 13s3-1.5 3-1.5V8.5" stroke="#69757b" stroke-width="1.1"/></svg>
+          Learning
+        </div>
+      </div>
+      <div class="tab-body">
+        <p class="tab-body-text">All Webinars are Free! Sign up for one of our public sessions or feel free to request a private webinar. All at no cost. We also have other training available.</p>
+        <button class="get-trained-btn">Get Trained</button>
+      </div>
+    </div>
+  </div>
+
+  <button id="login-btn">Login</button>
+
+  <div id="cat-wrap">
+    <svg id="cat-svg" width="110" height="80" viewBox="0 0 110 80" overflow="visible"></svg>
+    <span id="cat-badge">Pussy sleeping</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  const catWrap  = document.getElementById('cat-wrap');
+  const catSvg   = document.getElementById('cat-svg');
+  const badge    = document.getElementById('cat-badge');
+  const loginBtn = document.getElementById('login-btn');
+  const pawSvg   = document.getElementById('paw-svg');
+  const infoTip  = document.getElementById('info-tip');
+
+  const S = {SLEEP:'sleep', EARS:'ears', PREP:'prep', PAW:'paw', JUMP:'jump', GROUND:'ground'};
+  const LABELS = {
+    sleep  : 'Pussy sleeping',
+    ears   : 'Ears & Tail Moving',
+    prep   : 'Prepares to play',
+    paw    : 'No touchy!',
+    jump   : 'Pussy leap',
+    ground : 'Meow'
+  };
+
+  let state = S.SLEEP;
+  let mouseX=0, mouseY=0;
+
+  const BTN_W=310, BTN_H=40;
+  const MAX_DRIFT=350;
+
+  let btnX=0, btnY=0;
+  let btnVX=0, btnVY=0;
+  let btnHome={x:0,y:0};
+  let btnPlaced=false;
+  let btnReturning=false;
+
+  let lastBatTime=0;
+  const BAT_COOLDOWN=260;
+
+  let catX=0, catY=0;
+  let isJumping=false;
+  let isGrounded=false;
+
+  // KEY FLAG: only true once the cat has actually entered PAW state at least once
+  let playInitiated=false;
+
+  let pawTipX=0, pawTipY=0;
+
+  function dist(x1,y1,x2,y2){return Math.sqrt((x2-x1)**2+(y2-y1)**2);}
+  function btnCenter(){return{x:btnX+BTN_W/2, y:btnY+BTN_H/2};}
+  function catCenter(){return{x:catX+55, y:catY+50};}
+
+  function placeButtonHome(){
+    const spacer=document.querySelector('.btn-spacer');
+    const r=spacer.getBoundingClientRect();
+    btnHome={x:r.left, y:r.top};
+    if(!btnPlaced){
+      btnX=btnHome.x; btnY=btnHome.y;
+      pawTipX=btnHome.x+BTN_W/2;
+      pawTipY=btnHome.y+BTN_H/2;
+      btnPlaced=true;
+    }
+    loginBtn.style.left=btnX+'px';
+    loginBtn.style.top=btnY+'px';
+  }
+
+  function placeCatHome(){
+    const spacer=document.querySelector('.cat-spacer');
+    const r=spacer.getBoundingClientRect();
+    catX=r.left+r.width/2-55;
+    catY=r.top+r.height/2-30;
+    catWrap.style.left=catX+'px';
+    catWrap.style.top=catY+'px';
+  }
+
+  function setState(s){
+    if(state===s)return;
+    state=s;
+    badge.textContent=LABELS[s];
+    drawCat(s);
+    // mark that play has been initiated the first time PAW is entered
+    if(s===S.PAW) playInitiated=true;
+  }
+
+  function setTip(visible){
+    if(visible) infoTip.classList.add('visible');
+    else infoTip.classList.remove('visible');
+  }
+
+  function clampToDrift(){
+    const hx=btnHome.x+BTN_W/2, hy=btnHome.y+BTN_H/2;
+    const bcx=btnX+BTN_W/2, bcy=btnY+BTN_H/2;
+    const dx=bcx-hx, dy=bcy-hy;
+    const d=Math.sqrt(dx*dx+dy*dy);
+    if(d>MAX_DRIFT){
+      const scale=MAX_DRIFT/d;
+      btnX=hx+dx*scale-BTN_W/2;
+      btnY=hy+dy*scale-BTN_H/2;
+      const nx=dx/d, ny=dy/d;
+      const outward=btnVX*nx+btnVY*ny;
+      if(outward>0){btnVX-=outward*nx;btnVY-=outward*ny;}
+    }
+  }
+
+  function maybeBat(){
+    const now=Date.now();
+    if(now-lastBatTime < BAT_COOLDOWN)return;
+    lastBatTime=now;
+    const bc=btnCenter();
+    let fx=bc.x-mouseX, fy=bc.y-mouseY;
+    const fl=Math.sqrt(fx*fx+fy*fy)||1;
+    fx/=fl; fy/=fl;
+    const angle=(Math.random()-0.5)*0.7;
+    const cos=Math.cos(angle), sin=Math.sin(angle);
+    btnVX+=(fx*cos-fy*sin)*(10+Math.random()*7);
+    btnVY+=(fx*sin+fy*cos)*(10+Math.random()*7);
+  }
+
+  function releaseAndJump(){
+    if(isJumping||isGrounded)return;
+    playInitiated=false; // reset for safety
+    setTip(false);
+    btnReturning=true;
+
+    isJumping=true;
+    setState(S.JUMP);
+
+    const sx=catX, sy=catY;
+    const ey=window.innerHeight-90;
+    const dur=600;
+    let t0=null;
+    function anim(ts){
+      if(!t0)t0=ts;
+      const p=Math.min((ts-t0)/dur,1);
+      const ease=1-Math.pow(1-p,3);
+      const arc=-Math.sin(p*Math.PI)*40;
+      catY=sy+(ey-sy)*ease+arc;
+      catWrap.style.top=catY+'px';
+      if(p<1){requestAnimationFrame(anim);}
+      else{
+        catY=ey;
+        catWrap.style.top=catY+'px';
+        isJumping=false;
+        isGrounded=true;
+        setState(S.GROUND);
+      }
+    }
+    requestAnimationFrame(anim);
+  }
+
+  function drawPawLine(active){
+    pawSvg.innerHTML='';
+    if(!active)return;
+    const cc=catCenter();
+    const tx=pawTipX, ty=pawTipY;
+    const dx=tx-cc.x, dy=ty-cc.y;
+    const len=Math.sqrt(dx*dx+dy*dy)||1;
+    const nx=dx/len, ny=dy/len;
+    const sx=cc.x+nx*16, sy2=cc.y+ny*16;
+    const cx1=cc.x+nx*len*0.45+ny*20, cy1=cc.y+ny*len*0.45-nx*20;
+
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',`M${sx},${sy2} Q${cx1},${cy1} ${tx},${ty}`);
+    path.setAttribute('fill','none');
+    path.setAttribute('stroke','#a07840');
+    path.setAttribute('stroke-width','4.5');
+    path.setAttribute('stroke-linecap','round');
+    path.setAttribute('opacity','0.85');
+    pawSvg.appendChild(path);
+
+    const paw=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    paw.setAttribute('cx',tx);paw.setAttribute('cy',ty);
+    paw.setAttribute('r','10');paw.setAttribute('fill','#c8a97a');
+    paw.setAttribute('stroke','#a07840');paw.setAttribute('stroke-width','1.5');
+    pawSvg.appendChild(paw);
+
+    const angle=Math.atan2(dy,dx);
+    [[-7,-9],[0,-11],[7,-9],[-10,-2],[10,-2]].forEach(([ox,oy])=>{
+      const rx=ox*Math.cos(angle)-oy*Math.sin(angle);
+      const ry=ox*Math.sin(angle)+oy*Math.cos(angle);
+      const toe=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      toe.setAttribute('cx',tx+rx);toe.setAttribute('cy',ty+ry);
+      toe.setAttribute('r','3.8');toe.setAttribute('fill','#d4a882');
+      toe.setAttribute('stroke','#a07840');toe.setAttribute('stroke-width','1');
+      pawSvg.appendChild(toe);
+    });
+  }
+
+  function physicsTick(){
+    const bc=btnCenter();
+    const dToMouse=dist(mouseX,mouseY,bc.x,bc.y);
+    const isPaw=state===S.PAW;
+
+    if(isPaw && dToMouse<300 && !btnReturning){
+      let fx=bc.x-mouseX, fy=bc.y-mouseY;
+      const fl=Math.sqrt(fx*fx+fy*fy)||1;
+      fx/=fl; fy/=fl;
+      btnVX+=fx/fl*(300-dToMouse)/300*2.8*fl;
+      btnVY+=fy/fl*(300-dToMouse)/300*2.8*fl;
+      maybeBat();
+    } else {
+      const hx=btnHome.x+BTN_W/2, hy=btnHome.y+BTN_H/2;
+      const dx=hx-bc.x, dy=hy-bc.y;
+      btnVX+=dx*0.055; btnVY+=dy*0.055;
+      if(btnReturning && Math.sqrt(dx*dx+dy*dy)<5) btnReturning=false;
+    }
+
+    btnVX*=0.82; btnVY*=0.82;
+    const spd=Math.sqrt(btnVX*btnVX+btnVY*btnVY);
+    if(spd>18){btnVX=btnVX/spd*18;btnVY=btnVY/spd*18;}
+
+    btnX+=btnVX; btnY+=btnVY;
+    if(!btnReturning) clampToDrift();
+
+    const mg=10;
+    if(btnX<mg){btnX=mg;btnVX*=-0.3;}
+    if(btnY<mg){btnY=mg;btnVY*=-0.3;}
+    if(btnX+BTN_W>window.innerWidth-mg){btnX=window.innerWidth-BTN_W-mg;btnVX*=-0.3;}
+    if(btnY+BTN_H>window.innerHeight-mg){btnY=window.innerHeight-BTN_H-mg;btnVY*=-0.3;}
+
+    loginBtn.style.left=btnX+'px';
+    loginBtn.style.top=btnY+'px';
+
+    const targetTX=bc.x, targetTY=bc.y;
+    pawTipX+=(targetTX-pawTipX)*0.18;
+    pawTipY+=(targetTY-pawTipY)*0.18;
+
+    drawPawLine(isPaw && !isJumping && !isGrounded);
+    requestAnimationFrame(physicsTick);
+  }
+
+  function drawCat(s){
+    catSvg.innerHTML='';
+
+    if(s===S.SLEEP){
+      catSvg.setAttribute('width','110');catSvg.setAttribute('height','70');catSvg.setAttribute('viewBox','0 0 110 70');
+      catSvg.innerHTML=`<g class="anim-breathe">
+        <ellipse cx="52" cy="48" rx="38" ry="18" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M52 48 Q68 42 85 52 Q90 56 85 58 Q70 52 52 52Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <circle cx="38" cy="38" r="12" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M30 32 L26 22 L36 28Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <path d="M46 32 L50 22 L40 28Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <ellipse cx="30" cy="34" rx="2.5" ry="1" fill="#1a1a1a"/>
+        <ellipse cx="45" cy="34" rx="2.5" ry="1" fill="#1a1a1a"/>
+        <path d="M35 40 Q38 42 41 40" stroke="#a07840" stroke-width="0.8" fill="none"/>
+        <line x1="38" y1="38" x2="48" y2="36" stroke="#888" stroke-width="0.7"/>
+        <line x1="38" y1="40" x2="48" y2="40" stroke="#888" stroke-width="0.7"/>
+        <line x1="38" y1="42" x2="48" y2="41" stroke="#888" stroke-width="0.7"/>
+        <path d="M85 52 Q100 48 105 55 Q100 60 85 58Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+      </g>`;
+    }
+    else if(s===S.EARS){
+      catSvg.setAttribute('width','110');catSvg.setAttribute('height','80');catSvg.setAttribute('viewBox','0 0 110 80');
+      catSvg.innerHTML=`<g>
+        <ellipse cx="52" cy="52" rx="35" ry="16" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M52 52 Q68 46 85 56 Q90 60 85 62 Q70 56 52 56Z" fill="#c8a97a" class="anim-tail"/>
+        <circle cx="42" cy="38" r="13" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <g class="anim-ear">
+          <path d="M32 30 L27 18 L39 26Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+          <path d="M52 30 L57 18 L45 26Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        </g>
+        <ellipse cx="35" cy="36" rx="3" ry="4" fill="#1a1a1a"/>
+        <ellipse cx="49" cy="36" rx="3" ry="4" fill="#1a1a1a"/>
+        <ellipse cx="35" cy="35" rx="1.2" ry="1.5" fill="white"/>
+        <ellipse cx="49" cy="35" rx="1.2" ry="1.5" fill="white"/>
+        <path d="M40 43 Q42 45 45 43" stroke="#a07840" stroke-width="0.9" fill="none"/>
+        <line x1="42" y1="40" x2="54" y2="38" stroke="#888" stroke-width="0.7"/>
+        <line x1="42" y1="42" x2="54" y2="42" stroke="#888" stroke-width="0.7"/>
+        <line x1="42" y1="44" x2="54" y2="45" stroke="#888" stroke-width="0.7"/>
+      </g>`;
+    }
+    else if(s===S.PREP){
+      catSvg.setAttribute('width','80');catSvg.setAttribute('height','80');catSvg.setAttribute('viewBox','0 0 80 80');
+      catSvg.innerHTML=`<g>
+        <ellipse cx="38" cy="62" rx="22" ry="12" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <circle cx="38" cy="38" r="14" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M28 28 L23 16 L35 24Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <path d="M48 28 L53 16 L41 24Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <ellipse cx="32" cy="36" rx="4" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="44" cy="36" rx="4" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="32" cy="35" rx="1.5" ry="2" fill="white"/>
+        <ellipse cx="44" cy="35" rx="1.5" ry="2" fill="white"/>
+        <path d="M35 44 Q38 46 41 44" stroke="#a07840" stroke-width="1" fill="none"/>
+        <line x1="38" y1="40" x2="52" y2="37" stroke="#888" stroke-width="0.8"/>
+        <line x1="38" y1="42" x2="52" y2="42" stroke="#888" stroke-width="0.8"/>
+        <line x1="38" y1="44" x2="52" y2="46" stroke="#888" stroke-width="0.8"/>
+        <path d="M55 58 Q70 50 76 60 Q70 66 55 62Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8" class="anim-tail"/>
+        <line x1="20" y1="56" x2="10" y2="70" stroke="#a07840" stroke-width="2" stroke-linecap="round"/>
+        <line x1="24" y1="56" x2="18" y2="72" stroke="#a07840" stroke-width="2" stroke-linecap="round"/>
+        <line x1="52" y1="56" x2="62" y2="70" stroke="#a07840" stroke-width="2" stroke-linecap="round"/>
+        <line x1="48" y1="56" x2="56" y2="72" stroke="#a07840" stroke-width="2" stroke-linecap="round"/>
+      </g>`;
+    }
+    else if(s===S.PAW){
+      catSvg.setAttribute('width','110');catSvg.setAttribute('height','80');catSvg.setAttribute('viewBox','0 0 110 80');
+      catSvg.innerHTML=`<g>
+        <ellipse cx="52" cy="55" rx="32" ry="16" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M52 55 Q66 48 82 58 Q87 62 82 64 Q68 58 52 58Z" fill="#c8a97a" class="anim-tail-play"/>
+        <circle cx="42" cy="36" r="14" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M32 27 L27 14 L39 22Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <path d="M52 27 L57 14 L45 22Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <ellipse cx="35" cy="34" rx="5" ry="6" fill="#1a1a1a"/>
+        <ellipse cx="49" cy="34" rx="5" ry="6" fill="#1a1a1a"/>
+        <ellipse cx="35" cy="33" rx="2" ry="2.5" fill="white"/>
+        <ellipse cx="49" cy="33" rx="2" ry="2.5" fill="white"/>
+        <path d="M39 43 Q42 45 45 43" stroke="#a07840" stroke-width="1" fill="none"/>
+        <line x1="42" y1="39" x2="55" y2="36" stroke="#888" stroke-width="0.8"/>
+        <line x1="42" y1="41" x2="55" y2="41" stroke="#888" stroke-width="0.8"/>
+      </g>`;
+    }
+    else if(s===S.JUMP){
+      catSvg.setAttribute('width','90');catSvg.setAttribute('height','90');catSvg.setAttribute('viewBox','0 0 90 90');
+      catSvg.innerHTML=`<g transform="rotate(15,45,45)">
+        <ellipse cx="45" cy="55" rx="24" ry="13" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <circle cx="45" cy="30" r="14" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M35 22 L30 10 L42 18Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <path d="M55 22 L60 10 L48 18Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <ellipse cx="39" cy="29" rx="4.5" ry="5.5" fill="#1a1a1a"/>
+        <ellipse cx="51" cy="29" rx="4.5" ry="5.5" fill="#1a1a1a"/>
+        <ellipse cx="39" cy="28" rx="1.8" ry="2.2" fill="white"/>
+        <ellipse cx="51" cy="28" rx="1.8" ry="2.2" fill="white"/>
+        <line x1="20" y1="52" x2="4" y2="42" stroke="#a07840" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="24" y1="54" x2="10" y2="48" stroke="#a07840" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="66" y1="52" x2="80" y2="42" stroke="#a07840" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="62" y1="54" x2="76" y2="48" stroke="#a07840" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M45 60 Q58 72 70 78" stroke="#a07840" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </g>`;
+    }
+    else if(s===S.GROUND){
+      catSvg.setAttribute('width','110');catSvg.setAttribute('height','70');catSvg.setAttribute('viewBox','0 0 110 70');
+      catSvg.innerHTML=`<g class="anim-ground">
+        <ellipse cx="52" cy="48" rx="38" ry="18" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <circle cx="38" cy="35" r="12" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M30 29 L26 18 L36 25Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <path d="M46 29 L50 18 L40 25Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <ellipse cx="30" cy="33" rx="4" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="45" cy="33" rx="4" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="30" cy="32" rx="1.6" ry="2" fill="white"/>
+        <ellipse cx="45" cy="32" rx="1.6" ry="2" fill="white"/>
+        <path d="M35 40 Q38 43 41 40" stroke="#a07840" stroke-width="1" fill="none"/>
+        <line x1="38" y1="37" x2="50" y2="34" stroke="#888" stroke-width="0.8"/>
+        <line x1="38" y1="39" x2="50" y2="39" stroke="#888" stroke-width="0.8"/>
+        <line x1="38" y1="41" x2="50" y2="43" stroke="#888" stroke-width="0.8"/>
+        <path d="M82 44 Q97 36 104 46 Q97 54 82 50Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8" class="anim-tail"/>
+      </g>`;
+    }
+  }
+
+  document.addEventListener('mousemove',e=>{
+    mouseX=e.clientX; mouseY=e.clientY;
+
+    if(isJumping||isGrounded) return;
+
+    const cc=catCenter();
+    const dToCat=dist(mouseX,mouseY,cc.x,cc.y);
+
+    // Only trigger the fall if play was actually initiated (PAW state reached)
+    // AND mouse goes more than 500px from the cat
+    if(playInitiated && dToCat>500){
+      releaseAndJump();
+      return;
+    }
+
+    const bc=btnCenter();
+    const dToBtn=dist(mouseX,mouseY,bc.x,bc.y);
+    const dToHome=dist(mouseX,mouseY,btnHome.x+BTN_W/2,btnHome.y+BTN_H/2);
+
+    if(dToBtn<=300){
+      setState(S.PAW);
+      setTip(true);
+    } else {
+      setTip(false);
+      if(dToHome<=699){
+        setState(S.PREP);
+      } else if(dToHome<=1099){
+        setState(S.EARS);
+      } else {
+        setState(S.SLEEP);
+      }
+    }
+  });
+
+  window.addEventListener('resize',()=>{
+    placeButtonHome();
+    if(!isJumping&&!isGrounded) placeCatHome();
+  });
+
+  requestAnimationFrame(()=>{
+    placeButtonHome();
+    placeCatHome();
+    drawCat(S.SLEEP);
+    physicsTick();
+  });
+})();
+</script>
+</body>
+</html>

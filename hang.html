@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MAC Tools – MSC Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#fff;--grey-medium:#dbdeea;--grey-dark:#69757b;
+  --blue-dark:#343945;--blue-medium:#3fa7fc;--green-dark:#149c48;
+}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Lato',sans-serif,system-ui;}
+.page{position:relative;width:100%;height:100vh;overflow:hidden;background:linear-gradient(135deg,#c8dff5 0%,#deeeff 40%,#c5e8d8 100%);}
+.bg-blur{position:absolute;inset:0;background:rgba(243,249,255,0.82);backdrop-filter:blur(7.5px);-webkit-backdrop-filter:blur(7.5px);z-index:1;}
+.panel-wrap{position:absolute;right:54px;top:21px;z-index:10;width:350px;}
+.login-card{background:rgba(255,255,255,0.93);border:1px solid var(--grey-medium);border-radius:8px;box-shadow:3px 3px 11px rgba(34,46,57,0.06);padding:20px;}
+.login-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px;}
+.logo-box{flex-shrink:0;width:60px;height:60px;background:#fff;border:1px solid var(--grey-medium);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.welcome-text{display:flex;flex-direction:column;gap:2px;padding-top:4px;}
+.welcome-title{font-size:22px;font-weight:400;line-height:26px;color:var(--blue-dark);}
+.welcome-name{font-size:16px;font-weight:700;color:var(--green-dark);}
+.field-label{font-size:14px;color:var(--blue-dark);margin-bottom:6px;}
+.pw-wrap{margin-bottom:10px;}
+.pw-field{width:100%;height:36px;border:1px solid var(--grey-medium);border-radius:4px;background:#fff;padding:0 12px;font-size:14px;color:var(--blue-dark);outline:none;letter-spacing:3px;}
+.pw-field:focus{border-color:var(--blue-medium);}
+.links-row{display:flex;justify-content:space-between;margin-bottom:14px;}
+.link-text{font-size:10px;color:var(--blue-dark);cursor:pointer;text-decoration:none;}
+.link-text:hover{text-decoration:underline;}
+.login-btn{width:100%;height:40px;background:var(--green-dark);border:none;border-radius:5px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.18s;}
+.login-btn:hover{background:#118a3f;}
+.cat-spacer{height:130px;display:flex;align-items:center;justify-content:center;}
+.tabs-card{background:transparent;}
+.tabs-header{display:flex;position:relative;}
+.tab{flex:1;height:39px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;font-size:14px;font-weight:600;border:1px solid var(--grey-medium);position:relative;}
+.tab-news{background:rgba(255,255,255,0.93);border-radius:4px 4px 0 0;color:var(--blue-dark);border-bottom:none;z-index:2;}
+.tab-news::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--blue-medium);border-radius:8px 8px 0 0;}
+.tab-learning{background:rgba(251,251,253,0.93);border-radius:0 8px 0 0;color:var(--grey-dark);z-index:1;}
+.tab-divider{position:absolute;left:50%;top:50%;transform:translateY(-50%);width:1px;height:36px;background:var(--grey-medium);z-index:3;}
+.tab-body{background:rgba(255,255,255,0.93);border:1px solid var(--grey-medium);border-top:none;border-radius:0 0 8px 8px;padding:18px 20px 22px;}
+.tab-body-text{font-size:12px;color:var(--blue-dark);line-height:1.6;margin-bottom:16px;}
+.get-trained-btn{display:flex;align-items:center;justify-content:center;width:120px;height:40px;border:1px solid var(--grey-medium);border-radius:4px;background:#fff;color:var(--blue-medium);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+.get-trained-btn:hover{background:#eef6ff;}
+
+#cat-wrap{
+  position:fixed;
+  z-index:999;
+  pointer-events:none;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+}
+#cat-svg{display:block;overflow:visible;}
+#cat-badge{
+  background:rgba(20,20,20,0.7);
+  color:#fff;
+  font-size:10px;
+  font-family:system-ui,sans-serif;
+  padding:2px 8px;
+  border-radius:10px;
+  white-space:nowrap;
+  letter-spacing:0.3px;
+}
+
+/* ── GIF SWAP GUIDE ──────────────────────────────────────────────────
+   Replace <svg id="cat-svg"> with:
+     <img id="cat-gif" src="cat-sleep.gif" width="110" style="display:block"/>
+   Then in setState() add a gifMap lookup and set cat-gif.src per state.
+   States: sleep | ears | prep | leap | hang | ground | fall
+─────────────────────────────────────────────────────────────────── */
+
+@keyframes tailWag{0%,100%{transform-origin:85px 52px;transform:rotate(-8deg)}50%{transform-origin:85px 52px;transform:rotate(14deg)}}
+@keyframes earTwitch{0%,100%{transform:none}40%{transform:skewX(-8deg)}60%{transform:skewX(6deg)}}
+@keyframes breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(0.94)}}
+@keyframes hangSway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes fallWobble{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+@keyframes groundIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+.anim-tail{animation:tailWag 0.6s ease-in-out infinite;}
+.anim-ear{animation:earTwitch 0.4s ease-in-out infinite;}
+.anim-breathe{animation:breathe 2.8s ease-in-out infinite;}
+.anim-sway{animation:hangSway 0.9s ease-in-out infinite;transform-origin:center top;}
+.anim-wobble{animation:fallWobble 0.25s ease-in-out infinite;}
+.anim-ground{animation:groundIdle 1.4s ease-in-out infinite;}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="bg-blur"></div>
+
+  <div class="panel-wrap">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="logo-box">
+          <svg width="46" height="32" viewBox="0 0 46 32"><rect width="46" height="32" rx="4" fill="#149c48"/><text x="23" y="21" text-anchor="middle" fill="white" font-family="system-ui,sans-serif" font-size="12" font-weight="900">MAC</text></svg>
+        </div>
+        <div class="welcome-text">
+          <span class="welcome-title">Welcome Back</span>
+          <span class="welcome-name">Anne Marie Shea</span>
+        </div>
+      </div>
+      <p class="field-label">Password</p>
+      <div class="pw-wrap">
+        <input class="pw-field" type="password" value="password" autocomplete="current-password"/>
+      </div>
+      <div class="links-row">
+        <a class="link-text" href="#">Forgot Password?</a>
+        <a class="link-text" href="#">Switch Accounts</a>
+      </div>
+      <button class="login-btn" id="login-btn">Login</button>
+    </div>
+
+    <div class="cat-spacer"></div>
+
+    <div class="tabs-card">
+      <div class="tabs-header" style="position:relative;">
+        <div class="tab tab-news">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="2" stroke="#343945" stroke-width="1.1"/><line x1="4" y1="6.5" x2="12" y2="6.5" stroke="#343945" stroke-width="0.9"/><line x1="4" y1="9.5" x2="9" y2="9.5" stroke="#343945" stroke-width="0.9"/></svg>
+          News
+        </div>
+        <div class="tab-divider"></div>
+        <div class="tab tab-learning">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3L14 6.5L8 10L2 6.5L8 3Z" stroke="#69757b" stroke-width="1.1"/><path d="M5 8.5V11.5C5 11.5 6.3 13 8 13s3-1.5 3-1.5V8.5" stroke="#69757b" stroke-width="1.1"/></svg>
+          Learning
+        </div>
+      </div>
+      <div class="tab-body">
+        <p class="tab-body-text">All Webinars are Free! Sign up for one of our public sessions or feel free to request a private webinar. All at no cost. We also have other training available.</p>
+        <button class="get-trained-btn">Get Trained</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="cat-wrap">
+    <svg id="cat-svg" width="110" height="80" viewBox="0 0 110 80" overflow="visible"></svg>
+    <span id="cat-badge">Pussy sleeping</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  const wrap    = document.getElementById('cat-wrap');
+  const svg     = document.getElementById('cat-svg');
+  const badge   = document.getElementById('cat-badge');
+  const loginBtn= document.getElementById('login-btn');
+
+  const S = {SLEEP:'sleep', EARS:'ears', PREP:'prep', LEAP:'leap', HANG:'hang', GROUND:'ground', FALL:'fall'};
+  const LABELS = {
+    sleep  : 'Pussy sleeping',
+    ears   : 'Ears & Tail Moving',
+    prep   : 'Prepares to jump',
+    leap   : 'Pussy leap',
+    hang   : 'Pussy hang',
+    ground : 'Play with meow!',
+    fall   : 'Pussy falling'
+  };
+
+  /* ── Distance zones (from Login button centre) ──
+     > 1100px          → sleep
+     1099 – 850px      → ears & tail moving
+     849  – 700px      → prepares to jump
+     <= 699px          → leap → hang
+     While hanging: hard shake → fall straight down → land & stay (ground)
+     While grounded: cursor within 200px → leap again
+  */
+
+  let state = S.SLEEP;
+  let catX=0, catY=0, mouseX=0, mouseY=0;
+  let isLeaping=false, isHanging=false, isFalling=false, isGrounded=false;
+  let mouseHist=[], shakeTimer=null;
+
+  function dist(x1,y1,x2,y2){return Math.sqrt((x2-x1)**2+(y2-y1)**2);}
+  function btnCenter(){const r=loginBtn.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2};}
+  function applyPos(x,y){wrap.style.left=x+'px';wrap.style.top=y+'px';}
+
+  function placeSleeping(){
+    const spacer=document.querySelector('.cat-spacer');
+    const r=spacer.getBoundingClientRect();
+    catX=r.left+r.width/2-55;
+    catY=r.top+r.height/2-30;
+    applyPos(catX,catY);
+  }
+
+  function setState(s){
+    if(state===s)return;
+    state=s;
+    badge.textContent=LABELS[s];
+    drawCat(s);
+  }
+
+  /* ── Cat SVG drawings ── */
+  function drawCat(s){
+    svg.innerHTML='';
+
+    if(s===S.SLEEP){
+      svg.setAttribute('width','110');svg.setAttribute('height','70');svg.setAttribute('viewBox','0 0 110 70');
+      svg.innerHTML=`<g class="anim-breathe">
+        <ellipse cx="52" cy="48" rx="38" ry="18" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M52 48 Q68 42 85 52 Q90 56 85 58 Q70 52 52 52Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <circle cx="38" cy="38" r="12" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M30 32 L26 22 L36 28Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <path d="M46 32 L50 22 L40 28Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <ellipse cx="30" cy="34" rx="2.5" ry="1" fill="#1a1a1a"/>
+        <ellipse cx="45" cy="34" rx="2.5" ry="1" fill="#1a1a1a"/>
+        <path d="M35 40 Q38 42 41 40" stroke="#a07840" stroke-width="0.8" fill="none"/>
+        <line x1="38" y1="38" x2="48" y2="36" stroke="#888" stroke-width="0.7"/>
+        <line x1="38" y1="40" x2="48" y2="40" stroke="#888" stroke-width="0.7"/>
+        <line x1="38" y1="42" x2="48" y2="41" stroke="#888" stroke-width="0.7"/>
+        <path d="M85 52 Q100 48 105 55 Q100 60 85 58Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+      </g>`;
+    }
+
+    else if(s===S.EARS){
+      svg.setAttribute('width','110');svg.setAttribute('height','80');svg.setAttribute('viewBox','0 0 110 80');
+      svg.innerHTML=`<g>
+        <ellipse cx="52" cy="52" rx="35" ry="16" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M52 52 Q68 46 85 56 Q90 60 85 62 Q70 56 52 56Z" fill="#c8a97a" class="anim-tail"/>
+        <circle cx="42" cy="38" r="13" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <g class="anim-ear">
+          <path d="M32 30 L27 18 L39 26Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+          <path d="M52 30 L57 18 L45 26Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        </g>
+        <ellipse cx="35" cy="36" rx="3" ry="4" fill="#1a1a1a"/>
+        <ellipse cx="49" cy="36" rx="3" ry="4" fill="#1a1a1a"/>
+        <ellipse cx="35" cy="35" rx="1.2" ry="1.5" fill="white"/>
+        <ellipse cx="49" cy="35" rx="1.2" ry="1.5" fill="white"/>
+        <path d="M40 43 Q42 45 45 43" stroke="#a07840" stroke-width="0.9" fill="none"/>
+        <line x1="42" y1="40" x2="54" y2="38" stroke="#888" stroke-width="0.7"/>
+        <line x1="42" y1="42" x2="54" y2="42" stroke="#888" stroke-width="0.7"/>
+        <line x1="42" y1="44" x2="54" y2="45" stroke="#888" stroke-width="0.7"/>
+      </g>`;
+    }
+
+    else if(s===S.PREP){
+      svg.setAttribute('width','80');svg.setAttribute('height','80');svg.setAttribute('viewBox','0 0 80 80');
+      svg.innerHTML=`<g>
+        <ellipse cx="38" cy="62" rx="22" ry="12" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <circle cx="38" cy="38" r="14" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M28 28 L23 16 L35 24Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <path d="M48 28 L53 16 L41 24Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <ellipse cx="32" cy="36" rx="4" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="44" cy="36" rx="4" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="32" cy="35" rx="1.5" ry="2" fill="white"/>
+        <ellipse cx="44" cy="35" rx="1.5" ry="2" fill="white"/>
+        <path d="M35 44 Q38 46 41 44" stroke="#a07840" stroke-width="1" fill="none"/>
+        <line x1="38" y1="40" x2="52" y2="37" stroke="#888" stroke-width="0.8"/>
+        <line x1="38" y1="42" x2="52" y2="42" stroke="#888" stroke-width="0.8"/>
+        <line x1="38" y1="44" x2="52" y2="46" stroke="#888" stroke-width="0.8"/>
+        <path d="M55 58 Q70 50 76 60 Q70 66 55 62Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8" class="anim-tail"/>
+        <line x1="20" y1="56" x2="10" y2="70" stroke="#a07840" stroke-width="2" stroke-linecap="round"/>
+        <line x1="24" y1="56" x2="18" y2="72" stroke="#a07840" stroke-width="2" stroke-linecap="round"/>
+        <line x1="52" y1="56" x2="62" y2="70" stroke="#a07840" stroke-width="2" stroke-linecap="round"/>
+        <line x1="48" y1="56" x2="56" y2="72" stroke="#a07840" stroke-width="2" stroke-linecap="round"/>
+      </g>`;
+    }
+
+    else if(s===S.LEAP){
+      svg.setAttribute('width','90');svg.setAttribute('height','90');svg.setAttribute('viewBox','0 0 90 90');
+      svg.innerHTML=`<g transform="rotate(-30,45,45)">
+        <ellipse cx="45" cy="55" rx="24" ry="13" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <circle cx="45" cy="30" r="14" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M35 22 L30 10 L42 18Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <path d="M55 22 L60 10 L48 18Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <ellipse cx="39" cy="29" rx="4.5" ry="5.5" fill="#1a1a1a"/>
+        <ellipse cx="51" cy="29" rx="4.5" ry="5.5" fill="#1a1a1a"/>
+        <ellipse cx="39" cy="28" rx="1.8" ry="2.2" fill="white"/>
+        <ellipse cx="51" cy="28" rx="1.8" ry="2.2" fill="white"/>
+        <line x1="20" y1="52" x2="4" y2="42" stroke="#a07840" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="24" y1="54" x2="10" y2="48" stroke="#a07840" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="66" y1="52" x2="80" y2="42" stroke="#a07840" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="62" y1="54" x2="76" y2="48" stroke="#a07840" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M45 60 Q32 72 20 78" stroke="#a07840" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </g>`;
+    }
+
+    else if(s===S.HANG){
+      svg.setAttribute('width','80');svg.setAttribute('height','100');svg.setAttribute('viewBox','0 0 80 100');
+      svg.innerHTML=`<g class="anim-sway">
+        <circle cx="40" cy="28" r="14" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M30 20 L25 8 L37 16Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <path d="M50 20 L55 8 L43 16Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <ellipse cx="34" cy="27" rx="4" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="46" cy="27" rx="4" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="34" cy="26" rx="1.5" ry="2" fill="white"/>
+        <ellipse cx="46" cy="26" rx="1.5" ry="2" fill="white"/>
+        <path d="M37 34 Q40 37 43 34" stroke="#a07840" stroke-width="1" fill="none"/>
+        <ellipse cx="40" cy="56" rx="18" ry="14" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <line x1="28" y1="42" x2="16" y2="28" stroke="#a07840" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="33" y1="43" x2="24" y2="28" stroke="#a07840" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="48" y1="43" x2="56" y2="28" stroke="#a07840" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="52" y1="42" x2="63" y2="28" stroke="#a07840" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M58 60 Q72 68 74 80 Q68 78 56 72Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <path d="M40 70 Q38 85 30 94" stroke="#a07840" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </g>`;
+    }
+
+    else if(s===S.GROUND){
+      svg.setAttribute('width','110');svg.setAttribute('height','70');svg.setAttribute('viewBox','0 0 110 70');
+      svg.innerHTML=`<g class="anim-ground">
+        <ellipse cx="52" cy="48" rx="38" ry="18" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <circle cx="38" cy="35" r="12" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M30 29 L26 18 L36 25Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <path d="M46 29 L50 18 L40 25Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <ellipse cx="30" cy="33" rx="4" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="45" cy="33" rx="4" ry="5" fill="#1a1a1a"/>
+        <ellipse cx="30" cy="32" rx="1.6" ry="2" fill="white"/>
+        <ellipse cx="45" cy="32" rx="1.6" ry="2" fill="white"/>
+        <path d="M35 40 Q38 43 41 40" stroke="#a07840" stroke-width="1" fill="none"/>
+        <line x1="38" y1="37" x2="50" y2="34" stroke="#888" stroke-width="0.8"/>
+        <line x1="38" y1="39" x2="50" y2="39" stroke="#888" stroke-width="0.8"/>
+        <line x1="38" y1="41" x2="50" y2="43" stroke="#888" stroke-width="0.8"/>
+        <path d="M82 44 Q97 36 104 46 Q97 54 82 50Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8" class="anim-tail"/>
+      </g>`;
+    }
+
+    else if(s===S.FALL){
+      svg.setAttribute('width','80');svg.setAttribute('height','100');svg.setAttribute('viewBox','0 0 80 100');
+      svg.innerHTML=`<g class="anim-wobble">
+        <circle cx="40" cy="25" r="14" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <path d="M30 17 L25 5 L37 13Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <path d="M50 17 L55 5 L43 13Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+        <ellipse cx="34" cy="24" rx="3.5" ry="2" fill="#1a1a1a"/>
+        <ellipse cx="46" cy="24" rx="3.5" ry="2" fill="#1a1a1a"/>
+        <path d="M37 31 Q40 28 43 31" stroke="#a07840" stroke-width="1" fill="none"/>
+        <ellipse cx="40" cy="55" rx="18" ry="14" fill="#c8a97a" stroke="#a07840" stroke-width="1"/>
+        <line x1="26" y1="42" x2="10" y2="36" stroke="#a07840" stroke-width="2" stroke-linecap="round"/>
+        <line x1="30" y1="44" x2="16" y2="42" stroke="#a07840" stroke-width="2" stroke-linecap="round"/>
+        <line x1="50" y1="44" x2="66" y2="38" stroke="#a07840" stroke-width="2" stroke-linecap="round"/>
+        <line x1="54" y1="42" x2="68" y2="36" stroke="#a07840" stroke-width="2" stroke-linecap="round"/>
+        <path d="M58 58 Q74 54 78 62 Q70 72 56 68Z" fill="#c8a97a" stroke="#a07840" stroke-width="0.8"/>
+      </g>`;
+    }
+  }
+
+  /* ── Leap toward cursor ── */
+  function startLeap(){
+    if(isLeaping)return;
+    isLeaping=true; isHanging=false; isGrounded=false;
+    stopShake();
+    setState(S.LEAP);
+    const sx=catX, sy=catY, dur=850;
+    let t0=null;
+    function anim(ts){
+      if(!t0)t0=ts;
+      const p=Math.min((ts-t0)/dur,1);
+      const ex=mouseX-40, ey=mouseY-8;
+      const e=1-Math.pow(1-p,3);
+      const arc=-Math.sin(p*Math.PI)*90;
+      catX=sx+(ex-sx)*e;
+      catY=sy+(ey-sy)*e+arc;
+      applyPos(catX,catY);
+      if(p<1){requestAnimationFrame(anim);}
+      else{isLeaping=false; isHanging=true; startShake(); setState(S.HANG);}
+    }
+    requestAnimationFrame(anim);
+  }
+
+  /* ── Fall straight down from wherever the cat currently is ── */
+  function startFall(){
+    if(isFalling)return;
+    isFalling=true; isHanging=false;
+    stopShake();
+    setState(S.FALL);
+
+    const sx=catX;           // X stays fixed — falls in same vertical line
+    const sy=catY;
+    const ey=window.innerHeight-90;  // land near bottom edge
+    const dur=700;
+    let t0=null;
+
+    function anim(ts){
+      if(!t0)t0=ts;
+      const p=Math.min((ts-t0)/dur,1);
+      // slight wobble on X but returns to same column
+      catX=sx+Math.sin(p*Math.PI*4)*12;
+      catY=sy+(ey-sy)*p;
+      applyPos(catX,catY);
+      if(p<1){
+        requestAnimationFrame(anim);
+      } else {
+        // snap X back to the clean column
+        catX=sx;
+        catY=ey;
+        applyPos(catX,catY);
+        isFalling=false;
+        isGrounded=true;
+        setState(S.GROUND);
+      }
+    }
+    requestAnimationFrame(anim);
+  }
+
+  /* ── Shake detection while hanging ── */
+  function startShake(){
+    mouseHist=[];
+    shakeTimer=setInterval(()=>{
+      if(mouseHist.length<8)return;
+      let d=0;
+      for(let i=1;i<mouseHist.length;i++)
+        d+=dist(mouseHist[i-1].x,mouseHist[i-1].y,mouseHist[i].x,mouseHist[i].y);
+      if(d>550)startFall();
+    },80);
+  }
+  function stopShake(){
+    if(shakeTimer){clearInterval(shakeTimer);shakeTimer=null;}
+    mouseHist=[];
+  }
+
+  /* ── Mouse tracking ── */
+  document.addEventListener('mousemove',e=>{
+    mouseX=e.clientX; mouseY=e.clientY;
+
+    /* HANGING — follow cursor + shake detection */
+    if(isHanging){
+      mouseHist.push({x:mouseX,y:mouseY});
+      if(mouseHist.length>14)mouseHist.shift();
+      catX=mouseX-40; catY=mouseY-8;
+      applyPos(catX,catY);
+      return;
+    }
+
+    if(isLeaping||isFalling)return;
+
+    /* GROUNDED — leap again if cursor approaches */
+    if(isGrounded){
+      const d=dist(mouseX,mouseY,catX+55,catY+50);
+      if(d<200){isGrounded=false; startLeap();}
+      return;
+    }
+
+    /* NORMAL proximity zones */
+    const b=btnCenter();
+    const d=dist(mouseX,mouseY,b.x,b.y);
+
+    if(d<=699){
+      startLeap();
+    } else if(d<=849){
+      setState(S.PREP);
+    } else if(d<=1099){
+      setState(S.EARS);
+    } else {
+      if(state!==S.SLEEP) setState(S.SLEEP);
+    }
+  });
+
+  window.addEventListener('resize',()=>{
+    if(!isHanging&&!isLeaping&&!isFalling&&!isGrounded) placeSleeping();
+  });
+
+  /* ── Init ── */
+  drawCat(S.SLEEP);
+  placeSleeping();
+})();
+</script>
+</body>
+</html>
