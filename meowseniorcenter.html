@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en" class="js">
+<head>
+	<meta name="sitelock-site-verification" content="9917">
+    <meta charset="utf-8">
+    <title>MeowSeniorCenter.com 🐱</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MeowSeniorCenter Software — Purrfect for Senior Centers">
+    <meta name="author" content="MeowSeniorCenter 2015">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" type="text/css">
+    <!-- FontAwesome 4.7 — provides all icon-* classes used in the original -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+      /* Shim: map Bootstrap 2 / FA 3 icon-* class names to FA 4 fa-* equivalents */
+      [class^="icon-"]:before, [class*=" icon-"]:before { font-family: FontAwesome; font-style: normal; font-weight: normal; }
+      .icon-ok:before { content: "\f00c"; }
+      .icon-key:before { content: "\f084"; }
+      .icon-cloud:before { content: "\f0c2"; }
+      .icon-cog:before { content: "\f013"; }
+      .icon-caret-down:before { content: "\f0d7"; }
+      .icon-caret-up:before { content: "\f0d8"; }
+      .icon-fire:before { content: "\f06d"; }
+      .icon-heart:before { content: "\f004"; }
+      .icon-tablet:before { content: "\f10a"; }
+      .icon-desktop:before { content: "\f108"; }
+      .icon-globe:before { content: "\f0ac"; }
+      .icon-phone:before { content: "\f095"; }
+      .icon-map-marker:before { content: "\f041"; }
+      .icon-play:before { content: "\f04b"; }
+      .icon-tag:before { content: "\f02b"; }
+      .icon-pencil:before { content: "\f040"; }
+      .icon-bullhorn:before { content: "\f0a1"; }
+      .icon-calendar:before { content: "\f073"; }
+      .icon-shopping-cart:before { content: "\f07a"; }
+      .icon-credit-card:before { content: "\f09d"; }
+      .icon-picture:before { content: "\f03e"; }
+      .icon-bar-chart:before { content: "\f080"; }
+      .icon-sitemap:before { content: "\f0e8"; }
+      .icon-dashboard:before { content: "\f0e4"; }
+      .icon-legal:before { content: "\f0e3"; }
+      .icon-road:before { content: "\f018"; }
+      .icon-book:before { content: "\f02d"; }
+      .icon-truck:before { content: "\f0d1"; }
+      .icon-laptop:before { content: "\f109"; }
+      .icon-download-alt:before { content: "\f019"; }
+      .icon-cloud-download:before { content: "\f0ed"; }
+      .icon-medkit:before { content: "\f0fa"; }
+      .icon-stethoscope:before { content: "\f0f1"; }
+      .icon-envelope:before { content: "\f0e0"; }
+      .icon-reorder:before { content: "\f0c9"; }
+
+      /* ===================== CAT CHAOS CSS ===================== */
+
+      #april-fools-banner {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 10100;
+        background: linear-gradient(90deg, #ff3cac, #784ba0, #2b86c5, #784ba0, #ff3cac);
+        background-size: 300% 100%;
+        animation: bannershift 4s linear infinite;
+        color: #fff;
+        text-align: center;
+        padding: 5px 12px;
+        font-size: 13px;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        height: 30px;
+        line-height: 30px;
+      }
+      @keyframes bannershift { to { background-position: -300% 0; } }
+
+      /* Push the fixed navbar below the banner */
+      .navbar.navbar-fixed-top { top: 40px !important; }
+
+      /* Body offset = banner (30px) + navbar (~50px from original styles) */
+      body { padding-top: 80px; }
+
+      /* Paw trail */
+      .paw {
+        position: fixed;
+        pointer-events: none;
+        font-size: 18px;
+        opacity: 0.8;
+        animation: pawfade 1.4s forwards;
+        z-index: 9998;
+      }
+      @keyframes pawfade { to { opacity: 0; transform: scale(2) rotate(20deg); } }
+
+      /* Meow speech bubble */
+      .meow-bubble {
+        position: fixed;
+        z-index: 99999;
+        background: #fff;
+        border: 2px solid #017f7b;
+        border-radius: 12px;
+        padding: 6px 14px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #017f7b;
+        pointer-events: none;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        white-space: nowrap;
+      }
+
+      /* Randomly tilted section headings */
+      .cat-tilt-1 { display: inline-block; transform: rotate(-1.5deg); }
+      .cat-tilt-2 { display: inline-block; transform: rotate(1deg); }
+
+      /* Nyan progress bar on page load */
+      #nyan-bar {
+        position: fixed;
+        top: 30px; left: 0;
+        height: 4px;
+        z-index: 10001;
+        background: linear-gradient(90deg, #ff6b9d, #ffb347, #fffb47, #47ff6b, #47d1ff, #9d47ff);
+        background-size: 200% 100%;
+        animation: nyanscroll 0.8s linear infinite;
+        transition: width 0.3s;
+        width: 0%;
+      }
+      @keyframes nyanscroll { to { background-position: -200% 0; } }
+
+      /* Pulsing cat emoji in headings */
+      .cat-pulse {
+        display: inline-block;
+        animation: catpulse 1.8s ease-in-out infinite;
+      }
+      @keyframes catpulse {
+        0%, 100% { transform: scale(1); }
+        50%       { transform: scale(1.3) rotate(10deg); }
+      }
+
+      /* Shake a random page element */
+      @keyframes shake {
+        0%,100% { transform: translateX(0); }
+        20%     { transform: translateX(-6px) rotate(-2deg); }
+        40%     { transform: translateX(6px) rotate(2deg); }
+        60%     { transform: translateX(-4px); }
+        80%     { transform: translateX(4px); }
+      }
+      .shaking { animation: shake 0.5s ease; }
+    </style>
+    <link href="https://myseniorcenter.com/assets/less/style.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="https://myseniorcenter.com/assets/ico/favicon.ico">
+    <!-- jQuery from reliable CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://myseniorcenter.com/assets/js/lazyload.js"></script>
+    <script src="https://myseniorcenter.com/assets/js/jRespond.js"></script>
+    <script src="https://myseniorcenter.com/assets/js/spin.js"></script><style type="text/css"></style>
+    <script src="https://myseniorcenter.com/assets/js/bootstrap.min.js"></script>
+    <script src="https://myseniorcenter.com/assets/js/lightbox.min.js"></script>
+    <script src="https://myseniorcenter.com/assets/js/responsive-nav.js"></script>
+    <script src="https://myseniorcenter.com/assets/js/main.js"></script>
+    <script src="https://myseniorcenter.com/assets/js/jquery.history.js"></script>
+    <script>
+    $(function() {
+      if (typeof jQuery.history !== 'undefined') {
+        jQuery.history.listen();
+        $('#nav .nav .scroll').click(function() {
+          $.history.push('index.html' + $(this).attr('href'));
+        });
+      }
+
+      /* ========== NYAN PROGRESS BAR ========== */
+      $(window).on('scroll', function() {
+        var docH = $(document).height() - $(window).height();
+        var pct = docH > 0 ? ($(window).scrollTop() / docH * 100) : 0;
+        $('#nyan-bar').css('width', pct + '%');
+      });
+
+      /* ========== PAW TRAIL ========== */
+      var pawCount = 0;
+      $(document).mousemove(function(e) {
+        pawCount++;
+        if (pawCount % 12 === 0) {
+          var $paw = $('<div class="paw">🐾</div>').css({
+            left: e.clientX + Math.random()*10-5,
+            top:  e.clientY + Math.random()*10-5
+          }).appendTo('body');
+          setTimeout(function() { $paw.remove(); }, 1400);
+        }
+      });
+
+
+      /* ========== RANDOM ELEMENT SHAKE (cat knocks something) ========== */
+      var shakeTargets = ['h2', 'h3', 'h4', '.lead', '.btn', 'li'];
+      function doShake() {
+        var sel = shakeTargets[Math.floor(Math.random() * shakeTargets.length)];
+        var $els = $(sel).filter(':visible');
+        if ($els.length) {
+          var $el = $els.eq(Math.floor(Math.random() * $els.length));
+          $el.addClass('shaking');
+          var off = $el.offset();
+          var $tag = $('<div class="meow-bubble" style="position:absolute;z-index:9999;font-size:11px;">🐾 *swat*</div>')
+            .css({ top: off.top - 28, left: off.left })
+            .appendTo('body');
+          setTimeout(function() { $el.removeClass('shaking'); $tag.fadeOut(400, function(){$(this).remove();}); }, 800);
+        }
+        setTimeout(doShake, 5000 + Math.random() * 9000);
+      }
+      setTimeout(doShake, 5000);
+
+      /* ========== PERIODIC FULL-SCREEN MEOW FLASH ========== */
+      function bigMeow() {
+        var msgs = ['MEOW', 'MRRROW!!', 'FEED ME', 'I AM THE CAT', '🐾 MEOW SENIOR CENTER 🐾', 'nya'];
+        var msg = msgs[Math.floor(Math.random() * msgs.length)];
+        var $flash = $('<div style="position:fixed;inset:0;z-index:999998;display:flex;align-items:center;justify-content:center;pointer-events:none;background:rgba(1,127,123,0.08);"></div>');
+        var $txt = $('<div style="font-size:120px;font-weight:900;color:rgba(1,127,123,0.18);font-family:Open Sans,sans-serif;letter-spacing:-4px;user-select:none;text-align:center;line-height:1;">' + msg + '</div>');
+        $flash.append($txt).appendTo('body');
+        $flash.delay(600).fadeOut(700, function(){ $(this).remove(); });
+        setTimeout(bigMeow, 25000 + Math.random() * 30000);
+      }
+      setTimeout(bigMeow, 18000);
+
+      /* ========== TITLE TAG CYCLING ========== */
+      var titles = [
+        'MeowSeniorCenter.com 🐱',
+        '...meow.',
+        'purrfect software 😸',
+        '*knocks tab off screen*',
+        'MEOW MEOW MEOW',
+        'we r cat company now',
+        '🐾 feed us 🐾',
+        'MeowSeniorCenter.com 🐱'
+      ];
+      var ti = 0;
+      setInterval(function() {
+        ti = (ti + 1) % titles.length;
+        document.title = titles[ti];
+      }, 3500);
+
+      /* ========== AUDIO MEOW on first scroll ========== */
+      var meowedOnce = false;
+      $(window).one('scroll', function() {
+        if (meowedOnce) return;
+        meowedOnce = true;
+        try {
+          var ctx = new (window.AudioContext || window.webkitAudioContext)();
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(800, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(480, ctx.currentTime + 0.35);
+          gain.gain.setValueAtTime(0.18, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+          osc.connect(gain); gain.connect(ctx.destination);
+          osc.start(); osc.stop(ctx.currentTime + 0.5);
+        } catch(e) {}
+      });
+
+    });
+    </script>
+</head>
+
+<!-- activate scrollspy -->
+<body id="top" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<!-- Nyan progress bar -->
+<div id="nyan-bar"></div>
+
+<!-- April Fools Banner -->
+<div id="april-fools-banner">
+  🐱 &nbsp; BREAKING: MySeniorCenter has been acquired by cats. All staff replaced. Data integrity not guaranteed. Normal service resumes never. &nbsp; 🐾
+</div>
+
+<!-- Nav button --> 
+<a id="toggle" class="closed" aria-hidden="true"> <i class="icon-reorder"></i> </a> 
+
+<!-- Navigation -->
+<header class="navbar navbar-fixed-top">
+  <div class="inner-page">
+    <h1 class="msclogo">MeowSeniorCenter</h1>
+    <div id="nav" class="closed" aria-hidden="false" style="transition: max-height 400ms; position: relative;">
+      <ul class="nav">
+        <li class="active"><a title="Home page" class="scroll brand-1" href="#home">Home</a></li>
+        <li><a title="Check out our purrfect services" href="#features" class=" scroll brand-4">Features</a></li>
+        <li><a title="Who we are (cats)" href="#about" class="scroll fadeto brand-4">About us</a></li>
+        <li><a title="Meow at us!" href="#contact" class="scroll brand-2">Contact</a></li>
+        <li><a title="Support (if we feel like it)" href="https://myseniorcenter.com/support.html" class="brand-4">Support</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<!-- Home Page -->
+<div id="home" class="page color-1">
+  <div class="inner-page">
+    <h2 class="page-headline large">We make Software for Senior Centers <span class="cat-pulse">🐱</span></h2>
+  </div>
+  <div class="row-fluid inner-page">
+    <div class="span6 pull-right lazy-container loaded"> <img class="lazy" alt="Looks great on every device" src="https://myseniorcenter.com/assets/img/home.png" data-original="https://myseniorcenter.com/assets/img/home.png" style="display: inline;"> </div>
+    <div class="span6 pull-right">
+      <ul class="big-list">
+        <li><i class="icon-ok"></i> Easy to use <span style="font-size: 18px;">(even with paws)</span></li>
+        <li><i class="icon-key"></i> Secure <span style="font-size: 18px;">(we sat on the encryption)</span></li>
+        <li><i class="icon-cloud"></i> Cloud-Based <span style="font-size: 18px;">(like a nap in a sunbeam)</span></li>
+        <li><i class="icon-cog"></i> Customizable <span style="font-size: 18px;">(we knocked the defaults off the desk)</span></li>
+      </ul>
+      <br>
+      <a href="#features" title="Learn more" class="scroll btn btn-centered"><i class="icon-caret-down"></i> Learn meow</a>
+    </div>
+  </div>
+</div>
+
+<!-- Sign up -->
+<div class="sign-up color-2 visible-desktop">
+  <div class="row-fluid inner-page">
+    <div class="span12" style="text-align: center;">
+      <h4>See why over 1900 Senior Centers — and 47 cats — use MeowSeniorCenter</h4>
+      <a href="#livedemo" class="scroll btn" title="live demo" target="_blank"><i class="icon-fire"></i> Live Demo (catnip not included)</a>
+    </div>
+  </div>
+  <div class="row-fluid inner-page" style="text-align:center;font-family:monospace;font-size:12px;color:rgba(255,255,255,0.85);line-height:1.4;padding:10px 0 0;">
+    <pre style="display:inline-block;text-align:left;background:transparent;border:none;color:inherit;font-size:11px;">
+  /\_____/\       /\_____/\       /\_____/\
+ /  o   o  \     /  ^   ^  \     /  -   -  \
+( ==  ^  == )   ( ==  v  == )   ( ==  ~  == )
+ )         (     )         (     )         (
+(           )   (           )   (           )
+ \  _   _  /     \  _   _  /     \  _   _  /
+  '--' '--'       '--' '--'       '--' '--'
+    Staff           CEO            Board
+    </pre>
+  </div>
+  <br><br><br><br>
+</div>
+
+<!-- Features -->
+<div id="features" class="page color-4">
+  <div class="inner-page">
+    <h2 class="page-headline">We're always adding new features (when we wake up) 😴</h2>
+  </div>
+  <div class="inner-page row-fluid">
+    <ul class="features list-inline">
+      <li>
+        <h3><i class="icon-heart"></i> Built fur you</h3>
+        <p>Everyone at MeowSeniorCenter is a <strong>Senior Center Volunteer</strong> — and also a cat. It's part of our fur requirement. <br></p>
+      </li>
+      <li>
+        <h3><i class="icon-tablet"></i> Works anywhere</h3>
+        <p>MeowSeniorCenter <strong>works</strong> on any computer and any device. Just login and start managing your data. (Please ignore the hairballs on the keyboard.)</p>
+      </li>
+      <li>
+        <h3><i class="icon-cog"></i> Make it your own </h3>
+        <p>Add custom categories, member fields, no big drop downs to scroll through. Only <strong>your data</strong> how you want it — unless we decide to sit on it at 3am.</p>
+      </li>
+    </ul>
+  </div>
+  <!-- Video -->
+  <div class="row-fluid inner-page">
+    <div class="span6 pull-right">
+      <div class="btn-container"> <img src="https://myseniorcenter.com/assets/video/preview.jpg" alt="Play video"> 
+      <a class="lightbox iframe btn-play" target="_blank" href="https://myseniorcenter.com/assets/video/video.html">
+      <i class="icon-play"></i></a> </div>
+    </div>
+    <div class="span6 pull-right">
+      <ul class="big-list">
+        <li><i style="color:#017f7b" class="icon-desktop"></i> Paw Touch Screen Sign In</li>
+        <li><i style="color:#017f7b" class="icon-globe"></i> Online Registration</li>
+        <li><i style="color:#017f7b" class="icon-phone"></i> Mass Meow System</li>
+        <li><i style="color:#017f7b" class="icon-map-marker"></i> Maps &amp; Routes</li>
+      </ul>
+      <br>
+      <a href="#livedemo" class="scroll btn btn-centered"><i class="icon-fire"></i> Live Demo</a>
+    </div>
+  </div>
+</div>
+
+<div class="row-fluid inner-page" id="morefeatures">
+  <div class="span6 lazy-container"> <img class="figurette lazy" src="https://myseniorcenter.com/assets/img/pixel.png" data-original="https://myseniorcenter.com/assets/img/features_touch2019.png" alt="Touch Screens"> </div>
+  <div class="span6"><br>
+    <p class="lead">Let our <strong>Touch Screens</strong> do the work 🐾</p>
+    Add a Touch Screen to your front desk and <strong>get rid of sign-in sheets</strong>. We were the <strong>first</strong> to introduce the Touch Screen to Senior Centers (the cats knocked the pen off the desk and we had no choice). We've designed the <strong>best touch screen</strong> software for Senior Centers. Whether signing up for <strong>events</strong>, <strong>meals</strong>, or entering <strong>volunteer hours</strong>; the experience is purrfectly beautiful.<br>
+    <ul class="list-wide">
+      <li><i style="font-size:2em;color:#017f7b" class="icon-tag"></i> Single Keytag works at all locations (cats refuse to carry more than one)</li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-pencil"></i> Checkin/Checkout w/ Paw-Print Signature (if required)</li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-bullhorn"></i> Live Translates into 72 languages, plus Meow</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row-fluid inner-page">
+  <div class="span6"> <br>
+    <br>
+    <p class="lead">Let your members<strong> sign up online</strong> for free at MyActiveCatCenter.com. 😺</p>
+    Your catalogue of classes is available and searchable for your members to browse and <strong>signup from home</strong>. Encourage your members to sign up from home and <strong>reduce phone calls</strong> (our cats won't answer them anyway).
+    <ul class="list-wide">
+      <li><i style="font-size:2em;color:#017f7b" class="icon-calendar"></i> Full Calendar of Events (and Nap Times) </li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-shopping-cart"></i> Register for Classes (Zoomies 101, Advanced Knocking Things Over) </li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-credit-card"></i> Seniors can Pay Online (in kibble or cash) </li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-picture"></i> Advertise your Center (with tasteful cat photos) </li>
+    </ul>
+  </div>
+  <div class="span6 lazy-container"> <img class="figurette lazy" src="https://myseniorcenter.com/assets/img/pixel.png" data-original="https://myseniorcenter.com/assets/img/features_myactive.png" alt="Online Registration"> </div>
+</div>
+
+<div class="row-fluid inner-page" id="morefeatures">
+  <div class="span6">
+    <div class="btn-container figurette"> <br>
+      <br>
+      <img src="https://myseniorcenter.com/assets/video/previewVoice.png" alt="Play video"> <a class="lightbox iframe btn-play" target="_blank" href="https://myseniorcenter.com/assets/video/voice.html"><i class="icon-play"></i></a> </div>
+  </div>
+  <div class="span6">
+    <h3>Mass Meowing 📣</h3>
+    <p class="lead">Send <strong>Mass Meows</strong> out instantly </p>
+    As <strong>easy as</strong> finding a list of seniors and <strong>clicking call</strong>, Meow Connect lets you send your voice — or a recording of a cat — out to <strong>thousands of seniors</strong> simultaneously. Works best at 3am.
+    <ul class="list-wide">
+      <li><i style="font-size:2em;color:#017f7b" class="icon-phone"></i> Record the message from any phone (or just meow into it)</li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-bar-chart"></i> Generate Calls from any report or litter (list)</li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-bullhorn"></i> Leaves a Voicemail if no one answers (just purring for 30 seconds)</li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-calendar"></i> Send now or Schedule Calls for 3am precisely</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row-fluid inner-page">
+  <div class="span6">
+    <p class="lead">Flexible Reports for <strong>multiple</strong> Senior Centers. 📊</p>
+    Whether you're running a single Senior Center or a whole county's agency, quickly and easily build and generate the reports you need. Results may vary depending on whether the cat has sat on the server again.
+    <ul class="list-wide">
+      <li><i style="font-size:2em;color:#017f7b" class="icon-sitemap"></i> AAA Reporting System (Also Accepts Adorable Animals)</li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-dashboard"></i> SAMS Workflow (Sleeping, And More Sleeping)</li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-legal"></i> State Reporting Workflow (reviewed by cats, so legally binding)</li>
+    </ul>
+  </div>
+  <div class="span6 lazy-container"> <img class="figurette lazy" src="https://myseniorcenter.com/assets/img/pixel.png" data-original="https://myseniorcenter.com/assets/img/features_reports.png" alt="MeowSeniorCenter Software"> </div>
+</div>
+
+<div class="row-fluid inner-page" id="morefeatures">
+  <div class="span6 lazy-container"> <img class="figurette lazy" src="https://myseniorcenter.com/assets/img/pixel.png" data-original="https://myseniorcenter.com/assets/img/features_mobilescanner.png" alt="Mobile Scanner"> </div>
+  <div class="span6"> <br>
+    <br>
+    <p class="lead">Go <strong>Mobile</strong> with our Scanners 🐾</p>
+    Give our pocket-sized mobile scanners to your Volunteers, Drivers or Instructors — and their cats — to capture or confirm services wherever they take place.
+    <ul class="list-wide">
+      <li><i style="font-size:2em;color:#017f7b" class="icon-road"></i> Accurately Deliver Meals on Wheels (and Paws)</li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-book"></i> Confirm Offsite Registration (cats confirm nothing) </li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-truck"></i> Scan Seniors onto the Bus (cats ride free, obviously)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row-fluid inner-page">
+  <div class="span6">
+    <p class="lead"><strong>Easy to setup</strong>. All Features <strong>included</strong>. No cats harmed.</p>
+    <ul class="list-wide">
+      <li><i style="font-size:2em;color:#017f7b" class="icon-laptop"></i> Nothing to install; works on <strong>any device</strong> (cats will still sit on the laptop)</li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-desktop"></i> Touch Screens are <strong>pre-configured</strong> (pre-knocked-off-the-desk) for you</li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-download-alt"></i> We <strong>import</strong> your previous data for you (the cat may have deleted some of it)</li>
+    </ul>
+  </div>
+  <div class="span6">
+    <p class="lead">We maintain everything. Updates are <strong>automatic</strong>. Naps are mandatory. 😴</p>
+    <ul class="list-wide">
+      <li><i style="font-size:2em;color:#017f7b" class="icon-cloud-download"></i> Weekly Automatic <strong>Updates</strong> (deployed between naps)</li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-medkit"></i> Daily Automatic <strong>Backups</strong> (stored in a box — cats love boxes)</li>
+      <li><i style="font-size:2em;color:#017f7b" class="icon-stethoscope"></i> Remote System Monitoring (a cat is watching. Always.)</li>
+    </ul>
+  </div>
+</div>
+
+<hr>
+<!-- /Features -->
+
+<!-- CAT FACTS SECTION -->
+<div class="page" style="background:#017f7b;color:#fff;padding:40px 0;">
+  <div class="inner-page" style="text-align:center;">
+    <h2 class="page-headline" style="color:#fff;">🐾 Did You Know? Cat Facts. <span class="cat-pulse">🐱</span></h2>
+  </div>
+  <div class="row-fluid inner-page">
+    <div class="span4" style="text-align:center;padding:20px;">
+      <div style="font-size:52px;margin-bottom:12px;">😺</div>
+      <h4 style="color:#fff;">Cats sleep 16–18 hrs/day</h4>
+      <p style="color:rgba(255,255,255,0.85);">Which explains our support ticket response times. We're not slow — we're <strong>resting</strong>.</p>
+    </div>
+    <div class="span4" style="text-align:center;padding:20px;">
+      <div style="font-size:52px;margin-bottom:12px;">🐾</div>
+      <h4 style="color:#fff;">Cats have 9 lives</h4>
+      <p style="color:rgba(255,255,255,0.85);">So does our uptime SLA. In case of outage, we simply use one of our remaining lives. Currently on life #4.</p>
+    </div>
+    <div class="span4" style="text-align:center;padding:20px;">
+      <div style="font-size:52px;margin-bottom:12px;">😼</div>
+      <h4 style="color:#fff;">Cats knock things over on purpose</h4>
+      <p style="color:rgba(255,255,255,0.85);">Our engineers do the same — it's called <strong>Agile Development</strong>. Every sprint ends with something on the floor.</p>
+    </div>
+  </div>
+  <div class="row-fluid inner-page" style="margin-top:10px;">
+    <div class="span4" style="text-align:center;padding:20px;">
+      <div style="font-size:52px;margin-bottom:12px;">🙀</div>
+      <h4 style="color:#fff;">Cats can make 100+ sounds</h4>
+      <p style="color:rgba(255,255,255,0.85);">Our Mass Meow System supports all 100+ officially. Dogs? Only 10 sounds. Another reason cats run this company.</p>
+    </div>
+    <div class="span4" style="text-align:center;padding:20px;">
+      <div style="font-size:52px;margin-bottom:12px;">😻</div>
+      <h4 style="color:#fff;">A group of cats is called a "clowder"</h4>
+      <p style="color:rgba(255,255,255,0.85);">Our entire senior center network is one massive clowder. 1,900+ centers. 1,900+ cats. Do the math.</p>
+    </div>
+    <div class="span4" style="text-align:center;padding:20px;">
+      <div style="font-size:52px;margin-bottom:12px;">🐈</div>
+      <h4 style="color:#fff;">Cats always land on their feet</h4>
+      <p style="color:rgba(255,255,255,0.85);">So does MeowSeniorCenter after every system update. Mostly. The one time we didn't, the cat blamed the dog.</p>
+    </div>
+  </div>
+</div>
+<div class="page color-3" id="livedemo">
+  <div class="inner-page">
+    <h2 class="page-headline">Watch a Live Demo from your Desk 🐱💻</h2>
+  </div>
+  <div class="row-fluid inner-page">
+    <div class="span6 lazy-container"> <img class="figurette lazy " src="https://myseniorcenter.com/assets/img/laptop-blue@2x.png" data-original="https://myseniorcenter.com/assets/img/laptop-blue@2x.png" alt="view image in lightbox" style="display: inline;"> </div>
+    <div class="span6">
+      <h3>Schedule a demonstration (or a nap)</h3>
+      <p class="lead">Click or call to schedule a private demonstration for you, your board, your municipality, or your cat.</p>
+      <ul class="list-wide">
+        <li><i class="icon-globe"></i> <a href="https://www.myseniorcenter.com/webinars/email.asp" target="_blank">Register for Upcoming Demo (bring your cat)</a></li>
+        <li><i class="icon-phone"></i> Schedule Private Demo 866-739-9745 (leave a meow after the beep)</li>
+        <li><i class="icon-envelope"></i> <a href="mailto:sales@myseniorcenter.com?subject=Schedule Private Webinar"> Schedule Private Demo sales@myseniorcenter.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr>
+</div>
+<!-- /Live Demo page --> 
+
+<!-- About page -->
+<div id="about" class="page color-4">
+  <div class="inner-page">
+    <h2 class="page-headline">Owned and Operated by Senior Center Cats. <span class="cat-pulse">🐈</span></h2>
+  </div>
+  <div class="row-fluid inner-page">
+    <div class="span6 lazy-container"> <img class="figurette lazy" src="https://myseniorcenter.com/assets/img/pixel.png" data-original="https://myseniorcenter.com/assets/img/2006bostonGlobe.png" alt="Our workspace"> </div>
+    <div class="span6">
+      <h3>The system came online in 2004. (A cat walked across the keyboard and it launched.)</h3>
+      <p class="lead">The system was built for <strong>free</strong> for a single Senior Center in Massachusetts — and one very opinionated tabby.</p>
+      <p>The system spread across the state and in <strong>1 year</strong> was used by over <strong>100 senior centers</strong>. MeowSeniorCenter was <strong>founded in 2005</strong> to organize the flood of requests, hairballs, and new ideas that the newly created community had. </p>
+      <p class="lead">We're the <strong>largest</strong> network of Senior Centers. And cats.</p>
+      <a href="#ourteam" class="scroll btn btn-centered"><i class="icon-caret-down"></i> Meet the cats</a>
+    </div>
+  </div>
+  <hr>
+  
+  <!-- Team -->
+  <div class="row-fluid inner-page team" id="ourteam">
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_chris.jpg" width="200" height="275" alt="Chris">
+      <h4>Chris Hamilton 🐱</h4>
+      <p><strong>President & Head Cat.</strong> The mastermind behind Fun Facts, Chris believes Senior Centers need Data — and that his food bowl should always be full. Chris makes sure each state has an opportunity to use MeowSeniorCenter. <br><br>
+      <i class="icon-globe"></i><strong> Boston, MA</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_eric.jpg" width="200" height="275" alt="Eric">
+      <h4>Eric Andersen 😸</h4>
+      <p><strong>Founder & Chief Napper.</strong> A senior center volunteer for over a decade, Eric leads the software development and loves seeing the latest tech being knocked off desks at centers. <br><br>
+      <i class="icon-globe"></i><strong> Cambridge, MA</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_jeff.jpg" width="200" height="275" alt="Jeff">
+      <h4>Jeff Rothberg 🐾</h4>
+      <p><strong>Director of Sales & Treats.</strong> As a former Director at a premiere Intergenerational Center, Jeff can relate. Jeff helps find resources for Centers so you can get our Software quickly and easily. Will work for tuna. <br><br>
+      <i class="icon-globe"></i><strong> San Francisco, CA</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_annmarie.jpg" width="200" height="275" alt="Ann Marie">
+      <h4>Ann Marie 🐈</h4>
+      <p><strong>Director of Sponsorships & Sunny Spots.</strong> Ann Marie finds local sponsors and partnership opportunities for Senior Centers so their busy Directors can focus on what's really important — like finding the warmest patch of floor. <br><br>
+      <i class="icon-globe"></i><strong> Milwaukee, WI</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_tina.jpg" width="200" height="275" alt="Tina">
+      <h4>Tina 😺</h4>
+      <p><strong>Director of Operations & Box Inspector.</strong> Tina talks the language of Senior Center fiscal budgets, helping Senior Centers find local grants and funding. She's the first person you'll talk to when getting setup — if she's awake. <br><br>
+      <i class="icon-globe"></i><strong> Boston, MA</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_casey.jpg" width="200" height="275" alt="Casey">
+      <h4>Casey 🐱</h4>
+      <p><strong>Technical Support Manager & Keyboard Sitter.</strong> Casey keeps the network running. You accidentally deleted half a year of Rides?! Relax, Casey can restore it — unless she's sitting on the backup drive. All while providing blankets and hot cocoa. <br><br>
+      <i class="icon-globe"></i><strong> Chicago, IL</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_mike.jpg" width="200" height="275" alt="Mike">
+      <h4>Mike 🐾</h4>
+      <p><strong>Sponsor Territory Manager & Yarn Enthusiast.</strong> Mike's mission is to save Centers money. He has creative ideas and a Midwestern can-do attitude — and an encyclopedic knowledge of laser pointer technology. <br><br>
+      <i class="icon-globe"></i><strong> Franklin, WI</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_dan.jpg" width="200" height="275" alt="Dan">
+      <h4>Dan 😸</h4>
+      <p><strong>Sponsor Territory Manager & Box Connoisseur.</strong> Dan has a deep knowledge of the Senior Center market and a knack for finding the right sponsors. He'll also happily knock your drink off the table to get your attention. <br><br>
+      <i class="icon-globe"></i><strong> Milwaukee, WI</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_lindsey.jpg" width="200" height="275" alt="Lindsey">
+      <h4>Lindsey 🐈</h4>
+      <p><strong>Design &amp; Support & Curtain Climber.</strong> Lindsey is a visual design and sponsorship support expert. She is relentless in making sure our sponsors are cared for, Centers don't have to worry — and that your blinds are thoroughly destroyed. <br><br>
+      <i class="icon-globe"></i><strong> Milwaukee, WI</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_lee.jpg" width="200" height="275" alt="Lee">
+      <h4>Lee 🐱</h4>
+      <p><strong>Software Developer & Former Paratrooper & Always Lands on His Feet.</strong> Lee keeps our code fast enough to check in millions of your members — and still has time to yell at the dog next door. <br><br>
+      <i class="icon-globe"></i><strong> Nashville, TN</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_bill.jpg" width="200" height="275" alt="Bill">
+      <h4>Bill 😼</h4>
+      <p><strong>Training &amp; Support & Hairball Technician.</strong> Bill makes sure the system is working in your center the right way, all the time. He solves Hardware and Network problems and stares judgmentally at your town tech support. <br><br>
+      <i class="icon-globe"></i><strong> Manchester, NH</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_amanda.jpg" width="200" height="275" alt="Amanda">
+      <h4>Amanda 🐾</h4>
+      <p><strong>Support Manager & Lap Occupier.</strong> Prior to joining MeowSeniorCenter, Amanda was a staff member at one of the largest Senior Center Organizations in the country. Amanda keeps staff up to date on all the different ways of using the system — and all the best napping spots. <br><br>
+      <i class="icon-globe"></i><strong> Dallas, TX</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_alex.jpg" width="200" height="275" alt="Alex">
+      <h4>Alex 😺</h4>
+      <p><strong>Tech Support & Soothing Purrer.</strong> Following a theme within the support team, Al helps you solve any problems with soothing vocal tones. (Or just purring at the screen until it works.) He's also really good at showing you shortcuts and knocking things over. <br><br>
+      <i class="icon-globe"></i><strong> Seattle, WA</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_ben.jpg" width="200" height="275" alt="Ben">
+      <h4>Ben 🐈</h4>
+      <p><strong>Design &amp; Support & Professional Juggler.</strong> Ben builds the scaffolding for new features while supporting the myriad of different types of senior centers — all while juggling (and occasionally eating the yarn). <br><br>
+      <i class="icon-globe"></i><strong> Chicago, IL</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_craig.jpg" width="200" height="275" alt="Craig">
+      <h4>Craig 🐱</h4>
+      <p><strong>Integrations &amp; APIs & Cardboard Box Tester.</strong> Craig continues to help make MeowSeniorCenter more flexible. He's adding structure and reliability to a system that is always being improved — between naps. <br><br>
+      <i class="icon-globe"></i><strong> Boston, MA</strong></p>
+    </div>
+    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_adam.jpg" width="200" height="275" alt="Adam">
+      <h4>Adam 😸</h4>
+      <p><strong>Software Advisor & Grand Poobah of Javascript & Supreme Overlord of the Scratching Post.</strong> Leveraging the latest in client-side code, Adam makes your system super-duper fast. Meow. <br><br>
+      <i class="icon-globe"></i><strong> Honolulu, HI</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Us -->
+<div id="contact" class="page color-2">
+  <div class="inner-page">
+    <h2 class="page-headline">We'd love to hear from you 🐾 (Meow us anytime)</h2>
+  </div>
+  <div class="row-fluid inner-page contact lazy-container">
+    <div class="span6">
+      <ul class="big-list">
+        <br><br><br>
+        <li><i class="icon-phone"></i> +1.866.739.9745 (say "meow" after the beep)</li>
+        <li><i class="icon-envelope"></i> <a href="mailto:info@myseniorcenter.com">info@myseniorcenter.com</a></li>
+        <li><i class="icon-globe"></i>MeowSeniorCenter Software<br>
+          68 Harrison Ave, Ste 605, PMB 30713<br>
+          Boston, MA 02111-1929<br>
+          <em>(3rd litter box on the left)</em></li>
+      </ul>
+    </div>
+    <div class="span6">
+      <div class="btn-container centered lazy-container text-center">
+        <img src="https://myseniorcenter.com/assets/img/pixel.png" class="lazy figurette" alt="Open the map" data-original="https://myseniorcenter.com/assets/img/map.png">
+        <a class="lightbox iframe btn-map" target="blank" title="Open google maps" href="https://maps.google.com/maps?q=Boston,MA">
+          <i class="pull-left icon-map-marker"></i>
+          <div>68 Harrison Ave, Ste 605, PMB 30713<br>
+          Boston, MA 02111-1929&nbsp;&nbsp;</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Newsletter -->
+<div class="newsletter color-1">
+  <div class="inner-page row-fluid">
+    <div class="span4">
+      <h4><strong>Fur Facts 🐱</strong>, our monthly cat statistics newsletter</h4>
+    </div>
+    <div class="span6">
+      <input type="email" placeholder="your@e-mail.com" name="EMAIL" class="subscribe">
+    </div>
+    <div class="span2"> <a href="/cdn-cgi/l/email-protection#402328322933002d3933252e292f3223252e3425326e232f2d7f3335222a2523347d13352233233229222560342f6006353260062123343366222f24397d0960372f352c24602c292b2560342f60322523252936256034282560063532600621233433600e2537332c25343425326e600d252f376e">
+      <button type="submit" class="btn pull-right subscribe">Purrscribe</button>
+    </a> </div>
+  </div>
+</div>
+
+<div style="background-color:#000000; color:#FFFFFF" class="text-right copyright"> © 2025 <a href="https://www.MySeniorCenter.com" title="Software for Se
