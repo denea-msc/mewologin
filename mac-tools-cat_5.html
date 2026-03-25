@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MAC Tools – MSC Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#fff;--grey-medium:#dbdeea;--grey-dark:#69757b;
+  --blue-dark:#343945;--blue-medium:#3fa7fc;--green-dark:#149c48;
+}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Lato',sans-serif,system-ui; padding-top: 300px;}
+.bg-blur{position:absolute;inset:0;background:rgba(243,249,255,0.82);backdrop-filter:blur(7.5px);-webkit-backdrop-filter:blur(7.5px);z-index:1;}
+.panel-wrap{position:absolute;right:54px;top:120px;z-index:10;width:350px;}
+.login-card{background:rgba(255,255,255,0.93);border:1px solid var(--grey-medium);border-radius:8px;box-shadow:3px 3px 11px rgba(34,46,57,0.06);padding:20px;}
+.login-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px;}
+.logo-box{flex-shrink:0;width:60px;height:60px;background:#fff;border:1px solid var(--grey-medium);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.welcome-text{display:flex;flex-direction:column;gap:2px;padding-top:4px;}
+.welcome-title{font-size:22px;font-weight:400;line-height:26px;color:var(--blue-dark);}
+.welcome-name{font-size:16px;font-weight:700;color:var(--green-dark);}
+.field-label{font-size:14px;color:var(--blue-dark);margin-bottom:6px;}
+.pw-wrap{margin-bottom:10px;}
+.pw-field{width:100%;height:36px;border:1px solid var(--grey-medium);border-radius:4px;background:#fff;padding:0 12px;font-size:14px;color:var(--blue-dark);outline:none;letter-spacing:3px;}
+.pw-field:focus{border-color:var(--blue-medium);}
+.links-row{display:flex;justify-content:space-between;margin-bottom:14px;}
+.link-text{font-size:10px;color:var(--blue-dark);cursor:pointer;text-decoration:none;}
+.link-text:hover{text-decoration:underline;}
+.login-btn{width:100%;height:40px;background:var(--green-dark);border:none;border-radius:5px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.18s;}
+.login-btn:hover{background:#118a3f;}
+.cat-spacer{height:130px;display:flex;align-items:center;justify-content:center;}
+.tabs-card{background:transparent;}
+.tabs-header{display:flex;position:relative;}
+.tab{flex:1;height:39px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;font-size:14px;font-weight:600;border:1px solid var(--grey-medium);position:relative;}
+.tab-news{background:rgba(255,255,255,0.93);border-radius:4px 4px 0 0;color:var(--blue-dark);border-bottom:none;z-index:2;}
+.tab-news::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--blue-medium);border-radius:8px 8px 0 0;}
+.tab-learning{background:rgba(251,251,253,0.93);border-radius:0 8px 0 0;color:var(--grey-dark);z-index:1;}
+.tab-divider{position:absolute;left:50%;top:50%;transform:translateY(-50%);width:1px;height:36px;background:var(--grey-medium);z-index:3;}
+.tab-body{background:rgba(255,255,255,0.93);border:1px solid var(--grey-medium);border-top:none;border-radius:0 0 8px 8px;padding:18px 20px 22px;}
+.tab-body-text{font-size:12px;color:var(--blue-dark);line-height:1.6;margin-bottom:16px;}
+.get-trained-btn{display:flex;align-items:center;justify-content:center;width:120px;height:40px;border:1px solid var(--grey-medium);border-radius:4px;background:#fff;color:var(--blue-medium);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+.get-trained-btn:hover{background:#eef6ff;}
+
+/* ── Cat container ── */
+#cat-wrap{
+  position:fixed;
+  z-index:999;
+  pointer-events:none;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+}
+#cat-img{
+  width:170px;
+  height:120px;
+  object-fit:contain;
+  display:block;
+  image-rendering:auto;
+}
+#cat-badge{
+  background:rgba(20,20,20,0.7);
+  color:#fff;
+  font-size:10px;
+  font-family:system-ui,sans-serif;
+  padding:2px 8px;
+  border-radius:10px;
+  white-space:nowrap;
+  letter-spacing:0.3px;
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <img src="https://i.ibb.co/nsL0ymk4/Login-Screen-MEOW-center.jpg" style="position: absolute; bottom: 6vh; width: 72vw;"/>
+
+  <div class="panel-wrap">
+    <img src="https://i.ibb.co/w3YxzKS/cat-overlay.png" style="position: absolute; width: 340px;     top: -130px;
+    left: -100px;"/>
+    <div class="login-card">
+      <div class="login-header">
+        <div class="logo-box">
+          <svg width="46" height="32" viewBox="0 0 46 32"><rect width="46" height="32" rx="4" fill="#149c48"/><text x="23" y="21" text-anchor="middle" fill="white" font-family="system-ui,sans-serif" font-size="12" font-weight="900">MAC</text></svg>
+        </div>
+        <div class="welcome-text">
+          <span class="welcome-title">Welcome Back</span>
+          <span class="welcome-name">Anne Marie Shea</span>
+        </div>
+      </div>
+      <p class="field-label">Password</p>
+      <div class="pw-wrap">
+        <input class="pw-field" type="password" value="password" autocomplete="current-password"/>
+      </div>
+      <div class="links-row">
+        <a class="link-text" href="#">Forgot Password?</a>
+        <a class="link-text" href="#">Switch Accounts</a>
+      </div>
+      <button class="login-btn" id="login-btn">Login</button>
+    </div>
+
+    <div class="cat-spacer"></div>
+
+    <div class="tabs-card">
+      <div class="tabs-header" style="position:relative;">
+        <div class="tab tab-news">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="2" stroke="#343945" stroke-width="1.1"/><line x1="4" y1="6.5" x2="12" y2="6.5" stroke="#343945" stroke-width="0.9"/><line x1="4" y1="9.5" x2="9" y2="9.5" stroke="#343945" stroke-width="0.9"/></svg>
+          News
+        </div>
+        <div class="tab-divider"></div>
+        <div class="tab tab-learning">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3L14 6.5L8 10L2 6.5L8 3Z" stroke="#69757b" stroke-width="1.1"/><path d="M5 8.5V11.5C5 11.5 6.3 13 8 13s3-1.5 3-1.5V8.5" stroke="#69757b" stroke-width="1.1"/></svg>
+          Learning
+        </div>
+      </div>
+      <div class="tab-body">
+        <p class="tab-body-text">All Webinars are Free! Sign up for one of our public sessions or feel free to request a private webinar. All at no cost. We also have other training available.</p>
+        <button class="get-trained-btn">Get Trained</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cat -->
+  <div id="cat-wrap">
+    <img id="cat-img" src="https://i.ibb.co/LzP1mP0k/image-9.png" alt="cat"/>
+    <span id="cat-badge">Pussy sleeping</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  const wrap    = document.getElementById('cat-wrap');
+  const img     = document.getElementById('cat-img');
+  const badge   = document.getElementById('cat-badge');
+  const loginBtn= document.getElementById('login-btn');
+
+  /* ── Image map per state ── */
+  const IMGS = {
+    sleep  : 'https://i.ibb.co/LzP1mP0k/image-9.png',
+    ears   : 'https://i.ibb.co/DP4yktNK/Chat-GPT-Image-Mar-25-2026-10-17-55-AM.png',
+    prep   : 'https://i.ibb.co/h1HRcFLF/Chat-GPT-Image-Mar-25-2026-10-18-00-AM.png',
+    leap   : 'https://i.ibb.co/7dnqSN18/Chat-GPT-Image-Mar-25-2026-10-17-45-AM.png',
+    hang   : 'https://i.ibb.co/wNs6dvCG/Chat-GPT-Image-Mar-25-2026-10-17-34-AM.png',
+    fall   : 'https://i.ibb.co/qTdPLtq/Chat-GPT-Image-Mar-25-2026-10-17-39-AM.png',
+    ground : 'https://i.ibb.co/LzP1mP0k/image-9.png'
+  };
+
+  const LABELS = {
+    sleep  : 'Pussy sleeping',
+    ears   : 'Ears & Tail Moving',
+    prep   : 'Prepares to jump',
+    leap   : 'Pussy leap',
+    hang   : 'Pussy hang',
+    fall   : 'Pussy falling',
+    ground : 'Meow'
+  };
+
+  const S = {SLEEP:'sleep',EARS:'ears',PREP:'prep',LEAP:'leap',HANG:'hang',FALL:'fall',GROUND:'ground'};
+
+  /* Preload all images */
+  Object.values(IMGS).forEach(src=>{ const i=new Image(); i.src=src; });
+
+  let state = S.SLEEP;
+  let catX=0, catY=0, mouseX=0, mouseY=0;
+  let isLeaping=false, isHanging=false, isFalling=false, isGrounded=false;
+  let mouseHist=[], shakeTimer=null;
+
+  function dist(x1,y1,x2,y2){return Math.sqrt((x2-x1)**2+(y2-y1)**2);}
+  function btnCenter(){const r=loginBtn.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2};}
+  function applyPos(x,y){wrap.style.left=x+'px';wrap.style.top=y+'px';}
+
+  function setState(s){
+    if(state===s)return;
+    state=s;
+    badge.textContent=LABELS[s];
+    img.src=IMGS[s];
+  }
+
+  function placeSleeping(){
+    const spacer=document.querySelector('.cat-spacer');
+    const r=spacer.getBoundingClientRect();
+    catX=r.left+r.width/2-70;
+    catY=r.top+r.height/2-70;
+    applyPos(catX,catY);
+  }
+
+  function placeGround(){
+    catY=window.innerHeight-150;
+    applyPos(catX,catY);
+  }
+
+  /* ── Leap ── */
+  function startLeap(){
+    if(isLeaping)return;
+    isLeaping=true; isHanging=false; isGrounded=false;
+    stopShake();
+    setState(S.LEAP);
+    const sx=catX, sy=catY, dur=850;
+    let t0=null;
+    function anim(ts){
+      if(!t0)t0=ts;
+      const p=Math.min((ts-t0)/dur,1);
+      const ex=mouseX-85, ey=mouseY-2;
+      const e=1-Math.pow(1-p,3);
+      const arc=-Math.sin(p*Math.PI)*90;
+      catX=sx+(ex-sx)*e;
+      catY=sy+(ey-sy)*e+arc;
+      applyPos(catX,catY);
+      if(p<1){requestAnimationFrame(anim);}
+      else{isLeaping=false;isHanging=true;startShake();setState(S.HANG);}
+    }
+    requestAnimationFrame(anim);
+  }
+
+  /* ── Fall straight down ── */
+  function startFall(){
+    if(isFalling)return;
+    isFalling=true; isHanging=false;
+    stopShake();
+    setState(S.FALL);
+    const sx=catX, sy=catY, ey=window.innerHeight-150, dur=700;
+    let t0=null;
+    function anim(ts){
+      if(!t0)t0=ts;
+      const p=Math.min((ts-t0)/dur,1);
+      catY=sy+(ey-sy)*p;
+      catX=sx+Math.sin(p*Math.PI*4)*12;
+      applyPos(catX,catY);
+      if(p<1){requestAnimationFrame(anim);}
+      else{
+        catX=sx; catY=ey;
+        applyPos(catX,catY);
+        isFalling=false; isGrounded=true;
+        setState(S.GROUND);
+      }
+    }
+    requestAnimationFrame(anim);
+  }
+
+  /* ── Shake detection ── */
+  function startShake(){
+    mouseHist=[];
+    shakeTimer=setInterval(()=>{
+      if(mouseHist.length<8)return;
+      let d=0;
+      for(let i=1;i<mouseHist.length;i++)
+        d+=dist(mouseHist[i-1].x,mouseHist[i-1].y,mouseHist[i].x,mouseHist[i].y);
+      if(d>550)startFall();
+    },80);
+  }
+  function stopShake(){
+    if(shakeTimer){clearInterval(shakeTimer);shakeTimer=null;}
+    mouseHist=[];
+  }
+
+  /* ── Mouse tracking ── */
+  document.addEventListener('mousemove',e=>{
+    mouseX=e.clientX; mouseY=e.clientY;
+
+    if(isHanging){
+      mouseHist.push({x:mouseX,y:mouseY});
+      if(mouseHist.length>14)mouseHist.shift();
+      catX=mouseX-85; catY=mouseY-2;
+      applyPos(catX,catY);
+      return;
+    }
+
+    if(isLeaping||isFalling)return;
+
+    if(isGrounded){
+      const d=dist(mouseX,mouseY,catX+70,catY+70);
+      if(d<200){isGrounded=false;startLeap();}
+      return;
+    }
+
+    const b=btnCenter();
+    const d=dist(mouseX,mouseY,b.x,b.y);
+
+    if(d<=699){
+      startLeap();
+    } else if(d<=849){
+      setState(S.PREP);
+    } else if(d<=1099){
+      setState(S.EARS);
+    } else {
+      if(state!==S.SLEEP) setState(S.SLEEP);
+    }
+  });
+
+  window.addEventListener('resize',()=>{
+    if(isGrounded){placeGround();return;}
+    if(!isHanging&&!isLeaping&&!isFalling) placeSleeping();
+  });
+
+  /* ── Init ── */
+  placeSleeping();
+})();
+</script>
+</body>
+</html>
