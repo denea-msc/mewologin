@@ -51,6 +51,10 @@
 
       /* ===================== CAT CHAOS CSS ===================== */
 
+      .team h4 {
+        margin: 0 0 10px 0;
+      }
+
       #april-fools-banner {
         position: fixed;
         top: 0; left: 0; right: 0;
@@ -184,10 +188,13 @@
 
 
       /* ========== RANDOM ELEMENT SHAKE (cat knocks something) ========== */
-      var shakeTargets = ['h2', 'h3', 'h4', '.lead', '.btn', 'li'];
+      var shakeTargets = ['h2', 'h3', 'h4', '.lead', '.btn', 'li', 'p', 'div'];
       function doShake() {
         var sel = shakeTargets[Math.floor(Math.random() * shakeTargets.length)];
-        var $els = $(sel).filter(':visible');
+        var $els = $(sel).filter(function() {
+          var rect = this.getBoundingClientRect();
+          return rect.top < window.innerHeight && rect.bottom > 0;
+        });
         if ($els.length) {
           var $el = $els.eq(Math.floor(Math.random() * $els.length));
           $el.addClass('shaking');
@@ -197,9 +204,9 @@
             .appendTo('body');
           setTimeout(function() { $el.removeClass('shaking'); $tag.fadeOut(400, function(){$(this).remove();}); }, 800);
         }
-        setTimeout(doShake, 5000 + Math.random() * 9000);
+        setTimeout(doShake, 500 + Math.random() * 1500);
       }
-      setTimeout(doShake, 5000);
+      setTimeout(doShake, 1000);
 
       /* ========== PERIODIC FULL-SCREEN MEOW FLASH ========== */
       function bigMeow() {
@@ -261,7 +268,7 @@
 
 <!-- April Fools Banner -->
 <div id="april-fools-banner">
-  🐱 &nbsp; BREAKING: MySeniorCenter has been acquired by cats. All staff replaced. Data integrity not guaranteed. Normal service resumes never. &nbsp; 🐾
+  🐱 &nbsp; BREAKING: MySeniorCenter has been acquired by cats. All staff replaced. Fiber optic cables now yarn. Normal service resumes never. &nbsp; 🐾
 </div>
 
 <!-- Nav button --> 
@@ -289,7 +296,7 @@
     <h2 class="page-headline large">We make Software for Senior Centers <span class="cat-pulse">🐱</span></h2>
   </div>
   <div class="row-fluid inner-page">
-    <div class="span6 pull-right lazy-container loaded"> <img class="lazy" alt="Looks great on every device" src="https://myseniorcenter.com/assets/img/home.png" data-original="https://myseniorcenter.com/assets/img/home.png" style="display: inline;"> </div>
+    <div class="span6 pull-right lazy-container loaded"> <img class="lazy" alt="Looks great on every device" src="https://i.ibb.co/xSH8WZJZ/home.png" data-original="https://i.ibb.co/xSH8WZJZ/home.png" style="display: inline;"> </div>
     <div class="span6 pull-right">
       <ul class="big-list">
         <li><i class="icon-ok"></i> Easy to use <span style="font-size: 18px;">(even with paws)</span></li>
@@ -335,7 +342,7 @@
     <ul class="features list-inline">
       <li>
         <h3><i class="icon-heart"></i> Built fur you</h3>
-        <p>Everyone at MeowSeniorCenter is a <strong>Senior Center Volunteer</strong> — and also a cat. It's part of our fur requirement. <br></p>
+        <p>Everyone at MeowSeniorCenter is a <strong>Senior Center Volunteer</strong> —  <br> and also a cat. It's part of our fur requirement. <br></p>
       </li>
       <li>
         <h3><i class="icon-tablet"></i> Works anywhere</h3>
@@ -368,7 +375,7 @@
 </div>
 
 <div class="row-fluid inner-page" id="morefeatures">
-  <div class="span6 lazy-container"> <img class="figurette lazy" src="https://myseniorcenter.com/assets/img/pixel.png" data-original="https://myseniorcenter.com/assets/img/features_touch2019.png" alt="Touch Screens"> </div>
+  <div class="span6 lazy-container"> <img class="figurette lazy" src="https://myseniorcenter.com/assets/img/pixel.png" data-original="https://i.ibb.co/xSKbTDXW/touchpaw.png" alt="Touch Screens"> </div>
   <div class="span6"><br>
     <p class="lead">Let our <strong>Touch Screens</strong> do the work 🐾</p>
     Add a Touch Screen to your front desk and <strong>get rid of sign-in sheets</strong>. We were the <strong>first</strong> to introduce the Touch Screen to Senior Centers (the cats knocked the pen off the desk and we had no choice). We've designed the <strong>best touch screen</strong> software for Senior Centers. Whether signing up for <strong>events</strong>, <strong>meals</strong>, or entering <strong>volunteer hours</strong>; the experience is purrfectly beautiful.<br>
@@ -399,7 +406,7 @@
   <div class="span6">
     <div class="btn-container figurette"> <br>
       <br>
-      <img src="https://myseniorcenter.com/assets/video/previewVoice.png" alt="Play video"> <a class="lightbox iframe btn-play" target="_blank" href="https://myseniorcenter.com/assets/video/voice.html"><i class="icon-play"></i></a> </div>
+      <img src="https://i.ibb.co/JWC8HfYK/Chat-GPT-Image-Mar-26-2026-01-52-13-PM.png" alt="Play video"> <a class="lightbox iframe btn-play" target="_blank" href="https://myseniorcenter.com/assets/video/voice.html"><i class="icon-play"></i></a> </div>
   </div>
   <div class="span6">
     <h3>Mass Meowing 📣</h3>
@@ -529,7 +536,7 @@
     <h2 class="page-headline">Owned and Operated by Senior Center Cats. <span class="cat-pulse">🐈</span></h2>
   </div>
   <div class="row-fluid inner-page">
-    <div class="span6 lazy-container"> <img class="figurette lazy" src="https://myseniorcenter.com/assets/img/pixel.png" data-original="https://myseniorcenter.com/assets/img/2006bostonGlobe.png" alt="Our workspace"> </div>
+    <div class="span6 lazy-container"> <img class="figurette lazy" src="https://myseniorcenter.com/assets/img/pixel.png" data-original="https://i.ibb.co/LDxHvZCs/Chat-GPT-Image-Mar-26-2026-02-03-44-PM.png" alt="Our workspace"> </div>
     <div class="span6">
       <h3>The system came online in 2004. (A cat walked across the keyboard and it launched.)</h3>
       <p class="lead">The system was built for <strong>free</strong> for a single Senior Center in Massachusetts — and one very opinionated tabby.</p>
@@ -572,21 +579,6 @@
       <p><strong>Technical Support Manager & Keyboard Sitter.</strong> Casey keeps the network running. You accidentally deleted half a year of Rides?! Relax, Casey can restore it — unless she's sitting on the backup drive. All while providing blankets and hot cocoa. <br><br>
       <i class="icon-globe"></i><strong> Chicago, IL</strong></p>
     </div>
-    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_mike.jpg" width="200" height="275" alt="Mike">
-      <h4>Mike 🐾</h4>
-      <p><strong>Sponsor Territory Manager & Yarn Enthusiast.</strong> Mike's mission is to save Centers money. He has creative ideas and a Midwestern can-do attitude — and an encyclopedic knowledge of laser pointer technology. <br><br>
-      <i class="icon-globe"></i><strong> Franklin, WI</strong></p>
-    </div>
-    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_dan.jpg" width="200" height="275" alt="Dan">
-      <h4>Dan 😸</h4>
-      <p><strong>Sponsor Territory Manager & Box Connoisseur.</strong> Dan has a deep knowledge of the Senior Center market and a knack for finding the right sponsors. He'll also happily knock your drink off the table to get your attention. <br><br>
-      <i class="icon-globe"></i><strong> Milwaukee, WI</strong></p>
-    </div>
-    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_lindsey.jpg" width="200" height="275" alt="Lindsey">
-      <h4>Lindsey 🐈</h4>
-      <p><strong>Design &amp; Support & Curtain Climber.</strong> Lindsey is a visual design and sponsorship support expert. She is relentless in making sure our sponsors are cared for, Centers don't have to worry — and that your blinds are thoroughly destroyed. <br><br>
-      <i class="icon-globe"></i><strong> Milwaukee, WI</strong></p>
-    </div>
     <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_lee.jpg" width="200" height="275" alt="Lee">
       <h4>Lee 🐱</h4>
       <p><strong>Software Developer & Former Paratrooper & Always Lands on His Feet.</strong> Lee keeps our code fast enough to check in millions of your members — and still has time to yell at the dog next door. <br><br>
@@ -596,11 +588,6 @@
       <h4>Bill 😼</h4>
       <p><strong>Training &amp; Support & Hairball Technician.</strong> Bill makes sure the system is working in your center the right way, all the time. He solves Hardware and Network problems and stares judgmentally at your town tech support. <br><br>
       <i class="icon-globe"></i><strong> Manchester, NH</strong></p>
-    </div>
-    <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_amanda.jpg" width="200" height="275" alt="Amanda">
-      <h4>Amanda 🐾</h4>
-      <p><strong>Support Manager & Lap Occupier.</strong> Prior to joining MeowSeniorCenter, Amanda was a staff member at one of the largest Senior Center Organizations in the country. Amanda keeps staff up to date on all the different ways of using the system — and all the best napping spots. <br><br>
-      <i class="icon-globe"></i><strong> Dallas, TX</strong></p>
     </div>
     <div class="span6"> <img class="pull-left" src="https://myseniorcenter.com/assets/img/c_alex.jpg" width="200" height="275" alt="Alex">
       <h4>Alex 😺</h4>
