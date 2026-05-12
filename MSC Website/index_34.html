@@ -31,7 +31,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('assets/grid-pattern.png') repeat;
     z-index: -1;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -39,16 +38,7 @@
     margin-left: 10px;
   }
   .fixed-bg.visible { opacity: 0.8; }
-  .fixed-bg:before {
-    content: '';
-    width: 100%;
-    height: 150px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%);
-    transform: matrix(1, 0, 0, -1, 0, 0);
-  }
+
 
   .fixed-bg:after {
     content: '';
@@ -75,7 +65,7 @@
   .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
   .nav-logo-icon {
     width: 52px; height: 52px; border-radius: 14px; background: var(--green);
-    display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding-top: 3px;
   }
   .nav-logo-icon::before {
     content: ''; position: absolute; inset: 0;
@@ -91,11 +81,11 @@
   .nav-buttons { display: flex; gap: 12px; }
   .btn { display: inline-flex; align-items: center; justify-content: center; border: none; cursor: pointer; font-family: 'Lato', sans-serif; font-size: 16px; letter-spacing: -0.16px; line-height: 26px; border-radius: 12px; padding: 8px 18px; text-decoration: none; transition: transform .15s, box-shadow .15s; }
   .btn:hover { transform: translateY(-1px); }
-  .btn-white { background: #fff; color: var(--black); font-weight: 500; border: 1px solid rgba(255,255,255,0.5); }
+  .btn-white { background: #fff; color: var(--black); font-weight: 500; }
   .btn-dark { background: #202124; color: #fff; font-weight: 700; }
-  .btn-green { background: var(--green); color: #fff; font-weight: 700; }
+  .btn-green { background: var(--green); color: #fff; font-weight: 500; }
   .btn-green-lg { padding: 18px 34px; font-size: 18px; border-radius: 14px; }
-  .btn-outline { background: #fff; color: #3c4045; font-weight: 700; border: 1px solid #cad0d9; }
+  .btn-outline { background: #fff; color: #3c4045; font-weight: 700; }
   .btn-dark-lg { background: #202124; color: #fff; font-weight: 700; padding: 12px 30px; border-radius: 14px; }
   .btn-teal { background: var(--dark-green); color: #fff; font-weight: 700; padding: 12px 30px; border-radius: 14px; }
 
@@ -157,7 +147,7 @@
   .hero-content { text-align: center; position: relative; z-index: 3; max-width: 1200px; margin: 0 auto; padding: 0 40px; }
   .hero-badge {
     display: inline-flex; align-items: center; justify-content: center;
-    padding: 4px 14px; border-radius: 14px;
+    padding: 4px 14px; border-radius: 25px;
     background: rgba(38,148,17,0.1); border: 1px solid rgba(38,148,17,0.5);
     font-weight: 700; font-size: 14px; color: #fff; line-height: 24px; margin-bottom: 16px;
   }
@@ -258,7 +248,7 @@
     position: relative; height: 500vh;
   }
   .slide-sticky {
-    position: sticky; top: 0; height: 100vh;
+    position: sticky; top: 0; height: 96vh;
     display: flex; align-items: center;
     max-width: 1440px; margin: 0 auto; padding: 110px 0 0 40px;
     gap: 60px; z-index: 2;
@@ -276,7 +266,8 @@
     display: flex; flex-direction: column; align-items: center;
   }
   .slide-track-line { position: absolute; left: 50%; transform: translateX(-50%); top: 18px; bottom: 18px; width: 2px; background: #fff; }
-  .slide-track-fill { position: absolute; left: 50%; transform: translateX(-50%); top: 18px; width: 2px; height: 0; background: var(--green); transition: height 0.15s ease; max-height: calc(100% - 36px); }
+  .slide-track-fill { position: absolute; left: 50%; transform: translateX(-50%); top: 18px; width: 2px; height: 0; background: linear-gradient(to bottom, #1f8a0e, #269411, #2ea515, #3abf1e);
+  box-shadow: 0 0 5px rgba(38, 148, 17, 0.6); transition: height 0.15s ease; max-height: calc(100% - 36px); }
   .slide-item {
     display: flex; gap: 20px; padding: 25px 0; align-items: flex-start; cursor: pointer;
     position: relative; padding-left: 56px;
@@ -291,7 +282,8 @@
     transition: border-color .3s;
     z-index: 2;
   }
-  .slide-item.active .slide-item-icon { border-color: var(--green); }
+  .slide-item.active .slide-item-icon { border: 1.5px solid #269411;
+  box-shadow: 0 0 4px rgba(38, 148, 17, 0.5); }
   .slide-item-icon svg { width: 22px; height: 22px; }
   .slide-item.active .slide-item-icon svg path { fill: var(--green);  }
   .slide-item h4 { font-weight: 900; font-size: 28px; color: var(--black); margin-bottom: 8px; }
@@ -307,13 +299,13 @@
     box-shadow: 0 0 0 5px rgba(237,238,240,0.8); background: #f1f3fa;
   }
   .slide-screenshot .placeholder-img {
-    width: 100%; height: 600px; background: linear-gradient(135deg, #e8eaf0, #f4f5f8);
+    width: 100%; height: auto; background: linear-gradient(135deg, #e8eaf0, #f4f5f8);
     display: flex; align-items: center; justify-content: center; color: #999; font-size: 16px;
     transition: opacity .3s;
   }
 
   /* ============ FEATURES GRID ============ */
-  .features-section { padding: 120px 40px; max-width: 1440px; margin: 0 auto; }
+  .features-section { padding: 200px 40px 120px; max-width: 1440px; margin: 0 auto; }
   .features-section .section-header { text-align: center; margin-bottom: 60px; }
   .features-section .section-header h2 {
     font-weight: 900; font-size: 50px; line-height: 58px; color: #1c1d1f;
@@ -343,7 +335,7 @@
   }
   .kiosk-sticky {
     position: sticky; top: 0; height: 100vh;
-    background: #000; border-radius: 24px;
+    background: var(--dark-green); border-radius: 24px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     margin: 0 10px; overflow: hidden; z-index: 1;
     padding-top: 40px;
@@ -359,14 +351,14 @@
   .kiosk-title { font-weight: 900; font-size: 50px; line-height: 58px; color: #fff; letter-spacing: -0.5px; text-align: center; }
   .kiosk-sub { font-weight: 400; font-size: 20px; line-height: 30px; color: var(--border-gray); letter-spacing: -0.2px; text-align: center; max-width: 716px; margin: 16px auto 40px; }
   .kiosk-image-container {
-    width: 520px; height: 400px; position: relative; z-index: 2;
+    width: 720px; height: 400px; position: relative; z-index: 2;
   }
   .kiosk-frame {
     width: 100%; height: 100%; position: relative;
     display: flex; align-items: center; justify-content: center;
   }
   .kiosk-frame .placeholder-img {
-    width: 480px; height: 360px; border-radius: 12px;
+    width: auto; height: 400px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
     color: #666; font-size: 14px; position: absolute;
     transition: opacity .3s;
@@ -383,10 +375,10 @@
   .kiosk-feat svg { width: 28px; height: 28px; flex-shrink: 0; }
 
   /* ============ DEMO DEAL ============ */
-  .demo-section { padding: 120px 40px; max-width: 1440px; margin: 0 auto; position: relative; }
-  .demo-header { text-align: center; margin-bottom: 60px; }
+  .demo-section { padding: 150px 40px 240px 40px; max-width: 1440px; margin: 0 auto; position: relative; }
+  .demo-header { text-align: center; margin-bottom: 100px; }
   .demo-header h2 { font-weight: 900; font-size: 50px; line-height: 58px; color: #1c1d1f; letter-spacing: -0.5px; margin-bottom: 20px; }
-  .demo-header p { font-weight: 400; font-size: 20px; line-height: 30px; color: #454648; letter-spacing: -0.2px; max-width: 865px; margin: 0 auto 30px; }
+  .demo-header p { font-weight: 400; font-size: 20px; line-height: 30px; color: #454648; letter-spacing: -0.2px; max-width: 865px; margin: 0 auto 50px; }
   /* Scalable composition wrapper */
   .demo-composition {
     position: relative; width: 100%; max-width: 1460px; margin: 0 auto;
@@ -457,7 +449,7 @@
   }
 
   /* ============ TESTIMONIALS ============ */
-  .testimonials-section { padding: 100px 0 0 0; overflow: hidden; }
+  .testimonials-section { padding: 0 0 0 0; overflow: hidden; background-color: white;}
   .logo-mosaic-wrap { width: 100%; overflow: hidden; position: relative; margin-bottom: 20px; }
   .logo-mosaic-wrap::after {
     content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 180px;
@@ -549,22 +541,23 @@
   }
   .footer-inner { max-width: 1720px; margin: 0 auto; padding: 0 50px; display: flex; gap: 80px; }
   .footer-left { flex: 0 0 350px; }
-  .footer-logo { width: 84px; height: 84px; border-radius: 20px; background: linear-gradient(90deg,#2f8720,#2f8720); display: flex; align-items: center; justify-content: center; margin-bottom: 30px; }
-  .footer-logo img { width: 50px; height: 50px; }
-  .footer-brand-name { font: 700 24px 'Lato',sans-serif; color: rgba(255,255,255,.7); letter-spacing: .24px; margin-bottom: 12px; }
-  .footer-tagline { font: 900 38px/44px 'Lato',sans-serif; color: #fff; letter-spacing: .38px; margin-bottom: 40px; }
+  .footer-logo { padding-top: 8px; width: 84px; height: 84px; border-radius: 20px; background: linear-gradient(90deg,#2f8720,#2f8720); display: flex; align-items: center; justify-content: center; margin-bottom: 30px; }
+  .footer-logo img { width: 50px; height: auto; }
+  .footer-brand-name { font: 600 24px 'Lato',sans-serif; color: rgba(255,255,255,.7); letter-spacing: .24px; margin-bottom: 12px; }
+  .footer-tagline { font: 800 38px/44px 'Lato',sans-serif; color: #fff; letter-spacing: .38px; margin-bottom: 70px; }
   .footer-contact { display: flex; flex-direction: column; gap: 12px; }
   .footer-contact-row { display: flex; align-items: center; gap: 14px; }
   .footer-contact-row img { width: 32px; height: 32px; }
-  .footer-contact-row span { font: 900 28px 'Lato',sans-serif; color: #fff; letter-spacing: .28px; }
+  .footer-contact-row a { font: 700 28px 'Lato',sans-serif; color: #fff; letter-spacing: .4px; text-decoration: none;}
+  .footer-contact-row a:hover { text-decoration: underline;}
   .footer-contact-line { width: 198px; height: 3px; background: var(--green); border-radius: 10px; margin-top: 4px; margin-left: 46px; }
-  .footer-right { flex: 1; display: flex; gap: 60px; padding-top: 115px; }
+  .footer-right { flex: 1; display: flex; gap: 60px; padding-top: 115px; justify-content: flex-end;}
   .footer-col { min-width: 140px; }
-  .footer-col-label { font: 700 16px 'Lato',sans-serif; color: rgba(255,255,255,.7); letter-spacing: .16px; margin-bottom: 12px; }
-  .footer-col a { display: block; font: 600 18px 'Lato',sans-serif; color: #fff; text-decoration: none; line-height: 36px; letter-spacing: -.18px; }
+  .footer-col-label { font: 600 16px 'Lato',sans-serif; color: rgba(255,255,255,.7); letter-spacing: .16px; margin-bottom: 12px; }
+  .footer-col a { display: block; font: 500 18px 'Lato',sans-serif; color: #fff; text-decoration: none; line-height: 36px; letter-spacing: -.18px; }
   .footer-col a:hover { opacity: .8; }
-  .footer-subscribe { min-width: 280px; }
-  .footer-subscribe-desc { font: 600 18px/1.5 'Lato',sans-serif; color: #fff; letter-spacing: -.18px; margin-bottom: 14px; }
+  .footer-subscribe { min-width: 350px; }
+  .footer-subscribe-desc { font: 500 18px/1.5 'Lato',sans-serif; color: #fff; letter-spacing: -.18px; margin-bottom: 14px; }
   .footer-subscribe-form { display: flex; gap: 0; }
   .footer-subscribe-form input { flex: 1; height: 42px; border-radius: 12px 0 0 12px; border: none; padding: 0 16px; font: 400 16px 'Lato',sans-serif; color: #303e50; }
   .footer-subscribe-form input::placeholder { color: #303e50; opacity: .5; }
@@ -644,8 +637,479 @@
   </style>
 </head>
 <body>
-<div class="fixed-bg" id="fixedBg">
   
+<div class="fixed-bg" id="fixedBg">
+  <canvas id="c"></canvas>
+  <script>
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  const cellSize = 60;
+  const gridColor = '#F3F3F3';
+  const lineWidth = 1;
+
+  const baseDash = 5;
+  const baseGap = 4;
+  const impulseDash = 4;
+  const impulseGap = 1;
+
+  // Base: #F3F3F3 (243). Target: visible mint green
+  const baseR = 243, baseG = 243, baseB = 243;
+  const targetR = 120, targetG = 210, targetB = 155;
+
+  let mx = -9999, my = -9999;
+  let sx = -9999, sy = -9999;
+  let cols, rows, W, H, dpr;
+  let time = 0;
+
+  // Continuous pulse rings
+  const pulseInterval = 1.2; // new ring every 1.2s
+  const pulseSpeed = 150; // px per second expansion
+  const pulseLifetime = 3.5;
+  const ringWidth = 60;
+  const maxRings = 6;
+  const rings = [];
+  let lastRingTime = -99;
+
+  // Velocity for streak on movement
+  let rawVelX = 0, rawVelY = 0;
+  let activeWarpX = 0, activeWarpY = 0;
+  let targetWarpX = 0, targetWarpY = 0;
+  let prevMx = -9999, prevMy = -9999;
+  const velBuffer = [];
+  const velDelay = 0.15;
+  let shapeBlend = 0;
+
+  function resize() {
+    dpr = window.devicePixelRatio || 1;
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cols = Math.ceil(W / cellSize) + 1;
+    rows = Math.ceil(H / cellSize) + 1;
+  }
+
+  function getIntensityAt(x, y) {
+    if (sx < -5000) return 0;
+    const dx = x - sx, dy = y - sy;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    // Soft center glow (always present when cursor is on canvas)
+    let centerI = 0;
+    const centerRadius = 100;
+    if (dist < centerRadius) {
+      const t = 1 - dist / centerRadius;
+      centerI = t * t * (3 - 2 * t) * 0.35;
+    }
+
+    // Pulse rings
+    let ringI = 0;
+    for (const ring of rings) {
+      const rdx = x - ring.x, rdy = y - ring.y;
+      const rdist = Math.sqrt(rdx * rdx + rdy * rdy);
+      const rw = ringWidth + ring.age * 15;
+      const distFromRing = Math.abs(rdist - ring.radius);
+      if (distFromRing < rw) {
+        const t = 1 - distFromRing / rw;
+        // Stronger at inner edge, fading outward
+        const edgeFade = Math.max(0, 1 - ring.radius / 500);
+        ringI += t * t * ring.strength * (0.25 + 0.2 * edgeFade);
+      }
+    }
+
+    // Streak when moving
+    const awMag = Math.sqrt(activeWarpX * activeWarpX + activeWarpY * activeWarpY);
+    const awDirX = awMag > 0.01 ? activeWarpX / awMag : 0;
+    const awDirY = awMag > 0.01 ? activeWarpY / awMag : 0;
+    let streakI = 0;
+    if (awMag > 1) {
+      const longR = 180 + awMag * 0.4;
+      const shortR = Math.max(90, 180 - awMag * 0.25);
+      const along = dx * awDirX + dy * awDirY;
+      const perp = -dx * awDirY + dy * awDirX;
+      const nA = along / longR, nP = perp / shortR;
+      const e = nA * nA + nP * nP;
+      if (e < 1) {
+        const t = 1 - Math.sqrt(e);
+        streakI = t * t * (3 - 2 * t) * 0.2;
+      }
+    }
+
+    const stillI = Math.max(centerI, ringI);
+    const intensity = stillI * (1 - shapeBlend) + Math.max(streakI, ringI * 0.5) * shapeBlend;
+
+    return Math.min(intensity, 1);
+  }
+
+  function intensityToColor(intensity) {
+    const r = Math.round(baseR + (targetR - baseR) * intensity);
+    const g = Math.round(baseG + (targetG - baseG) * intensity);
+    const b = Math.round(baseB + (targetB - baseB) * intensity);
+    return `rgb(${r},${g},${b})`;
+  }
+
+  function drawDashedH(y, x1, x2) {
+    let px = x1;
+    const active = sx > -5000;
+    const awMag = Math.sqrt(activeWarpX * activeWarpX + activeWarpY * activeWarpY);
+    const effectRange = 600 + awMag;
+    const nearY = active && Math.abs(y - sy) < effectRange;
+
+    while (px < x2) {
+      let intensity = 0;
+      if (nearY) intensity = getIntensityAt(px, y);
+
+      const dash = baseDash + (impulseDash - baseDash) * intensity;
+      const gap = baseGap + (impulseGap - baseGap) * intensity;
+
+      if (intensity > 0.01) {
+        ctx.fillStyle = intensityToColor(intensity);
+      } else {
+        ctx.fillStyle = gridColor;
+      }
+
+      const dashEnd = Math.min(px + dash, x2);
+      ctx.fillRect(px, y, dashEnd - px, lineWidth);
+      px = dashEnd + gap;
+    }
+  }
+
+  function drawDashedV(x, y1, y2) {
+    let py = y1;
+    const active = sx > -5000;
+    const awMag = Math.sqrt(activeWarpX * activeWarpX + activeWarpY * activeWarpY);
+    const effectRange = 600 + awMag;
+    const nearX = active && Math.abs(x - sx) < effectRange;
+
+    while (py < y2) {
+      let intensity = 0;
+      if (nearX) intensity = getIntensityAt(x, py);
+
+      const dash = baseDash + (impulseDash - baseDash) * intensity;
+      const gap = baseGap + (impulseGap - baseGap) * intensity;
+
+      if (intensity > 0.01) {
+        ctx.fillStyle = intensityToColor(intensity);
+      } else {
+        ctx.fillStyle = gridColor;
+      }
+
+      const dashEnd = Math.min(py + dash, y2);
+      ctx.fillRect(x, py, lineWidth, dashEnd - py);
+      py = dashEnd + gap;
+    }
+  }
+
+  let lastT = performance.now();
+
+  function loop(now) {
+    const dt = (now - lastT) / 1000;
+    lastT = now; time += dt;
+
+    if (mx > -5000) {
+      if (sx < -5000) { sx = mx; sy = my; }
+      const cl = 1 - Math.pow(0.04, dt);
+      sx += (mx - sx) * cl; sy += (my - sy) * cl;
+    } else { sx = -9999; sy = -9999; }
+
+    // Velocity
+    const vDecay = Math.pow(0.005, dt);
+    rawVelX *= vDecay; rawVelY *= vDecay;
+
+    velBuffer.push({ t: now, vx: rawVelX, vy: rawVelY });
+    const cutoff = now - velDelay * 1000;
+    while (velBuffer.length > 1 && velBuffer[1].t <= cutoff) velBuffer.shift();
+    const dv = velBuffer[0];
+
+    const dSpeed = Math.sqrt(dv.vx * dv.vx + dv.vy * dv.vy);
+    const warpMag = Math.min(dSpeed * 5, 1500);
+    if (dSpeed > 0.01) { targetWarpX = dv.vx / dSpeed * warpMag; targetWarpY = dv.vy / dSpeed * warpMag; }
+    else { targetWarpX = 0; targetWarpY = 0; }
+
+    const rising = Math.abs(targetWarpX) + Math.abs(targetWarpY) > Math.abs(activeWarpX) + Math.abs(activeWarpY);
+    const wl = 1 - Math.exp(-(rising ? 6 : 1.5) * dt);
+    activeWarpX += (targetWarpX - activeWarpX) * wl;
+    activeWarpY += (targetWarpY - activeWarpY) * wl;
+
+    const awMag = Math.sqrt(activeWarpX * activeWarpX + activeWarpY * activeWarpY);
+    const targetBlend = Math.min(awMag / 40, 1);
+    const blendRate = targetBlend > shapeBlend ? 50 : 1.5;
+    shapeBlend += (targetBlend - shapeBlend) * (1 - Math.exp(-blendRate * dt));
+
+    // Spawn rings continuously from cursor
+    if (sx > -5000 && time - lastRingTime > pulseInterval) {
+      rings.push({ x: sx, y: sy, radius: 0, age: 0, strength: 1 });
+      if (rings.length > maxRings) rings.shift();
+      lastRingTime = time;
+    }
+
+    // Update rings
+    for (let i = rings.length - 1; i >= 0; i--) {
+      const r = rings[i];
+      r.age += dt;
+      r.radius += dt * pulseSpeed;
+      r.strength = Math.max(0, 1 - r.age / pulseLifetime);
+      if (r.strength <= 0) rings.splice(i, 1);
+    }
+
+    // Draw
+    ctx.clearRect(0, 0, W, H);
+    const offX = (W % cellSize) / 2;
+    const offY = (H % cellSize) / 2;
+
+    for (let r = 0; r <= rows; r++) {
+      const y = offY + r * cellSize;
+      if (y >= 0 && y <= H) drawDashedH(y, 0, W);
+    }
+
+    for (let c = 0; c <= cols; c++) {
+      const x = offX + c * cellSize;
+      if (x >= 0 && x <= W) drawDashedV(x, 0, H);
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  document.addEventListener('mousemove', e => {
+    const nmx = e.clientX, nmy = e.clientY;
+    if (prevMx > -5000) { rawVelX = nmx - prevMx; rawVelY = nmy - prevMy; }
+    prevMx = nmx; prevMy = nmy; mx = nmx; my = nmy;
+  });
+  document.addEventListener('mouseleave', e => {
+    if (!e.relatedTarget && !e.toElement) {
+      mx = -9999; my = -9999; prevMx = -9999; prevMy = -9999; rawVelX = 0; rawVelY = 0;
+    }
+  });
+  window.addEventListener('resize', resize);
+  resize();
+  requestAnimationFrame(loop);
+  </script>
+</div>
+
+<div class="fixed-bg" id="dots-grid-bg">
+  <canvas id="hEf_canvasElement" style=" display: block; width: 100vw; height: 100vh; "></canvas>
+<script>
+  const hEf_canvas = document.getElementById('hEf_canvasElement');
+  const hEf_ctx = hEf_canvas.getContext('2d');
+  const hEf_gap = 10;
+  const hEf_dotR = 1;
+  const hEf_baseR = 247, hEf_baseG = 247, hEf_baseB = 247;
+  let hEf_mx = -9999, hEf_my = -9999;
+  let hEf_sx = -9999, hEf_sy = -9999;
+  let hEf_cols, hEf_rows, hEf_W, hEf_H, hEf_dpr;
+  let hEf_time = 0;
+
+  const hEf_pulseSpeed = 1.8;
+  const hEf_pulseAmp = 0.08;
+
+  const hEf_heartW = 221, hEf_heartH = 200;
+  const hEf_hScale = 1.5;
+  const hEf_pathStr = "M57.4514 0C75.8824 0 93.2344 8.83621 104.025 23.75L110.5 32.6724L116.975 23.75C127.766 8.83621 145.118 0 163.549 0C195.274 0 221 25.6897 221 57.3707C221 116.336 154.743 169.526 110.5 200C66.2568 169.526 0 116.336 0 57.3707C0 25.6897 25.7258 0 57.4514 0Z";
+
+  const hEf_sW = Math.round(hEf_heartW * hEf_hScale), hEf_sH = Math.round(hEf_heartH * hEf_hScale);
+  const hEf_hCv = document.createElement('canvas');
+  hEf_hCv.width = hEf_sW; hEf_hCv.height = hEf_sH;
+  const hEf_hCtx = hEf_hCv.getContext('2d');
+  hEf_hCtx.setTransform(hEf_hScale, 0, 0, hEf_hScale, 0, 0);
+  hEf_hCtx.fillStyle = '#000'; hEf_hCtx.fill(new Path2D(hEf_pathStr));
+  const hEf_heartData = hEf_hCtx.getImageData(0, 0, hEf_sW, hEf_sH).data;
+  const hEf_halfW = hEf_sW / 2, hEf_halfH = hEf_sH / 2;
+
+  const hEf_centerX = hEf_halfW;
+  const hEf_centerY = hEf_sH * 0.45;
+
+  const hEf_angleSlots = 360;
+  const hEf_maxDistByAngle = new Float32Array(hEf_angleSlots);
+  for (let y = 0; y < hEf_sH; y++) for (let x = 0; x < hEf_sW; x++) {
+    if (hEf_heartData[(y * hEf_sW + x) * 4 + 3] > 128) {
+      const dx = x - hEf_centerX, dy = y - hEf_centerY;
+      const d = Math.sqrt(dx * dx + dy * dy);
+      let a = Math.atan2(dy, dx) * 180 / Math.PI;
+      if (a < 0) a += 360;
+      const slot = Math.round(a) % hEf_angleSlots;
+      if (d > hEf_maxDistByAngle[slot]) hEf_maxDistByAngle[slot] = d;
+    }
+  }
+  for (let pass = 0; pass < 5; pass++) {
+    const tmp = new Float32Array(hEf_angleSlots);
+    for (let i = 0; i < hEf_angleSlots; i++) {
+      const p = (i - 1 + hEf_angleSlots) % hEf_angleSlots;
+      const n = (i + 1) % hEf_angleSlots;
+      tmp[i] = hEf_maxDistByAngle[p] * 0.25 + hEf_maxDistByAngle[i] * 0.5 + hEf_maxDistByAngle[n] * 0.25;
+    }
+    for (let i = 0; i < hEf_angleSlots; i++) hEf_maxDistByAngle[i] = tmp[i];
+  }
+  let hEf_maxCenterDist = 0;
+  for (let i = 0; i < hEf_angleSlots; i++) if (hEf_maxDistByAngle[i] > hEf_maxCenterDist) hEf_maxCenterDist = hEf_maxDistByAngle[i];
+
+  const hEf_auraScale = 1.5;
+  const hEf_aSW = Math.round(hEf_sW * hEf_auraScale), hEf_aSH = Math.round(hEf_sH * hEf_auraScale);
+  const hEf_aCv = document.createElement('canvas');
+  hEf_aCv.width = hEf_aSW; hEf_aCv.height = hEf_aSH;
+  const hEf_aCtx = hEf_aCv.getContext('2d');
+  hEf_aCtx.setTransform(hEf_hScale * hEf_auraScale, 0, 0, hEf_hScale * hEf_auraScale, 0, 0);
+  hEf_aCtx.fillStyle = '#000'; hEf_aCtx.fill(new Path2D(hEf_pathStr));
+  const hEf_auraData = hEf_aCtx.getImageData(0, 0, hEf_aSW, hEf_aSH).data;
+
+  let hEf_maxAuraDist = 0;
+  for (let y = 0; y < hEf_aSH; y++) for (let x = 0; x < hEf_aSW; x++) {
+    if (hEf_auraData[(y * hEf_aSW + x) * 4 + 3] > 128) {
+      const d = Math.sqrt((x - hEf_aSW / 2) * (x - hEf_aSW / 2) + (y - hEf_aSH * 0.42) * (y - hEf_aSH * 0.42));
+      if (d > hEf_maxAuraDist) hEf_maxAuraDist = d;
+    }
+  }
+
+  function hEf_isInHeart(lx, ly) {
+    const ix = Math.round(lx), iy = Math.round(ly);
+    if (ix < 0 || iy < 0 || ix >= hEf_sW || iy >= hEf_sH) return false;
+    return hEf_heartData[(iy * hEf_sW + ix) * 4 + 3] > 128;
+  }
+
+  function hEf_isInAura(lx, ly) {
+    const ax = lx * hEf_auraScale + (hEf_aSW - hEf_sW * hEf_auraScale) / 2;
+    const ay = ly * hEf_auraScale + (hEf_aSH - hEf_hScale * hEf_auraScale) / 2;
+    const ix = Math.round(ax), iy = Math.round(ay);
+    if (ix < 0 || iy < 0 || ix >= hEf_aSW || iy >= hEf_aSH) return false;
+    return hEf_auraData[(iy * hEf_aSW + ix) * 4 + 3] > 128;
+  }
+
+  function hEf_getHeartIntensity(lx, ly) {
+    const inH = hEf_isInHeart(lx, ly);
+    const inA = hEf_isInAura(lx, ly);
+    if (!inH && !inA) return { intensity: 0, isEdge: false };
+    const dx = lx - hEf_centerX, dy = ly - hEf_centerY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (inH) {
+      let a = Math.atan2(dy, dx) * 180 / Math.PI;
+      if (a < 0) a += 360;
+      const slot = Math.round(a) % hEf_angleSlots;
+      const maxD = hEf_maxDistByAngle[slot] || hEf_maxCenterDist;
+      const t = 1 - Math.min(dist / maxD, 1);
+      const ease = 0.27 + 0.69 * t * t;
+      return { intensity: ease, isEdge: t < 0.2 };
+    } else {
+      const t = 1 - Math.min(dist / (hEf_maxAuraDist * 0.75), 1);
+      const fade = Math.max(0, t * t * 0.21);
+      return { intensity: fade, isEdge: true };
+    }
+  }
+
+  const hEf_streakBase = 184;
+  function hEf_getStreakIntensity(dx, dy, dirX, dirY, stretch) {
+    const along = dx * dirX + dy * dirY;
+    const perp = -dx * dirY + dy * dirX;
+    const longR = hEf_streakBase + stretch * 0.4;
+    const shortR = Math.max(hEf_streakBase * 0.55, hEf_streakBase - stretch * 0.2);
+    const nA = along / longR, nP = perp / shortR;
+    const e = nA * nA + nP * nP;
+    if (e >= 1) return 0;
+    const t = 1 - Math.sqrt(e);
+    return t * t * (3 - 2 * t);
+  }
+
+  let hEf_rawVelX = 0, hEf_rawVelY = 0;
+  let hEf_activeWarpX = 0, hEf_activeWarpY = 0;
+  let hEf_targetWarpX = 0, hEf_targetWarpY = 0;
+  let hEf_prevMx = -9999, hEf_prevMy = -9999;
+  const hEf_velBuffer = [];
+  const hEf_velDelay = 0.18;
+  let hEf_shapeBlend = 0;
+
+  function hEf_resize() {
+    hEf_dpr = window.devicePixelRatio || 1;
+    hEf_W = window.innerWidth; hEf_H = window.innerHeight;
+    hEf_canvas.width = hEf_W * hEf_dpr; hEf_canvas.height = hEf_H * hEf_dpr;
+    hEf_ctx.setTransform(hEf_dpr, 0, 0, hEf_dpr, 0, 0);
+    hEf_cols = Math.floor(hEf_W / hEf_gap) + 1; hEf_rows = Math.floor(hEf_H / hEf_gap) + 1;
+  }
+
+  let hEf_lastT = performance.now();
+
+  function hEf_loop(now) {
+    const dt = (now - hEf_lastT) / 1000;
+    hEf_lastT = now; hEf_time += dt;
+
+    if (hEf_mx > -5000) { if (hEf_sx < -5000) { hEf_sx = hEf_mx; hEf_sy = hEf_my; } const cl = 1 - Math.pow(0.04, dt); hEf_sx += (hEf_mx - hEf_sx) * cl; hEf_sy += (hEf_my - hEf_sy) * cl; }
+    else { hEf_sx = -9999; hEf_sy = -9999; }
+
+    const vDecay = Math.pow(0.005, dt);
+    hEf_rawVelX *= vDecay; hEf_rawVelY *= vDecay;
+
+    hEf_velBuffer.push({ t: now, vx: hEf_rawVelX, vy: hEf_rawVelY });
+    const cutoff = now - hEf_velDelay * 1000;
+    while (hEf_velBuffer.length > 1 && hEf_velBuffer[1].t <= cutoff) hEf_velBuffer.shift();
+    const dv = hEf_velBuffer[0];
+
+    const dSpeed = Math.sqrt(dv.vx * dv.vx + dv.vy * dv.vy);
+    const warpMag = Math.min(dSpeed * 5, 1500);
+    if (dSpeed > 0.01) { hEf_targetWarpX = dv.vx / dSpeed * warpMag; hEf_targetWarpY = dv.vy / dSpeed * warpMag; }
+    else { hEf_targetWarpX = 0; hEf_targetWarpY = 0; }
+
+    const rising = Math.abs(hEf_targetWarpX) + Math.abs(hEf_targetWarpY) > Math.abs(hEf_activeWarpX) + Math.abs(hEf_activeWarpY);
+    const wl = 1 - Math.exp(-(rising ? 6 : 1.5) * dt);
+    hEf_activeWarpX += (hEf_targetWarpX - hEf_activeWarpX) * wl;
+    hEf_activeWarpY += (hEf_targetWarpY - hEf_activeWarpY) * wl;
+
+    const awMag = Math.sqrt(hEf_activeWarpX * hEf_activeWarpX + hEf_activeWarpY * hEf_activeWarpY);
+    const targetBlend = Math.min(awMag / 40, 1);
+    const blendRate = targetBlend > hEf_shapeBlend ? 60 : 1.0;
+    hEf_shapeBlend += (targetBlend - hEf_shapeBlend) * (1 - Math.exp(-blendRate * dt));
+
+    const pulse = 1 + hEf_pulseAmp * Math.sin(hEf_time * Math.PI * 2 / hEf_pulseSpeed);
+    const awDirX = awMag > 0.01 ? hEf_activeWarpX / awMag : 0;
+    const awDirY = awMag > 0.01 ? hEf_activeWarpY / awMag : 0;
+
+    hEf_ctx.clearRect(0, 0, hEf_W, hEf_H);
+    const offX = (hEf_W - (hEf_cols - 1) * hEf_gap) / 2, offY = (hEf_H - (hEf_rows - 1) * hEf_gap) / 2;
+    const active = hEf_sx > -5000;
+
+    for (let r = 0; r < hEf_rows; r++) {
+      for (let c = 0; c < hEf_cols; c++) {
+        const x = offX + c * hEf_gap, y = offY + r * hEf_gap;
+        if (active) {
+          const dx = x - hEf_sx, dy = y - hEf_sy;
+          const range = hEf_halfW * 3 + awMag + 300;
+          if (Math.abs(dx) < range && Math.abs(dy) < range) {
+            const pInv = 1 / pulse;
+            const hr = hEf_getHeartIntensity(dx * pInv + hEf_halfW, dy * pInv + hEf_halfH);
+            const heartI = hr.intensity;
+            const heartEdge = hr.isEdge;
+            const streakI = hEf_getStreakIntensity(dx, dy, awDirX, awDirY, awMag) * 0.25;
+            const intensity = heartI * (1 - hEf_shapeBlend) + streakI * hEf_shapeBlend;
+
+            if (intensity > 0.02) {
+              const ease = Math.min(intensity, 1);
+              const cr = Math.round(hEf_baseR + (40 - hEf_baseR) * ease);
+              const cg = Math.round(hEf_baseG + (220 - hEf_baseG) * ease);
+              const cb = Math.round(hEf_baseB + (100 - hEf_baseB) * ease);
+              let sz;
+              if (hEf_shapeBlend > 0.5) {
+                sz = hEf_dotR + 1.5 * ease;
+              } else {
+                sz = heartEdge ? hEf_dotR : hEf_dotR + 1.2 * ease;
+              }
+              hEf_ctx.fillStyle = `rgb(${cr},${cg},${cb})`;
+              hEf_ctx.fillRect(x - sz, y - sz, sz * 2, sz * 2);
+              continue;
+            }
+          }
+        }
+        hEf_ctx.fillStyle = '#F2F2F2';
+        hEf_ctx.fillRect(x - hEf_dotR, y - hEf_dotR, 2, 2);
+      }
+    }
+    requestAnimationFrame(hEf_loop);
+  }
+
+  document.addEventListener('mousemove', e => {
+    const nmx = e.clientX, nmy = e.clientY;
+    if (hEf_prevMx > -5000) { hEf_rawVelX = nmx - hEf_prevMx; hEf_rawVelY = nmy - hEf_prevMy; }
+    hEf_prevMx = nmx; hEf_prevMy = nmy; hEf_mx = nmx; hEf_my = nmy;
+  });
+  document.addEventListener('mouseleave', () => { hEf_mx = -9999; hEf_my = -9999; hEf_prevMx = -9999; hEf_prevMy = -9999; hEf_rawVelX = 0; hEf_rawVelY = 0; });
+  window.addEventListener('resize', hEf_resize);
+  hEf_resize();
+  requestAnimationFrame(hEf_loop);
+</script>
 </div>
 
 <!-- ============ NAVBAR ============ -->
@@ -676,7 +1140,7 @@
     </a>
     <div style="display: flex; gap: 40px;">
       <div class="nav-links">
-        <a href="#features-section">Features</a>
+        <a href="#slide-section">Features</a>
         <a href="#kiosk-section">Kiosks</a>
         <a href="#testimonials-section">Our customers</a>
         <a href="#ourstory-section">About us</a>
@@ -694,7 +1158,7 @@
   <div class="hero-gradient"></div>
   <div class="hero-content">
     <div class="hero-badge">Top 1 Senior Center CRM</div>
-    <h1>All-in-one Senior Center Dashboard Management Platform.</h1>
+    <h1>All-in-one Senior Center Management Platform.</h1>
     <p class="hero-sub">Join a network of over 2,000 senior centers that trust MySeniorCenter to streamline operations, improve engagement, and simplify daily tasks.</p>
     <div class="hero-buttons">
       <a href="#demo-section" class="btn btn-dark-lg">Book a Free Demo</a>
@@ -763,6 +1227,24 @@
   <div class="connecting-lines">
     <!-- SVG paths layer -->
     <svg class="panels-svg" viewBox="0 0 1420 740" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+      <defs>
+        <linearGradient id="greenPathGradient" gradientUnits="userSpaceOnUse" x1="712" y1="0" x2="166" y2="740">
+          <stop offset="0%" stop-color="#1f8a0e"/>
+          <stop offset="35%" stop-color="#269411"/>
+          <stop offset="65%" stop-color="#2ea515"/>
+          <stop offset="100%" stop-color="#3abf1e"/>
+        </linearGradient>
+
+        <filter id="greenGlow" filterUnits="userSpaceOnUse" x="0" y="0" width="1420" height="740">
+  <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+  <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.15  0 0 0 0 0.58  0 0 0 0 0.07  0 0 0 0.6 0" result="greenBlur"/>
+  <feMerge>
+    <feMergeNode in="greenBlur"/>
+    <feMergeNode in="SourceGraphic"/>
+  </feMerge>
+</filter>
+      </defs>
       <!-- ===== WHITE CONNECTING PATHS (stroke #E4E7EC, opacity 0.5) ===== -->
 
       <!-- FIX 1: Vertical line from heart bottom down to Vector 2 horizontal segment -->
@@ -888,56 +1370,56 @@
       
       <!-- ===== SCROLL-ANIMATED GREEN PATHS (5 segments, filled sequentially) ===== -->
       <!-- Segment 1: Fix 1 — vertical drop from heart (680,0) to (712,197) -->
-      <path class="green-seg" data-seg="0" d="M712 0 V198" stroke="#269411" stroke-width="2" fill="none"/>
+      <path class="green-seg" data-seg="0" d="M712 0 V198" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)" stroke-width="2" fill="none"/>
       <!-- Segment 2: Vector 2 left half — from intersection going LEFT to Meals bracket -->
       <g transform="translate(303, 133)">
-        <path class="green-seg" data-seg="1" d="M409 64.0857 H136.038 C119.469 64.0857 106.038 50.6542 106.038 34.0857 V30.5 C106.038 13.9315 92.6064 0.5 76.0378 0.5 H0" stroke="#269411" stroke-width="2" fill="none"/>
+        <path class="green-seg" data-seg="1" d="M409 64.0857 H136.038 C119.469 64.0857 106.038 50.6542 106.038 34.0857 V30.5 C106.038 13.9315 92.6064 0.5 76.0378 0.5 H0" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)" stroke-width="2" fill="none"/>
       </g>
       <!-- Segment 3: Fix 2 — L-path from Meals bracket down to Vehicles area -->
-      <path class="green-seg" data-seg="2" d="M165 215 V286 C168 302.57 181.43 316 198 316 H288" stroke="#269411" stroke-width="2" fill="none"/>
+      <path class="green-seg" data-seg="2" d="M165 215 V286 C168 302.57 181.43 316 198 316 H288" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)" stroke-width="2" fill="none"/>
       <!-- Segment 4: Vector 6 — horizontal between Seniors and Events brackets -->
       <g transform="translate(542, 315)">
-        <path class="green-seg" data-seg="3" d="M0 0.5 H65.5" stroke="#269411" stroke-width="2" fill="none"/>
+        <path class="green-seg" data-seg="3" d="M0 0.5 H65.5" stroke="url(#greenPathGradient)" filter="url(#greenGlow)" stroke-width="2" fill="none"/>
       </g>
       <!-- Segment 5: Original bottom sweep — from below Seniors down to dashboard screenshot -->
       <g transform="translate(165, 650) scale(1, -1)">
         <path d="M569 258.5V245.749C569 229.18 555.569 215.749 539 215.749H31C14.4315 215.749 1 202.317 1 185.749V155.749" stroke="#E4E7EC" stroke-width="1" opacity="0.5" fill="none"/>
-        <path class="green-seg" data-seg="4" d="M569 258.5V245.749C569 229.18 555.569 215.749 539 215.749H31C14.4315 215.749 1 202.317 1 185.749V155.749" stroke="#269411" stroke-width="2" fill="none"/>
+        <path class="green-seg" data-seg="4" d="M569 258.5V245.749C569 229.18 555.569 215.749 539 215.749H31C14.4315 215.749 1 202.317 1 185.749V155.749" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)" stroke-width="2" fill="none"/>
       </g>
 
       <!-- Green highlights on brackets (appear when green line reaches them) -->
       <!-- Bracket: right of meals-->
       <g transform="translate(291, 114)">
-        <circle class="green-dot" data-after="1" cx="3" cy="20" r="2.5" fill="none" stroke="#269411" stroke-width="1" opacity="0"></circle>
-        <circle class="green-dot" data-after="1" cx="3" cy="37" r="2.5" fill="none" stroke="#269411" stroke-width="1" opacity="0"></circle>
-        <circle class="green-dot" data-after="1" cx="3" cy="3" r="2.5" fill="none" stroke="#269411" stroke-width="1" opacity="0"></circle>
-        <path class="green-dot" data-after="1" d="M6 3L6.5 3C10.92 3 14.5 6.58 14.5 11V29.5C14.5 33.92 10.92 37.5 6.5 37.5L6 37.5" stroke="#269411" fill="none"></path>
-        <line class="green-dot" data-after="1" x1="5" y1="20" x2="15" y2="20" stroke="#269411"></line>
+        <circle class="green-dot" data-after="1" cx="3" cy="20" r="2.5" fill="none" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)" stroke-width="1" opacity="0"></circle>
+        <circle class="green-dot" data-after="1" cx="3" cy="37" r="2.5" fill="none" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)" stroke-width="1" opacity="0"></circle>
+        <circle class="green-dot" data-after="1" cx="3" cy="3" r="2.5" fill="none" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)" stroke-width="1" opacity="0"></circle>
+        <path class="green-dot" data-after="1" d="M6 3L6.5 3C10.92 3 14.5 6.58 14.5 11V29.5C14.5 33.92 10.92 37.5 6.5 37.5L6 37.5" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)" fill="none"></path>
+        <line class="green-dot" data-after="1" x1="5" y1="20" x2="15" y2="20" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)"></line>
       </g>
       <!-- Bracket: Below Meals -->
       <g transform="translate(145, 206)">
-        <circle class="green-dot" data-after="1" cx="20" cy="2.5" r="2.5" fill="white" stroke="#269411"></circle>
-        <circle class="green-dot" data-after="1" cx="3" cy="2.5" r="2.5" fill="white" stroke="#269411"></circle>
-        <circle class="green-dot" data-after="1" cx="37" cy="2.5" r="2.5" fill="white" stroke="#269411"></circle>
-        <path class="green-dot" data-after="1" d="M37 6C37 6.5 37 6.5 37 6.5C37 10.92 33.42 14.5 29 14.5H10.5C6.08 14.5 2.5 10.92 2.5 6.5V6" stroke="#269411" fill="none"></path>
-        <line class="green-dot" data-after="1" x1="20" y1="5" x2="20" y2="15" stroke="#269411"></line>
+        <circle class="green-dot" data-after="1" cx="20" cy="2.5" r="2.5" fill="white" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)"></circle>
+        <circle class="green-dot" data-after="1" cx="3" cy="2.5" r="2.5" fill="white" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)"></circle>
+        <circle class="green-dot" data-after="1" cx="37" cy="2.5" r="2.5" fill="white" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)"></circle>
+        <path class="green-dot" data-after="1" d="M37 6C37 6.5 37 6.5 37 6.5C37 10.92 33.42 14.5 29 14.5H10.5C6.08 14.5 2.5 10.92 2.5 6.5V6" url(#greenPathGradient) fill="none"></path>
+        <line class="green-dot" data-after="1" x1="20" y1="5" x2="20" y2="15" stroke="url(#greenPathGradient)" filter="url(#greenGlow)"></line>
       </g>
       <!-- Bracket: Left of Vehicles -->
       <g transform="translate(288, 297)">
-        <circle class="green-dot" data-after="2" cx="12" cy="20" r="2.5" fill="white" stroke="#269411"></circle>
-        <circle class="green-dot" data-after="2" cx="12" cy="37" r="2.5" fill="white" stroke="#269411"></circle>
-        <circle class="green-dot" data-after="2" cx="12" cy="3" r="2.5" fill="white" stroke="#269411"></circle>
-        <path class="green-dot" data-after="2" d="M9 3L8.5 3C4.08 3 0.5 6.58 0.5 11V29.5C0.5 33.92 4.08 37.5 8.5 37.5L9 37.5" stroke="#269411" fill="none"></path>
-        <line class="green-dot" data-after="2" y1="20" x2="10" y2="20" stroke="#269411"></line>
-        <circle class="green-dot" data-after="2" cx="270" cy="19" r="2.5" fill="white" stroke="#269411"></circle>
+        <circle class="green-dot" data-after="2" cx="12" cy="20" r="2.5" fill="white" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)"></circle>
+        <circle class="green-dot" data-after="2" cx="12" cy="37" r="2.5" fill="white" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)"></circle>
+        <circle class="green-dot" data-after="2" cx="12" cy="3" r="2.5" fill="white" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)"></circle>
+        <path class="green-dot" data-after="2" d="M9 3L8.5 3C4.08 3 0.5 6.58 0.5 11V29.5C0.5 33.92 4.08 37.5 8.5 37.5L9 37.5" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)" fill="none"></path>
+        <line class="green-dot" data-after="2" y1="20" x2="10" y2="20" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)"></line>
+        <circle class="green-dot" data-after="2" cx="270" cy="19" r="2.5" fill="white" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)"></circle>
       </g>
       <!-- Bracket: Bottom of Seniors -->
       <g transform="translate(597, 296)">
-        <circle class="green-dot" data-after="3" cx="12" cy="20" r="2.5" fill="white" stroke="#269411"></circle>
-        <circle class="green-dot" data-after="3" cx="12" cy="37" r="2.5" fill="white" stroke="#269411"></circle>
-        <circle class="green-dot" data-after="3" cx="12" cy="3" r="2.5" fill="white" stroke="#269411"></circle>
-        <path class="green-dot" data-after="3" d="M9 3L8.5 3C4.08 3 0.5 6.58 0.5 11V29.5C0.5 33.92 4.08 37.5 8.5 37.5L9 37.5" stroke="#269411" fill="none"></path>
-        <line class="green-dot" data-after="3" y1="20" x2="10" y2="20" stroke="#269411"></line>
+        <circle class="green-dot" data-after="3" cx="12" cy="20" r="2.5" fill="white" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)"></circle>
+        <circle class="green-dot" data-after="3" cx="12" cy="37" r="2.5" fill="white" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)"></circle>
+        <circle class="green-dot" data-after="3" cx="12" cy="3" r="2.5" fill="white" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)"></circle>
+        <path class="green-dot" data-after="3" d="M9 3L8.5 3C4.08 3 0.5 6.58 0.5 11V29.5C0.5 33.92 4.08 37.5 8.5 37.5L9 37.5" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)" fill="none"></path>
+        <line class="green-dot" data-after="3" y1="20" x2="10" y2="20" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)"></line>
       </g>
 
       <!-- Invisible rect to maintain the viewBox dimensions for panel positioning -->
@@ -1611,7 +2093,7 @@
 </section>
 
 <!-- ============ FEATURES GRID ============ -->
-<section class="features-section" id="features-section">
+<section class="features-section" id="features-section" style="position: relative;">
   <div class="section-header">
     <h2>Already amazing.<br>Still improving.</h2>
     <p>We're constantly improving MySeniorCenter — so you always have the best tools for your staff, members, and community.</p>
@@ -1677,6 +2159,22 @@
       </div>
     </div>
   </div>
+
+  <div style="position: absolute; top: -450px; z-index: -1;">
+    <svg width="1423" height="1448" viewBox="0 0 1423 1448" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g filter="url(#filter0_f_285_10359)">
+      <ellipse cx="711.5" cy="724" rx="357.5" ry="370" fill="#FBFBFB"/>
+      </g>
+      <defs>
+      <filter id="filter0_f_285_10359" x="0" y="0" width="1423" height="1448" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="177" result="effect1_foregroundBlur_285_10359"/>
+      </filter>
+      </defs>
+    </svg>
+  </div>
+
 </section>
 
 <!-- ============ KIOSK SECTION ============ -->
@@ -1702,14 +2200,20 @@
     <p class="kiosk-sub">Replace your sign-in sheets with a state-of-the-art swipe station that allows members to check themselves in for activities on a touchscreen monitor.</p>
     <div class="kiosk-image-container">
       <div class="kiosk-frame" id="kioskFrame">
-        <div class="placeholder-img " data-kiosk="0"><img src="assets/kiosk sequence/1.png"/></div>
-        <div class="placeholder-img" data-kiosk="1"><img src="assets/kiosk sequence/2.png"/></div>
-        <div class="placeholder-img" data-kiosk="2"><img src="assets/kiosk sequence/3.png"/></div>
-        <div class="placeholder-img" data-kiosk="3"><img src="assets/kiosk sequence/5.png"/></div>
-        <div class="placeholder-img" data-kiosk="4"><img src="assets/kiosk sequence/4.png"/></div>
-        <div class="placeholder-img" data-kiosk="5"><img src="assets/kiosk sequence/6.png"/></div>
-        <div class="placeholder-img" data-kiosk="6"><img src="assets/kiosk sequence/7.png"/></div>
-        <div class="placeholder-img" data-kiosk="8"><img src="assets/kiosk sequence/1.png"/></div>
+        <div class="placeholder-img " data-kiosk="0"><img src="/assets/kiosk sequence/1.png"/></div>
+        <div class="placeholder-img" data-kiosk="1"><img src="/assets/kiosk sequence/2.png"/></div>
+      
+        <div class="placeholder-img" data-kiosk="3"><img src="/assets/kiosk sequence/5.png"/></div>
+        <div class="placeholder-img" data-kiosk="4"><img src="/assets/kiosk sequence/4.png"/></div>
+        <div class="placeholder-img" data-kiosk="5"><img src="/assets/kiosk sequence/6.png"/></div>
+        <div class="placeholder-img" data-kiosk="6"><img src="/assets/kiosk sequence/7.png"/></div>
+        <div class="placeholder-img" data-kiosk="8"><img src="/assets/kiosk sequence/8.png"/></div>
+        <div class="placeholder-img" data-kiosk="4"><img src="/assets/kiosk sequence/9.png"/></div>
+        <div class="placeholder-img" data-kiosk="5"><img src="/assets/kiosk sequence/10.png"/></div>
+        <div class="placeholder-img" data-kiosk="6"><img src="/assets/kiosk sequence/11.png"/></div>
+        <div class="placeholder-img" data-kiosk="8"><img src="/assets/kiosk sequence/12.png"/></div>
+        <div class="placeholder-img" data-kiosk="8"><img src="/assets/kiosk sequence/13.png"/></div>
+        <div class="placeholder-img" data-kiosk="8"><img src="/assets/kiosk sequence/14.png"/></div>
       </div>
     </div>
     <div class="kiosk-features">
@@ -1754,23 +2258,50 @@
         <!-- Path 3: Bottom edge of center node (428, 348) → right edge of phone (285, 480) -->
         <path d="M428 348 L428 450 C428 463.8 416.8 475 403 475 L285 475" stroke="#D3D8DF" fill="none" stroke-width="1"/>
 
-        <!-- Pulse on path 1: glow -->
-        <path class="demo-pulse demo-pulse-glow" data-dur="2.5" data-delay="0"
-              d="M355 103 L398 103 C411.8 103 423 114.2 423 128 L423 278"
-              stroke="#1CAE00" stroke-width="4" fill="none" stroke-linecap="round" opacity="0"/>
-        <!-- Pulse on path 1: core -->
-        <path class="demo-pulse" data-dur="2.5" data-delay="0"
-              d="M355 103 L398 103 C411.8 103 423 114.2 423 128 L423 278"
-              stroke="#1CAE00" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#lineGlow)"/>
+       <!-- Pulse on path 1: glow -->
+<path
+  class="demo-pulse demo-pulse-glow"
+  data-dur="2.5"
+  data-delay="0"
+  d="M355 103 L398 103 C411.8 103 423 114.2 423 128 L423 278"
+  stroke="url(#pulseColor)"
+  stroke-width="5"
+  fill="none"
+  stroke-linecap="round"
+  opacity="0"
+  filter="url(#lineGlow)"
+/>
+
+<!-- Pulse on path 1: core -->
+<path
+  class="demo-pulse"
+  data-dur="2.5"
+  data-delay="0"
+  d="M355 103 L398 103 C411.8 103 423 114.2 423 128 L423 278"
+  stroke="url(#pulseColor)"
+  stroke-width="2.2"
+  fill="none"
+  stroke-linecap="round"
+  filter="url(#lineGlow)"
+/>
+
+<!-- Add this inside <defs> -->
+<linearGradient id="pulseColor" x1="0%" y1="0%" x2="100%" y2="0%">
+  <stop offset="0%" stop-color="#1e9a0e"/>
+  <stop offset="50%" stop-color="#2cb816"/>
+  <stop offset="80%" stop-color="#3ed824"/>
+  <stop offset="100%" stop-color="#6afa50"/>
+</linearGradient>
 
         <!-- Pulse on path 2: glow — starts when path 1 reaches center (delay=dur of path 1) -->
         <path class="demo-pulse demo-pulse-glow" data-dur="1.2" data-delay="2.5"
               d="M463 313 L525 313"
-              stroke="#1CAE00" stroke-width="4" fill="none" stroke-linecap="round" opacity="0"/>
+              stroke="#2CEC61" stroke-width="4" fill="none" stroke-linecap="round" opacity="0"/>
         <!-- Pulse on path 2: core -->
         <path class="demo-pulse" data-dur="1.2" data-delay="2.5"
-              d="M463 313 L525 313"
-              stroke="#1CAE00" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#lineGlow)"/>
+          d="M463 313 L525 313"
+          stroke="url(#pulseColor)" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#lineGlow)"/>
+              
 
         <!-- Pulse on path 3: glow -->
         <path class="demo-pulse demo-pulse-glow" data-dur="2.5" data-delay="2"
@@ -1778,8 +2309,8 @@
               stroke="#1CAE00" stroke-width="4" fill="none" stroke-linecap="round" opacity="0"/>
         <!-- Pulse on path 3: core -->
         <path class="demo-pulse" data-dur="2.5" data-delay="2"
-              d="M428 348 L428 450 C428 463.8 416.8 475 403 475 L285 475"
-              stroke="#1CAE00" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#lineGlow)"/>
+          d="M428 348 L428 450 C428 463.8 416.8 475 403 475 L285 475"
+          stroke="url(#pulseColor)" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#lineGlow)"/>
       </svg>
 
       <!-- Left column: chat card + phone -->
@@ -1823,10 +2354,18 @@
       </div>
     </div>
   </div>
+    <div class="bg-fade" style="
+position: absolute;
+width: 100%;
+height: 192px;
+bottom:0;
+
+background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%);
+"></div>
 </section>
 
 <!-- ============ TESTIMONIALS ============ -->
-<section class="testimonials-section" id="testimonials-section">
+<section class="testimonials-section" id="testimonials-section" style="position: relative;">
   <!-- Logo mosaic: 8 rows x 30 cols, 38px tiles, 25px h-gap, 10px v-gap, 12px radius -->
   <div class="logo-mosaic-wrap">
     <div class="logo-mosaic" id="logoMosaic"></div>
@@ -1915,6 +2454,7 @@
       </div>
     </div>
   </div>
+
 </section>
 
 <!-- ============ OUR STORY ============ -->
@@ -1929,12 +2469,316 @@ Today, we're the largest network of over 2,000 Senior Centers, still guided by t
     <div class="ourstory-heart" id="ourstoryHeart">
       <svg viewBox="0 0 276 340" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path class="ourstory-heart-base" d="M151.119 290.512C146.604 284.868 136.941 271.802 110.868 240.043C92.725 217.943 62.221 185.709 44.836 166.024C14.437 131.603 7.493 111.587 2.627 95.887C-1.722 81.854 2.875 59.767 13.684 35.764C22.947 15.193 53.567 6.066 76.903 2.064C104.51 -2.671 118.556 9.418 129.707 18.268C137.71 24.621 140.276 35.653 141.995 48.18C142.386 51.035 141.439 52.755 140.301 53.063C137.457 53.833 134.598 48.822 132.605 44.272C130.693 39.905 130.596 35.14 130.878 30.591C131.165 25.972 134.564 21.458 139.395 17.473C144.105 13.588 155.6 12.325 175.755 11.179C204.351 9.554 229.14 16.276 242.24 21.398C255.701 26.661 265.636 46.393 271.964 73.466C277.956 99.102 271.417 126.227 266.885 149.52C261.094 179.281 248.072 202.64 233.903 225.899C224.306 241.653 207.317 263.833 196.064 278.284C179.167 298.379 171.659 306.452 166.554 314.105C163.142 319.501 158.062 327.966 151.119 338.399" stroke="#E4E7EC" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <path id="ourstoryHeartPath" class="ourstory-heart-fill" d="M151.119 290.512C146.604 284.868 136.941 271.802 110.868 240.043C92.725 217.943 62.221 185.709 44.836 166.024C14.437 131.603 7.493 111.587 2.627 95.887C-1.722 81.854 2.875 59.767 13.684 35.764C22.947 15.193 53.567 6.066 76.903 2.064C104.51 -2.671 118.556 9.418 129.707 18.268C137.71 24.621 140.276 35.653 141.995 48.18C142.386 51.035 141.439 52.755 140.301 53.063C137.457 53.833 134.598 48.822 132.605 44.272C130.693 39.905 130.596 35.14 130.878 30.591C131.165 25.972 134.564 21.458 139.395 17.473C144.105 13.588 155.6 12.325 175.755 11.179C204.351 9.554 229.14 16.276 242.24 21.398C255.701 26.661 265.636 46.393 271.964 73.466C277.956 99.102 271.417 126.227 266.885 149.52C261.094 179.281 248.072 202.64 233.903 225.899C224.306 241.653 207.317 263.833 196.064 278.284C179.167 298.379 171.659 306.452 166.554 314.105C163.142 319.501 158.062 327.966 151.119 338.399" stroke="#269411" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path id="ourstoryHeartPath" class="ourstory-heart-fill" d="M151.119 290.512C146.604 284.868 136.941 271.802 110.868 240.043C92.725 217.943 62.221 185.709 44.836 166.024C14.437 131.603 7.493 111.587 2.627 95.887C-1.722 81.854 2.875 59.767 13.684 35.764C22.947 15.193 53.567 6.066 76.903 2.064C104.51 -2.671 118.556 9.418 129.707 18.268C137.71 24.621 140.276 35.653 141.995 48.18C142.386 51.035 141.439 52.755 140.301 53.063C137.457 53.833 134.598 48.822 132.605 44.272C130.693 39.905 130.596 35.14 130.878 30.591C131.165 25.972 134.564 21.458 139.395 17.473C144.105 13.588 155.6 12.325 175.755 11.179C204.351 9.554 229.14 16.276 242.24 21.398C255.701 26.661 265.636 46.393 271.964 73.466C277.956 99.102 271.417 126.227 266.885 149.52C261.094 179.281 248.072 202.64 233.903 225.899C224.306 241.653 207.317 263.833 196.064 278.284C179.167 298.379 171.659 306.452 166.554 314.105C163.142 319.501 158.062 327.966 151.119 338.399" stroke="url(#greenPathGradient)"  filter="url(#greenGlow)" stroke-width="2" stroke-linecap="round" fill="none"/>
       </svg>
     </div>
   </div>
   </div>
 </section>
+
+<!--
+  ============================
+  TEAM SCROLL REVEAL SECTION
+  ============================
+  Paste this entire block near the bottom of your page.
+  All styles are scoped to .msc-team-* classes to avoid conflicts.
+
+  HOW TO EDIT:
+  - Each person is a <div class="msc-team-face" ...> in the HTML below.
+  - Position each person with these data attributes:
+      data-x="..."    → left position as % of container width
+      data-y="..."    → top position as % of container height
+      data-w="..."    → width as % of container width
+      data-h="..."    → height as % of container height
+      data-row="..."  → which row (1=bottom/first, 2=middle, 3=top/last)
+      data-speed="..."→ how fast this person reaches final position (0.03=slow, 0.2=fast)
+      data-name="..." → display name on hover
+      data-role="..." → display role on hover
+  - To add a new person: copy any face div, change the src and data attributes.
+  - To remove: delete the div.
+  - Row 1 appears first on scroll, then 2, then 3.
+-->
+
+<style>
+  .msc-team-section { position: relative; height: 400vh; margin-top: -100px;}
+  .msc-team-sticky {
+    position: sticky; top: 25vh; height: auto; overflow: hidden;
+    display: flex; align-items: flex-end; justify-content: center;
+    padding-bottom: 150px; padding-left: 220px;
+  }
+  .msc-team-composite {
+    position: relative;
+    width: 90vw; max-width: 1100px;
+    aspect-ratio: 1295 / 660;
+  }
+  .msc-team-face {
+    position: absolute;
+    cursor: pointer;
+    border: 3px solid transparent;
+    border-radius: 4px;
+    transition: border-color 0.2s ease;
+    opacity: 0;
+    will-change: opacity, transform;
+  }
+  .msc-team-face img {
+    width: 100%; height: 100%;
+    object-fit: contain; display: block;
+    pointer-events: none;
+  }
+  .msc-team-face:hover { border-color: #269411; }
+  .msc-team-face[data-row="1"] { z-index: 3; }
+  .msc-team-face[data-row="2"] { z-index: 2; }
+  .msc-team-face[data-row="3"] { z-index: 1; }
+
+  .msc-team-panel {
+    position: fixed; z-index: 200; pointer-events: none;
+    opacity: 0; transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    background: #fff; color: #111; padding: 12px 18px;
+    white-space: nowrap; font-family: 'DM Sans', sans-serif;
+  }
+  .msc-team-panel.visible { opacity: 1; transform: translateY(0); }
+  .msc-team-panel .msc-name { font-size: 1rem; font-weight: 500; line-height: 1.2; }
+  .msc-team-panel .msc-role { font-size: 0.75rem; opacity: 0.5; margin-top: 2px; }
+</style>
+
+<section class="msc-team-section" id="mscTeamSection">
+  <div class="msc-team-sticky">
+    <div class="msc-team-composite" id="mscTeamComposite">
+
+      <!-- ==============================================
+           ROW 1 — Bottom / Front (appears first)
+           ============================================== -->
+
+      <div class="msc-team-face"
+        data-row="1" data-speed="0.14"
+        data-x="0" data-y="57" data-w="24.6" data-h="43"
+        data-name="Chris Hamilton" data-role="President">
+        <img src="assets/team-portrait-sketches/r1-1.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="1" data-speed="0.10"
+        data-x="13" data-y="52" data-w="20.9" data-h="48"
+        data-name="Eric Andersen" data-role="Founder">
+        <img src="assets/team-portrait-sketches/r1-2.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="1" data-speed="0.07"
+        data-x="27" data-y="42" data-w="30.8" data-h="58"
+        data-name="Jeff Rothberg" data-role="Director of Sales">
+        <img src="assets/team-portrait-sketches/r1-3.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="1" data-speed="0.11"
+        data-x="43" data-y="47" data-w="21.8" data-h="53"
+        data-name="Ann Marie" data-role="Director of Sponsorships">
+        <img src="assets/team-portrait-sketches/r1-4.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="1" data-speed="0.15"
+        data-x="56" data-y="46" data-w="25" data-h="54"
+        data-name="Casey" data-role="Technical Support Manager">
+        <img src="assets/team-portrait-sketches/r1-5.png" alt="">
+      </div>
+
+      <!-- ==============================================
+           ROW 2 — Middle (appears second)
+           ============================================== -->
+
+      <div class="msc-team-face"
+        data-row="2" data-speed="0.12"
+        data-x="-1" data-y="37" data-w="18.8" data-h="50"
+        data-name="Tina" data-role="Director of Operations">
+        <img src="assets/team-portrait-sketches/r2-1.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="2" data-speed="0.08"
+        data-x="9" data-y="41" data-w="14" data-h="40"
+        data-name="Mike" data-role="Sponsor Territory Manager">
+        <img src="assets/team-portrait-sketches/r2-2.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="2" data-speed="0.14"
+        data-x="18" data-y="34" data-w="13.2" data-h="46"
+        data-name="Dan" data-role="Sponsor Territory Manager">
+        <img src="assets/team-portrait-sketches/r2-3.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="2" data-speed="0.06"
+        data-x="28" data-y="27" data-w="14.8" data-h="33"
+        data-name="Lindsey" data-role="Design & Support">
+        <img src="assets/team-portrait-sketches/r2-4.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="2" data-speed="0.10"
+        data-x="38" data-y="28" data-w="13.2" data-h="32"
+        data-name="Lee" data-role="Software Developer">
+        <img src="assets/team-portrait-sketches/r2-5.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="2" data-speed="0.13"
+        data-x="44" data-y="17" data-w="9.2" data-h="40"
+        data-name="Bill" data-role="Training & Support">
+        <img src="assets/team-portrait-sketches/r2-6.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="2" data-speed="0.07"
+        data-x="50" data-y="23" data-w="10.3" data-h="45"
+        data-name="Amanda" data-role="Support Manager">
+        <img src="assets/team-portrait-sketches/r2-7.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="2" data-speed="0.11"
+        data-x="55" data-y="26" data-w="15.7" data-h="34"
+        data-name="Sarah" data-role="Community Outreach">
+        <img src="assets/team-portrait-sketches/r2-8.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="2" data-speed="0.09"
+        data-x="63" data-y="33" data-w="13.8" data-h="45"
+        data-name="Alex" data-role="Tech Support">
+        <img src="assets/team-portrait-sketches/r2-9.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="2" data-speed="0.15"
+        data-x="68" data-y="26" data-w="12.1" data-h="46"
+        data-name="Emily" data-role="Client Success">
+        <img src="assets/team-portrait-sketches/r2-10.png" alt="">
+      </div>
+
+      <!-- ==============================================
+           ROW 3 — Top / Back (appears last)
+           ============================================== -->
+
+      <div class="msc-team-face"
+        data-row="3" data-speed="0.10"
+        data-x="0" data-y="5" data-w="10.5" data-h="48"
+        data-name="Ben" data-role="Design & Support">
+        <img src="assets/team-portrait-sketches/r3-1.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="3" data-speed="0.07"
+        data-x="8" data-y="8" data-w="16.1" data-h="38"
+        data-name="Rachel" data-role="Marketing">
+        <img src="assets/team-portrait-sketches/r3-2.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="3" data-speed="0.13"
+        data-x="17" data-y="6" data-w="12.1" data-h="41"
+        data-name="Craig" data-role="Integrations & APIs">
+        <img src="assets/team-portrait-sketches/r3-3.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="3" data-speed="0.08"
+        data-x="27" data-y="2" data-w="13.9" data-h="43"
+        data-name="Adam" data-role="Software Advisor">
+        <img src="assets/team-portrait-sketches/r3-4.png" alt="">
+      </div>
+
+      <div class="msc-team-face"
+        data-row="3" data-speed="0.14"
+        data-x="36" data-y="5" data-w="13.4" data-h="41"
+        data-name="Kevin" data-role="Systems Engineer">
+        <img src="assets/team-portrait-sketches/r3-5.png" alt="">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="msc-team-panel" id="mscTeamPanel">
+  <div class="msc-name" id="mscPanelName"></div>
+  <div class="msc-role" id="mscPanelRole"></div>
+</div>
+
+<script>
+
+(function() {
+  // ── Init: read positions from data attributes ──
+  const faces = document.querySelectorAll('.msc-team-face');
+  faces.forEach(f => {
+    f.style.left   = f.dataset.x + '%';
+    f.style.top    = f.dataset.y + '%';
+    f.style.width  = f.dataset.w + '%';
+    f.style.height = f.dataset.h + '%';
+    f._speed = parseFloat(f.dataset.speed) || 0.1;
+    f._row   = parseInt(f.dataset.row);
+    f._cur   = { o: 0, y: -350 };
+  });
+
+  // ── Hover panel ──
+  const panel     = document.getElementById('mscTeamPanel');
+  const panelName = document.getElementById('mscPanelName');
+  const panelRole = document.getElementById('mscPanelRole');
+
+  faces.forEach(face => {
+    face.addEventListener('mouseenter', () => {
+      panelName.textContent = face.dataset.name;
+      panelRole.textContent = face.dataset.role;
+      panel.classList.add('visible');
+      const rect = face.getBoundingClientRect();
+      const pw = panel.offsetWidth || 200;
+      const ph = panel.offsetHeight || 50;
+      const gap = 10;
+      let top = rect.top;
+      if (top + ph > window.innerHeight) top = window.innerHeight - ph - 10;
+      if (top < 10) top = 10;
+      let left = (rect.right + gap + pw < window.innerWidth)
+        ? rect.right + gap
+        : rect.left - gap - pw;
+      panel.style.top  = top + 'px';
+      panel.style.left = left + 'px';
+    });
+    face.addEventListener('mouseleave', () => panel.classList.remove('visible'));
+  });
+
+  // ── Scroll animation ──
+  const section = document.getElementById('mscTeamSection');
+  // Row start points (scroll progress 0–1)
+  const rowStart = { 1: 0, 2: 0.25, 3: 0.5 };
+  const rowRange = 0.2;
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function tick() {
+    const rect = section.getBoundingClientRect();
+    const sH   = section.offsetHeight - (window.innerHeight - 400);
+    const p    = Math.max(0, Math.min(1, -rect.top / sH));
+
+    faces.forEach(f => {
+      const rowP = Math.max(0, Math.min(1, (p - rowStart[f._row]) / rowRange));
+      const tgtO = rowP;
+      const tgtY = (1 - rowP) * 50;
+      f._cur.o = lerp(f._cur.o, tgtO, f._speed);
+      f._cur.y = lerp(f._cur.y, tgtY, f._speed);
+      f.style.opacity   = f._cur.o;
+      f.style.transform  = 'translateY(' + f._cur.y + 'px)';
+      f.style.pointerEvents = f._cur.o > 0.9 ? 'auto' : 'none';
+    });
+
+    requestAnimationFrame(tick);
+  }
+
+  tick();
+})();
+</script>
+
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
@@ -1948,12 +2792,11 @@ Today, we're the largest network of over 2,000 Senior Centers, still guided by t
       <div class="footer-contact">
         <div class="footer-contact-row">
           <img src="assets/call.png" alt="phone"/>
-          <span>(866) 739 9745</span>
+          <a href="tel:+18667399745">(866) 739 9745</a>
         </div>
-        <div class="footer-contact-line"></div>
         <div class="footer-contact-row">
           <img src="assets/globe.png" alt="email"/>
-          <span>support@myseniorcenter.com</span>
+          <a href="mailto:support@myseniorcenter.com">support@myseniorcenter.com</a>
         </div>
       </div>
     </div>
@@ -2126,7 +2969,7 @@ if (kioskSection && kioskFrames.length) {
     const sectionHeight = kioskSection.offsetHeight - window.innerHeight;
     const scrolled = -rect.top;
     const progress = Math.max(0, Math.min(1, scrolled / sectionHeight));
-    const activeIdx = Math.min(7, Math.floor(progress * 8));
+    const activeIdx = Math.min(12, Math.floor(progress * 13));
     kioskFrames.forEach((f, i) => {
       f.classList.toggle('active', i === activeIdx);
     });
@@ -2273,58 +3116,170 @@ if (demoComp && demoInner) {
 }
 
 // ====== DEMO PULSE LINES (Figma gradient: transparent→green→transparent, 60px) ======
+// ====== DEMO PULSE LINES (Chained: P1 → P2 (round-trip) → P3, repeat) ======
+
+// Initialize all pulse paths
 document.querySelectorAll('.demo-pulse').forEach(path => {
   const len = path.getTotalLength();
   const dashLen = 60;
-  const dur = parseFloat(path.dataset.dur) || 2.5;
-  const delay = parseFloat(path.dataset.delay) || 0;
-  const isGlow = path.classList.contains('demo-pulse-glow');
-  
   path.style.strokeDasharray = dashLen + ' ' + (len + dashLen);
   path.style.strokeDashoffset = dashLen;
-  
-  const totalCycle = dur * 1000;
-  const pauseAfter = 1400;
-  const fullDur = totalCycle + pauseAfter;
-  const startTime = performance.now() + delay * 1000;
-  
-  function animate(now) {
-    const elapsed = (now - startTime) % fullDur;
-    if (elapsed < 0) { requestAnimationFrame(animate); return; }
-    
-    let progress;
-    if (elapsed < totalCycle) {
-      const t = elapsed / totalCycle;
-      progress = t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2;
-    } else {
-      progress = 1;
-    }
-    
-    const offset = dashLen - progress * (len + dashLen);
-    path.style.strokeDashoffset = offset;
-    
-    let opacity;
-    if (elapsed >= totalCycle) {
-      opacity = 0;
-    } else {
-      const t = elapsed / totalCycle;
-      if (t < 0.1) opacity = t / 0.1;
-      else if (t > 0.9) opacity = (1 - t) / 0.1;
-      else opacity = 1;
-      opacity = opacity * opacity * (3 - 2 * opacity);
-    }
-    
-    if (isGlow) {
-      path.style.opacity = opacity * 0.25;
-    } else {
-      path.style.opacity = opacity;
-    }
-    
-    requestAnimationFrame(animate);
-  }
-  requestAnimationFrame(animate);
+  path.style.opacity = 0;
 });
 
+// Group paths by their data-delay attribute
+const pathGroups = [[], [], []];
+document.querySelectorAll('.demo-pulse').forEach(path => {
+  const delay = parseFloat(path.dataset.delay) || 0;
+  if (delay === 0) pathGroups[0].push(path);
+  else if (delay === 2.5) pathGroups[1].push(path);
+  else if (delay === 2) pathGroups[2].push(path);
+});
+
+const durations = [2500, 1200, 2500];
+const pauseAfterCycle = 1400;
+const nearEndThreshold = 0.70;
+
+function easeInOut(t) {
+  return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+}
+
+function getOpacity(t, isGlow) {
+  let o;
+  if (t < 0.1) o = t / 0.1;
+  else if (t > 0.85) o = (1 - t) / 0.15;
+  else o = 1;
+  o = o * o * (3 - 2 * o);
+  return isGlow ? o * 0.25 : o;
+}
+
+function animateGroup(paths, duration, reverse, onNearEnd, onDone, variableWidth) {
+  const startTime = performance.now();
+  let firedNearEnd = false;
+
+  function tick(now) {
+    const elapsed = now - startTime;
+    const rawT = Math.min(elapsed / duration, 1);
+    const t = reverse ? 1 - rawT : rawT;
+    const progress = easeInOut(t);
+
+    paths.forEach(path => {
+      const len = path.getTotalLength();
+      const dashLen = 60;
+      const isGlow = path.classList.contains('demo-pulse-glow');
+
+      if (variableWidth && !isGlow) {
+        const offset = progress * (len + dashLen) - dashLen;
+        const dashStart = Math.max(offset, 0);
+        const dashEnd = Math.min(offset + dashLen, len);
+
+        if (dashEnd > dashStart) {
+          const steps = 30;
+          const topPoints = [];
+          const bottomPoints = [];
+
+          for (let i = 0; i <= steps; i++) {
+            const frac = i / steps;
+            const dist = dashStart + frac * (dashEnd - dashStart);
+            const pt = path.getPointAtLength(dist);
+
+            let halfW;
+            if (frac <= 0.75) {
+              halfW = (0 + (frac / 0.75) * 2.5) / 2; // 0.5px → 3px
+            } else {
+              halfW = (3 - ((frac - 0.75) / 0.25) * 2) / 3; // 3px → 1px
+            }
+
+            const dt = 0.5;
+            const ptA = path.getPointAtLength(Math.max(dist - dt, 0));
+            const ptB = path.getPointAtLength(Math.min(dist + dt, len));
+            const dx = ptB.x - ptA.x;
+            const dy = ptB.y - ptA.y;
+            const mag = Math.sqrt(dx * dx + dy * dy) || 1;
+            const nx = -dy / mag;
+            const ny = dx / mag;
+
+            topPoints.push(`${pt.x + nx * halfW},${pt.y + ny * halfW}`);
+            bottomPoints.unshift(`${pt.x - nx * halfW},${pt.y - ny * halfW}`);
+          }
+
+          const polyPoints = topPoints.concat(bottomPoints).join(' ');
+
+          let poly = path.nextElementSibling;
+          if (!poly || !poly.classList.contains('demo-pulse-poly')) {
+            poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            poly.classList.add('demo-pulse-poly');
+            poly.setAttribute('fill', 'url(#pulseColor)');
+            poly.setAttribute('filter', 'url(#lineGlow)');
+            path.parentNode.insertBefore(poly, path.nextSibling);
+          }
+          poly.setAttribute('points', polyPoints);
+
+          const opacityT = reverse ? 1 - rawT : rawT;
+          poly.style.opacity = getOpacity(opacityT, false);
+          path.style.opacity = 0;
+        } else {
+          path.style.opacity = 0;
+          let poly = path.nextElementSibling;
+          if (poly && poly.classList.contains('demo-pulse-poly')) {
+            poly.style.opacity = 0;
+          }
+        }
+      } else {
+        const offset = dashLen - progress * (len + dashLen);
+        path.style.strokeDashoffset = offset;
+
+        const opacityT = reverse ? 1 - rawT : rawT;
+        path.style.opacity = getOpacity(opacityT, isGlow);
+      }
+    });
+
+    if (!firedNearEnd && rawT >= nearEndThreshold && onNearEnd) {
+      firedNearEnd = true;
+      onNearEnd();
+    }
+
+    if (rawT < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      paths.forEach(path => {
+        path.style.opacity = 0;
+        let poly = path.nextElementSibling;
+        if (poly && poly.classList.contains('demo-pulse-poly')) {
+          poly.style.opacity = 0;
+        }
+      });
+      if (onDone) onDone();
+    }
+  }
+  requestAnimationFrame(tick);
+}
+
+function runCycle() {
+  animateGroup(pathGroups[0], durations[0], false,
+    () => {
+      animateGroup(pathGroups[1], durations[1], false, null,
+        () => {
+          animateGroup(pathGroups[1], durations[1], true,
+            () => {
+              animateGroup(pathGroups[2], durations[2], false, null,
+                () => { setTimeout(runCycle, pauseAfterCycle); },
+                true  // ← variable width for Path 3
+              );
+            },
+            null,
+            true  // ← variable width for Path 2 reverse
+          );
+        },
+        true  // ← variable width for Path 2 forward
+      );
+    },
+    null,
+    true
+  );
+}
+
+runCycle();
 // ====== FIXED BACKGROUND (visible between slide-section and kiosk-section) ======
 const fixedBg = document.getElementById('fixedBg');
 const slideSec = document.querySelector('.slide-section');
@@ -2339,6 +3294,21 @@ if (fixedBg && slideSec && kioskSec) {
       fixedBg.classList.add('visible');
     } else {
       fixedBg.classList.remove('visible');
+    }
+  });
+}
+
+// === Fixed dots background === 
+const dotsBg = document.getElementById('dots-grid-bg');
+const demoSec = document.querySelector('#demo-section');
+if (dotsBg && demoSec) {
+  window.addEventListener('scroll', () => {
+    const rect = demoSec.getBoundingClientRect();
+    const vh = window.innerHeight;
+    if (rect.top < vh && rect.bottom > 0) {
+      dotsBg.classList.add('visible');
+    } else {
+      dotsBg.classList.remove('visible');
     }
   });
 }
