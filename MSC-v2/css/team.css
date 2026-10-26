@@ -1,0 +1,109 @@
+/* Team collage. Type never exceeds the 24px / 18px sizes from Figma. */
+.msc-team-section {
+  position: relative;
+  margin-top: -100px;
+  padding: 0 24px 106px;
+}
+
+.msc-team-stage { width: 100%; margin: 0 auto; }
+.msc-team-composite { position: relative; touch-action: pan-y; }
+
+.msc-team-member {
+  position: absolute;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  appearance: none;
+  /* Pointer picking uses the PNG alpha, not its transparent rectangle. */
+  pointer-events: none;
+}
+
+.msc-team-member img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  filter: url("#msc-team-sharpen");
+  pointer-events: none;
+  user-select: none;
+}
+
+.msc-team-member[data-flip="true"] img { transform: scaleX(-1); }
+
+/* A 10% white blend changes RGB only, leaving the PNG alpha untouched. */
+.msc-team-composite.has-active .msc-team-member:not(.is-active) img {
+  filter: url("#msc-team-muted");
+}
+.msc-team-hover { opacity: 0; }
+.msc-team-member.is-active .msc-team-default { opacity: 0; }
+.msc-team-member.is-active .msc-team-hover { opacity: 1; }
+.msc-team-member:focus-visible {
+  outline: 2px dashed var(--green);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+.msc-team-panel {
+  position: fixed;
+  z-index: 1100;
+  width: 424px;
+  max-width: calc(100vw - 32px);
+  min-height: 210px;
+  padding: 22px 25px 20px 30px;
+  border: 2px solid var(--black);
+  border-radius: 12px;
+  background: var(--light-gray);
+  color: var(--black);
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  clip-path: inset(0 100% 100% 0 round 12px);
+  transform: scale(0.96);
+  transform-origin: top left;
+  transition: clip-path 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1), opacity 180ms,
+    visibility 0s 280ms;
+}
+
+.msc-team-panel.visible {
+  visibility: visible;
+  opacity: 1;
+  clip-path: inset(0 0 0 0 round 12px);
+  transform: scale(1);
+  transition-delay: 0s;
+}
+
+.msc-team-panel .msc-team-name {
+  margin: 0 0 7px;
+  font: 700 24px / 30px 'Lato', sans-serif;
+  letter-spacing: -0.24px;
+}
+
+.msc-team-panel .msc-team-description,
+.msc-team-panel .msc-team-location {
+  font: 400 18px / 26px 'Lato', sans-serif;
+  color: var(--black);
+}
+
+.msc-team-panel .msc-team-location {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 18px;
+}
+
+.msc-team-location img { flex: none; }
+.msc-team-panel [hidden] { display: none; }
+
+@media (max-width: 767px) {
+  .msc-team-section { margin-top: 0; padding: 0 16px 64px; }
+  .msc-team-panel { min-height: 0; padding: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .msc-team-panel { transition: none; transform: none; }
+}
