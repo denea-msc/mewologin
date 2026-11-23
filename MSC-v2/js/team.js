@@ -34,6 +34,15 @@
     hover.alt = '';
     hover.draggable = false;
     hover.src = data.hoverImage || data.image;
+    if (data.crop) {
+      for (const image of [normal, hover]) {
+        image.style.left = `${data.crop.x * 100}%`;
+        image.style.top = `${data.crop.y * 100}%`;
+        image.style.width = `${data.crop.width * 100}%`;
+        image.style.height = `${data.crop.height * 100}%`;
+        image.style.objectFit = 'fill';
+      }
+    }
     button.append(normal, hover);
     canvas.append(button);
     const member = { data, button, normal, hover, index, mask: null };
@@ -95,11 +104,19 @@
       if (x < 0 || y < 0 || x >= rect.width || y >= rect.height) return false;
       if (member.data.flip) x = rect.width - x;
       if (!member.mask) return x > rect.width * 0.15 && x < rect.width * 0.85 && y > rect.height * 0.08;
-      const scale = Math.max(rect.width / member.normal.naturalWidth, rect.height / member.normal.naturalHeight);
-      const cropX = (member.normal.naturalWidth * scale - rect.width) / 2;
-      const cropY = (member.normal.naturalHeight * scale - rect.height) / 2;
-      const mx = Math.min(member.mask.width - 1, Math.max(0, Math.floor((x + cropX) / scale / member.normal.naturalWidth * member.mask.width)));
-      const my = Math.min(member.mask.height - 1, Math.max(0, Math.floor((y + cropY) / scale / member.normal.naturalHeight * member.mask.height)));
+      let sourceX, sourceY;
+      if (member.data.crop) {
+        const crop = member.data.crop;
+        sourceX = (x / rect.width - crop.x) / crop.width;
+        sourceY = (y / rect.height - crop.y) / crop.height;
+      } else {
+        const scale = Math.max(rect.width / member.normal.naturalWidth, rect.height / member.normal.naturalHeight);
+        sourceX = (x + (member.normal.naturalWidth * scale - rect.width) / 2) / (member.normal.naturalWidth * scale);
+        sourceY = (y + (member.normal.naturalHeight * scale - rect.height) / 2) / (member.normal.naturalHeight * scale);
+      }
+      if (sourceX < 0 || sourceY < 0 || sourceX >= 1 || sourceY >= 1) return false;
+      const mx = Math.min(member.mask.width - 1, Math.floor(sourceX * member.mask.width));
+      const my = Math.min(member.mask.height - 1, Math.floor(sourceY * member.mask.height));
       const index = my * member.mask.width + mx;
       return member.mask.bits
         ? Boolean(member.mask.bits[index >> 3] & (1 << (index & 7)))

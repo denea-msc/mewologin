@@ -15,6 +15,7 @@
   border: 0;
   background: transparent;
   appearance: none;
+  overflow: hidden;
   /* Pointer picking uses the PNG alpha, not its transparent rectangle. */
   pointer-events: none;
 }
@@ -32,7 +33,7 @@
   user-select: none;
 }
 
-.msc-team-member[data-flip="true"] img { transform: scaleX(-1); }
+.msc-team-member[data-flip="true"] { transform: scaleX(-1); }
 
 /* A 10% white blend changes RGB only, leaving the PNG alpha untouched. */
 .msc-team-composite.has-active .msc-team-member:not(.is-active) img {

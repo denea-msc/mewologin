@@ -1,67 +1,263 @@
-// Edit this list to add/remove members, change their details or move portraits.
-// x, y, width and height are pixels on the original 1029 × 473 Figma canvas.
-// Higher layers appear in front. Both image states always share the same frame.
+// Exact portrait slots, crops and back-to-front order from Figma node 1307:57.
+// Coordinates are relative to the collage origin; both image states share each slot.
 window.MSC_TEAM = {
-  width: 1029,
-  height: 473,
-  members: [
+  "width": 1569,
+  "height": 577,
+  "members": [
     {
-      id: 't6', name: 'Alex',
-      description: 'Tech Support. Following a theme within the support team, Al helps you solve any problems with soothing vocal tones. He’s also really good at showing you shortcuts and tricks.',
-      location: 'Seattle, WA',
-      image: 'assets/team/t6.png', hoverImage: 'assets/team/t6h.png',
-      x: 0, y: 10, width: 221, height: 293, layer: 1
+      "id": "t6",
+      "name": "Alex",
+      "description": "Tech Support. Following a theme within the support team, Al helps you solve any problems with soothing vocal tones. He’s also really good at showing you shortcuts and tricks.",
+      "location": "Seattle, WA",
+      "image": "assets/team/t6.png",
+      "hoverImage": "assets/team/t6h.png",
+      "x": 935,
+      "y": 21,
+      "width": 207,
+      "height": 253,
+      "layer": 0,
+      "row": "back"
     },
     {
-      id: 't7', name: 'Bill',
-      description: 'Training & Support. Bill makes sure the system is working in your center the right way, all the time. He solves Hardware and Network problems and talks with your town tech support for you.',
-      location: 'Manchester, NH',
-      image: 'assets/team/t7.png', hoverImage: 'assets/team/t7h.png',
-      x: 213, y: 9, width: 228, height: 279, layer: 2
+      "id": "t10",
+      "name": "Lee",
+      "description": "Software Developer. Lee, a former Paratrooper, keeps our code fast enough to check in millions of your members.",
+      "location": "",
+      "image": "assets/team/t10.png",
+      "hoverImage": "assets/team/t10h.png",
+      "x": 392,
+      "y": 0,
+      "width": 243,
+      "height": 298,
+      "layer": 1,
+      "row": "back"
     },
     {
-      id: 't4', name: 'Ann Marie',
-      description: 'Director of Sponsorships. Ann Marie finds local sponsors and partnership opportunities for Senior Centers so their busy Directors can focus on what\'s really important.',
-      location: 'Milwaukee, WI',
-      image: 'assets/team/t4.png', hoverImage: 'assets/team/t4h.png',
-      x: 464, y: 0, width: 226, height: 276, layer: 3
+      "id": "t14",
+      "name": "Penny",
+      "description": "",
+      "location": "",
+      "image": "assets/team/t14.png",
+      "hoverImage": "assets/team/t14h.png",
+      "x": 1239,
+      "y": 29,
+      "width": 197,
+      "height": 242,
+      "layer": 2,
+      "row": "back"
     },
     {
-      id: 't5', name: 'Ben',
-      description: 'Design & Support. Ben builds the scaffolding for new features while supporting the myriad of different types of senior centers; all while juggling.',
-      location: 'Chicago, IL',
-      image: 'assets/team/t5.png', hoverImage: 'assets/team/t5h.png',
-      x: 723, y: 17, width: 200, height: 271, layer: 4
+      "id": "t8",
+      "name": "Michael",
+      "description": "",
+      "location": "",
+      "image": "assets/team/t8.png",
+      "hoverImage": "assets/team/t8h.png",
+      "x": 147,
+      "y": 20,
+      "width": 200,
+      "height": 229,
+      "layer": 3,
+      "row": "back"
     },
     {
-      id: 't2', name: 'Chris Hamilton',
-      description: 'President. The mastermind behind Fun Facts, Chris believes Senior Centers need Data. Chris makes sure each state has an opportunity to use MySeniorCenter.',
-      location: 'Boston, MA',
-      image: 'assets/team/t2.png', hoverImage: 'assets/team/t2h.png',
-      x: 340, y: 150, width: 250, height: 306, layer: 5, flip: true
+      "id": "t7",
+      "name": "Bill",
+      "description": "Training & Support. Bill makes sure the system is working in your center the right way, all the time. He solves Hardware and Network problems and talks with your town tech support for you.",
+      "location": "Manchester, NH",
+      "image": "assets/team/t7.png",
+      "hoverImage": "assets/team/t7h.png",
+      "x": 673,
+      "y": 21,
+      "width": 206,
+      "height": 252,
+      "layer": 4,
+      "row": "back"
     },
     {
-      id: 't1', name: 'Tina',
-      description: 'Director of Operations. Tina talks the language of Senior Center fiscal budgets, helping Senior Centers find local grants and funding. She\'s the first person you\'ll talk to when getting setup.',
-      location: 'Boston, MA',
-      image: 'assets/team/t1.png', hoverImage: 'assets/team/t1h.png',
-      x: 106, y: 138, width: 260, height: 318, layer: 6
+      "id": "t13",
+      "name": "Casey",
+      "description": "Technical Support Manager. Casey keeps the network running. You accidentally deleted half a year of Rides?! Relax, Casey can restore it for you, all while providing blankets and hot cocoa.",
+      "location": "",
+      "image": "assets/team/t13.png",
+      "hoverImage": "assets/team/t13h.png",
+      "x": 499,
+      "y": 113,
+      "width": 261,
+      "height": 320,
+      "layer": 5,
+      "row": "middle"
     },
     {
-      id: 't3', name: 'Jeff Rothberg',
-      description: 'Director of Sales. As a former Director at a premiere Intergenerational Center, Jeff can relate. Jeff helps find resources for Centers so you can get our Software quickly and easily.',
-      location: 'San Francisco, CA',
-      image: 'assets/team/t3.png', hoverImage: 'assets/team/t3h.png',
-      x: 765, y: 150, width: 264, height: 323, layer: 7
+      "id": "t12",
+      "name": "Randy",
+      "description": "Master Coder.",
+      "location": "",
+      "image": "assets/team/t12.png",
+      "hoverImage": "assets/team/t12h.png",
+      "x": 1063,
+      "y": 110,
+      "width": 257,
+      "height": 314,
+      "layer": 6,
+      "row": "middle"
     },
     {
-      id: 't0', name: 'Eric Andersen',
-      description: 'A senior center volunteer for over a decade, Eric leads the software development and loves seeing the latest tech being used at centers.',
-      location: 'Cambridge, MA',
-      image: 'assets/team/t0.png', hoverImage: 'assets/team/t0h.png',
-      x: 551, y: 138, width: 265, height: 324, layer: 8,
-      // Optional panel anchor in canvas pixels; otherwise placed beside the member.
-      panel: { x: 791, y: 111 }
+      "id": "t15",
+      "name": "Bryan",
+      "description": "Rides Master.",
+      "location": "",
+      "image": "assets/team/t15.png",
+      "hoverImage": "assets/team/t15h.png",
+      "x": 0,
+      "y": 108,
+      "width": 234,
+      "height": 284,
+      "layer": 7,
+      "row": "middle"
+    },
+    {
+      "id": "t9",
+      "name": "Leah",
+      "description": "Design & Support.",
+      "location": "",
+      "image": "assets/team/t9.png",
+      "hoverImage": "assets/team/t9h.png",
+      "x": 234,
+      "y": 118,
+      "width": 262,
+      "height": 311,
+      "layer": 8,
+      "row": "middle"
+    },
+    {
+      "id": "t5",
+      "name": "Ben",
+      "description": "Design & Support. Ben builds the scaffolding for new features while supporting the myriad of different types of senior centers; all while juggling.",
+      "location": "Chicago, IL",
+      "image": "assets/team/t5.png",
+      "hoverImage": "assets/team/t5h.png",
+      "x": 1367,
+      "y": 166,
+      "width": 202,
+      "height": 274,
+      "layer": 9,
+      "row": "middle",
+      "crop": {
+        "x": -0.0262,
+        "y": 0,
+        "width": 0.9813,
+        "height": 1
+      }
+    },
+    {
+      "id": "t4",
+      "name": "Ann Marie",
+      "description": "Director of Sponsorships. Ann Marie finds local sponsors and partnership opportunities for Senior Centers so their busy Directors can focus on what's really important.",
+      "location": "Milwaukee, WI",
+      "image": "assets/team/t4.png",
+      "hoverImage": "assets/team/t4h.png",
+      "x": 793,
+      "y": 166,
+      "width": 231,
+      "height": 283,
+      "layer": 10,
+      "row": "middle"
+    },
+    {
+      "id": "t1",
+      "name": "Tina",
+      "description": "Director of Operations. Tina talks the language of Senior Center fiscal budgets, helping Senior Centers find local grants and funding. She's the first person you'll talk to when getting setup.",
+      "location": "Boston, MA",
+      "image": "assets/team/t1.png",
+      "hoverImage": "assets/team/t1h.png",
+      "x": 107,
+      "y": 228,
+      "width": 266,
+      "height": 327,
+      "layer": 11,
+      "row": "front",
+      "crop": {
+        "x": -0.0444,
+        "y": 0.0051,
+        "width": 1.0892,
+        "height": 0.9954
+      }
+    },
+    {
+      "id": "t3",
+      "name": "Jeff Rothberg",
+      "description": "Director of Sales. As a former Director at a premiere Intergenerational Center, Jeff can relate. Jeff helps find resources for Centers so you can get our Software quickly and easily.",
+      "location": "San Francisco, CA",
+      "image": "assets/team/t3.png",
+      "hoverImage": "assets/team/t3h.png",
+      "x": 343,
+      "y": 235,
+      "width": 307,
+      "height": 330,
+      "layer": 12,
+      "row": "front",
+      "crop": {
+        "x": 0.0214,
+        "y": -0.0001,
+        "width": 0.9986,
+        "height": 1.017
+      }
+    },
+    {
+      "id": "t2",
+      "name": "Chris Hamilton",
+      "description": "President. The mastermind behind Fun Facts, Chris believes Senior Centers need Data. Chris makes sure each state has an opportunity to use MySeniorCenter.",
+      "location": "Boston, MA",
+      "image": "assets/team/t2.png",
+      "hoverImage": "assets/team/t2h.png",
+      "x": 893,
+      "y": 237,
+      "width": 310,
+      "height": 340,
+      "layer": 13,
+      "row": "front",
+      "crop": {
+        "x": -0.0063,
+        "y": 0.0002,
+        "width": 0.9914,
+        "height": 0.9986
+      },
+      "flip": true
+    },
+    {
+      "id": "t11",
+      "name": "Jenifer",
+      "description": "Customer Liaison.",
+      "location": "",
+      "image": "assets/team/t11.png",
+      "hoverImage": "assets/team/t11h.png",
+      "x": 1162,
+      "y": 249,
+      "width": 300,
+      "height": 319,
+      "layer": 14,
+      "row": "front",
+      "crop": {
+        "x": 0.0228,
+        "y": 0.0013,
+        "width": 0.9908,
+        "height": 0.9995
+      }
+    },
+    {
+      "id": "t0",
+      "name": "Eric Andersen",
+      "description": "A senior center volunteer for over a decade, Eric leads the software development and loves seeing the latest tech being used at centers.",
+      "location": "Cambridge, MA",
+      "image": "assets/team/t0.png",
+      "hoverImage": "assets/team/t0h.png",
+      "x": 628,
+      "y": 237,
+      "width": 291,
+      "height": 326,
+      "layer": 15,
+      "row": "front"
     }
   ]
 };
