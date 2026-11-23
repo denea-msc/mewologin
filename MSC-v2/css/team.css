@@ -28,7 +28,6 @@
   height: 100%;
   max-width: none;
   object-fit: cover;
-  filter: url("#msc-team-sharpen");
   pointer-events: none;
   user-select: none;
 }
