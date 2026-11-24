@@ -16,6 +16,7 @@
   const locationText = location.querySelector('span');
   let active = null;
   let inputMode = 'keyboard';
+  let panelLeaveTimer = 0;
 
   const members = config.members.map((data, index) => {
     const button = document.createElement('button');
@@ -130,20 +131,69 @@
 
   function positionPanel() {
     if (!active) return;
-    const rect = canvas.getBoundingClientRect();
-    const scale = rect.width / config.width;
-    const anchor = active.data.panel || { x: active.data.x + active.data.width * 0.9, y: active.data.y - 27 };
-    const left = rect.left + anchor.x * scale;
-    let top = rect.top + anchor.y * scale;
-    // On phones, leave the portraits visible so another member is easy to tap.
+    panel.style.maxHeight = '';
+    panel.classList.remove('is-scrollable');
+    const collage = canvas.getBoundingClientRect();
+    const button = active.button;
+    // Reserve the final enlarged frame before its transition starts.
+    const width = button.offsetWidth;
+    const height = button.offsetHeight;
+    const target = {
+      left: collage.left + button.offsetLeft - width * .025,
+      right: collage.left + button.offsetLeft + width * 1.025,
+      top: collage.top + button.offsetTop - height * .05,
+      bottom: collage.top + button.offsetTop + height
+    };
+    const gap = 16;
+    const panelWidth = panel.offsetWidth;
+    const panelHeight = panel.offsetHeight;
+    const topLimit = Math.max(gap, Math.min(80, innerHeight - panelHeight - gap));
+    const centeredLeft = (target.left + target.right - panelWidth) / 2;
+    const candidates = [
+      { placement: 'right', left: target.right + gap, top: target.top },
+      { placement: 'left', left: target.left - panelWidth - gap, top: target.top },
+      { placement: 'above', left: centeredLeft, top: target.top - panelHeight - gap },
+      { placement: 'below', left: centeredLeft, top: target.bottom + gap }
+    ];
     if (innerWidth < 768) {
-      const above = rect.top - panel.offsetHeight - 16;
-      const below = rect.bottom + 16;
-      if (above >= 16) top = above;
-      else if (below + panel.offsetHeight <= innerHeight - 16) top = below;
+      candidates.unshift(
+        { placement: 'above-collage', left: centeredLeft, top: collage.top - panelHeight - gap },
+        { placement: 'below-collage', left: centeredLeft, top: collage.bottom + gap }
+      );
     }
-    panel.style.left = `${Math.max(16, Math.min(left, innerWidth - panel.offsetWidth - 16))}px`;
-    panel.style.top = `${Math.max(16, Math.min(top, innerHeight - panel.offsetHeight - 16))}px`;
+    const overlap = (a, b) => Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) *
+      Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
+    const head = { ...target, bottom: target.top + height * .65 };
+    const positions = candidates.map((candidate, index) => {
+      const left = Math.max(gap, Math.min(candidate.left, innerWidth - panelWidth - gap));
+      const top = Math.max(topLimit, Math.min(candidate.top, innerHeight - panelHeight - gap));
+      const bounds = { left, top, right: left + panelWidth, bottom: top + panelHeight };
+      return { ...candidate, left, top,
+        score: overlap(bounds, head) * 100 + overlap(bounds, target) +
+          Math.abs(left - candidate.left) + Math.abs(top - candidate.top) + index * .01 };
+    });
+    positions.sort((a, b) => a.score - b.score);
+    let position = positions[0];
+    const chosenBounds = { left: position.left, top: position.top,
+      right: position.left + panelWidth, bottom: position.top + panelHeight };
+    if (overlap(chosenBounds, target) > 0) {
+      const above = target.top - gap - topLimit;
+      const below = innerHeight - target.bottom - gap * 2;
+      const available = Math.max(above, below);
+      if (available >= 100) {
+        panel.style.maxHeight = `${Math.floor(available)}px`;
+        panel.classList.add('is-scrollable');
+        position = {
+          left: Math.max(gap, Math.min(centeredLeft, innerWidth - panelWidth - gap)),
+          top: above >= below ? target.top - gap - panel.offsetHeight : target.bottom + gap,
+          placement: above >= below ? 'above-scrollable' : 'below-scrollable'
+        };
+      }
+    }
+    panel.style.left = `${position.left}px`;
+    panel.style.top = `${position.top}px`;
+    panel.dataset.placement = position.placement;
+
   }
 
   function show(member) {
@@ -151,6 +201,7 @@
     if (active === member) return;
     hide();
     active = member;
+    panel.scrollTop = 0;
     member.button.style.zIndex = activeLayer;
     name.textContent = member.data.name;
     description.textContent = member.data.description || '';
@@ -174,6 +225,7 @@
   }
 
   function hide() {
+    clearTimeout(panelLeaveTimer);
     if (active) {
       active.button.style.zIndex = active.data.layer ?? active.index;
       active.button.classList.remove('is-active');
@@ -194,7 +246,12 @@
   });
   canvas.addEventListener('pointerleave', event => {
     if (event.pointerType === 'touch') return;
-    if (!active?.button.matches(':focus-visible')) hide();
+    if (panel.classList.contains('is-scrollable')) {
+      clearTimeout(panelLeaveTimer);
+      panelLeaveTimer = setTimeout(() => {
+        if (!panel.matches(':hover') && !canvas.matches(':hover') && !active?.button.matches(':focus-visible')) hide();
+      }, 150);
+    } else if (!active?.button.matches(':focus-visible')) hide();
   });
   canvas.addEventListener('pointerup', event => {
     if (event.pointerType !== 'touch') return;
@@ -202,9 +259,12 @@
     if (active === member) hide();
     else show(member);
   });
+  panel.addEventListener('pointerleave', event => {
+    if (event.pointerType !== 'touch' && !canvas.contains(event.relatedTarget) && !active?.button.matches(':focus-visible')) hide();
+  });
   document.addEventListener('pointerdown', event => {
     inputMode = 'pointer';
-    if (!canvas.contains(event.target)) hide();
+    if (!canvas.contains(event.target) && !panel.contains(event.target)) hide();
   });
   document.addEventListener('keydown', event => {
     inputMode = 'keyboard';
