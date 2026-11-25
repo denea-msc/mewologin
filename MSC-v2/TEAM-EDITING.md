@@ -23,3 +23,5 @@ The detail panel is 320px wide (constrained on small screens), with compact padd
 
 
 To verify this update after deployment, confirm a 3px hover lift and the latest t9h.png and t11h.png portraits.
+
+Portraits use a subtle 0.2px edge-softening filter for fine sketch lines at display size; the source PNGs remain unchanged. The same smoothing is retained with the inactive white tint.
