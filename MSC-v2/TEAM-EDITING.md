@@ -21,3 +21,5 @@ Denea is t18 and Mat is t19. Their biographies and locations have not been suppl
 
 The detail panel is 320px wide (constrained on small screens), with compact padding and a 6px gap from the portrait when space permits.
 
+
+To verify this update after deployment, confirm a 3px hover lift and the latest t9h.png and t11h.png portraits.
