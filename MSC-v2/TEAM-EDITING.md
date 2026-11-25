@@ -17,3 +17,4 @@ The collage scales to fit smaller screens. Panel name text remains 24px and desc
 Current identities: t1 is Ann Marie, t4 is Tina, t16 is Billy and t17 is Benji. Billy and Benji have no biography or location supplied yet.
 
 Denea is t18 and Mat is t19. Their biographies and locations have not been supplied. Active portraits move smoothly upward by 10 screen pixels; they retain their original size and layer. Tooltip placement reserves space for this movement.
+

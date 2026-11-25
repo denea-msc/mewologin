@@ -41,7 +41,7 @@
 .msc-team-composite.has-active .msc-team-member:not(.is-active) img {
   filter: url("#msc-team-muted");
 }
-.msc-team-member.is-active { translate: 0 -10px; }
+.msc-team-member.is-active { translate: 0 -5px; }
 .msc-team-hover { opacity: 0; }
 .msc-team-member.is-active .msc-team-default { opacity: 0; }
 .msc-team-member.is-active .msc-team-hover { opacity: 1; }
@@ -54,10 +54,10 @@
 .msc-team-panel {
   position: fixed;
   z-index: 1100;
-  width: 424px;
+  width: 320px;
   max-width: calc(100vw - 32px);
-  min-height: 210px;
-  padding: 22px 25px 20px 30px;
+  min-height: 0;
+  padding: 16px 18px;
   border: 2px solid var(--black);
   border-radius: 12px;
   background: var(--light-gray);
@@ -85,13 +85,13 @@
 
 .msc-team-panel .msc-team-name {
   margin: 0 0 7px;
-  font: 700 24px / 30px 'Lato', sans-serif;
+  font: 700 20px / 25px 'Lato', sans-serif;
   letter-spacing: -0.24px;
 }
 
 .msc-team-panel .msc-team-description,
 .msc-team-panel .msc-team-location {
-  font: 400 18px / 26px 'Lato', sans-serif;
+  font: 400 16px / 23px 'Lato', sans-serif;
   color: var(--black);
 }
 
@@ -99,7 +99,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  margin-top: 18px;
+  margin-top: 12px;
 }
 
 .msc-team-location img { flex: none; }
@@ -107,7 +107,7 @@
 
 @media (max-width: 767px) {
   .msc-team-section { margin-top: 0; padding: 0 16px 64px; }
-  .msc-team-panel { min-height: 0; padding: 20px; }
+  .msc-team-panel { min-height: 0; padding: 16px 18px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

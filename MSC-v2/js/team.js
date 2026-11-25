@@ -133,19 +133,20 @@
     panel.classList.remove('is-scrollable');
     const collage = canvas.getBoundingClientRect();
     const button = active.button;
-    // Reserve the union of the resting frame and its 10px upward hover motion.
+    // Reserve the union of the resting frame and its 5px upward hover motion.
     const width = button.offsetWidth;
     const height = button.offsetHeight;
     const target = {
       left: collage.left + button.offsetLeft,
       right: collage.left + button.offsetLeft + width,
-      top: collage.top + button.offsetTop - 10,
+      top: collage.top + button.offsetTop - 5,
       bottom: collage.top + button.offsetTop + height
     };
-    const gap = 16;
+    const gap = 6;
+    const edge = 16;
     const panelWidth = panel.offsetWidth;
     const panelHeight = panel.offsetHeight;
-    const topLimit = Math.max(gap, Math.min(80, innerHeight - panelHeight - gap));
+    const topLimit = Math.max(edge, Math.min(80, innerHeight - panelHeight - edge));
     const centeredLeft = (target.left + target.right - panelWidth) / 2;
     const candidates = [
       { placement: 'right', left: target.right + gap, top: target.top },
@@ -153,18 +154,12 @@
       { placement: 'above', left: centeredLeft, top: target.top - panelHeight - gap },
       { placement: 'below', left: centeredLeft, top: target.bottom + gap }
     ];
-    if (innerWidth < 768) {
-      candidates.unshift(
-        { placement: 'above-collage', left: centeredLeft, top: collage.top - panelHeight - gap },
-        { placement: 'below-collage', left: centeredLeft, top: collage.bottom + gap }
-      );
-    }
     const overlap = (a, b) => Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) *
       Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
     const head = { ...target, bottom: target.top + height * .65 };
     const positions = candidates.map((candidate, index) => {
-      const left = Math.max(gap, Math.min(candidate.left, innerWidth - panelWidth - gap));
-      const top = Math.max(topLimit, Math.min(candidate.top, innerHeight - panelHeight - gap));
+      const left = Math.max(edge, Math.min(candidate.left, innerWidth - panelWidth - edge));
+      const top = Math.max(topLimit, Math.min(candidate.top, innerHeight - panelHeight - edge));
       const bounds = { left, top, right: left + panelWidth, bottom: top + panelHeight };
       return { ...candidate, left, top,
         score: overlap(bounds, head) * 100 + overlap(bounds, target) +
@@ -182,7 +177,7 @@
         panel.style.maxHeight = `${Math.floor(available)}px`;
         panel.classList.add('is-scrollable');
         position = {
-          left: Math.max(gap, Math.min(centeredLeft, innerWidth - panelWidth - gap)),
+          left: Math.max(edge, Math.min(centeredLeft, innerWidth - panelWidth - edge)),
           top: above >= below ? target.top - gap - panel.offsetHeight : target.bottom + gap,
           placement: above >= below ? 'above-scrollable' : 'below-scrollable'
         };
