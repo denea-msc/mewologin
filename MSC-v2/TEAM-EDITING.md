@@ -12,9 +12,12 @@ Existing portraits in `assets/team/` are used directly, including the updated tr
 
 Unspecified biographies and locations remain blank. Hover, keyboard focus or touch reveals the details panel; other portraits receive the existing 10% white tint. `js/team-masks.js` caches alpha hit areas for all 20 default portraits. The masks match the configured image crop so transparent corners do not block members behind them.
 
-The collage scales to fit smaller screens. Panel name text remains 24px and description/location text 18px.
+The collage scales to fit smaller screens. Panel name text is 20px and description/location text is 16px.
 
 Current identities: t1 is Ann Marie, t4 is Tina, t16 is Billy and t17 is Benji. Billy and Benji have no biography or location supplied yet.
 
-Denea is t18 and Mat is t19. Their biographies and locations have not been supplied. Active portraits move smoothly upward by 10 screen pixels; they retain their original size and layer. Tooltip placement reserves space for this movement.
+Denea is t18 and Mat is t19. Their biographies and locations have not been supplied. Active portraits move smoothly upward by 3 screen pixels; they retain their original size and layer. Tooltip placement reserves space for this movement.
+
+
+The detail panel is 320px wide (constrained on small screens), with compact padding and a 6px gap from the portrait when space permits.
 
