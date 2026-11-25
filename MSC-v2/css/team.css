@@ -41,7 +41,7 @@
 .msc-team-composite.has-active .msc-team-member:not(.is-active) img {
   filter: url("#msc-team-muted");
 }
-.msc-team-member.is-active { translate: 0 -5px; }
+.msc-team-member.is-active { translate: 0 -3px; }
 .msc-team-hover { opacity: 0; }
 .msc-team-member.is-active .msc-team-default { opacity: 0; }
 .msc-team-member.is-active .msc-team-hover { opacity: 1; }
@@ -114,3 +114,4 @@
   .msc-team-panel { transition: none; transform: none; }
   .msc-team-member { transition: none; }
 }
+

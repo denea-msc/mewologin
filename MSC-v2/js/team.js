@@ -133,13 +133,13 @@
     panel.classList.remove('is-scrollable');
     const collage = canvas.getBoundingClientRect();
     const button = active.button;
-    // Reserve the union of the resting frame and its 5px upward hover motion.
+    // Reserve the union of the resting frame and its 3px upward hover motion.
     const width = button.offsetWidth;
     const height = button.offsetHeight;
     const target = {
       left: collage.left + button.offsetLeft,
       right: collage.left + button.offsetLeft + width,
-      top: collage.top + button.offsetTop - 5,
+      top: collage.top + button.offsetTop - 3,
       bottom: collage.top + button.offsetTop + height
     };
     const gap = 6;
