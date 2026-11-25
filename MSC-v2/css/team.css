@@ -31,6 +31,9 @@
   height: 100%;
   max-width: none;
   object-fit: cover;
+  image-rendering: auto;
+  /* Subpixel edge smoothing keeps fine sketch lines from looking brittle. */
+  filter: blur(0.2px);
   pointer-events: none;
   user-select: none;
 }
@@ -39,7 +42,7 @@
 
 /* A 10% white blend changes RGB only, leaving the PNG alpha untouched. */
 .msc-team-composite.has-active .msc-team-member:not(.is-active) img {
-  filter: url("#msc-team-muted");
+  filter: url("#msc-team-muted") blur(0.2px);
 }
 .msc-team-member.is-active { translate: 0 -3px; }
 .msc-team-hover { opacity: 0; }
