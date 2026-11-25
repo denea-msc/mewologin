@@ -5,8 +5,6 @@
   const panel = document.getElementById('mscTeamPanel');
   if (!config || !canvas || !stage || !panel) return;
 
-  const activeLayer = Math.max(...config.members.map((member, index) => member.layer ?? index)) + 1;
-
   stage.style.maxWidth = `${config.width + 85}px`;
   canvas.style.width = `${config.width / (config.width + 85) * 100}%`;
   canvas.style.aspectRatio = `${config.width} / ${config.height}`;
@@ -93,6 +91,7 @@
       button.style.top = snap(data.y);
       button.style.width = snap(data.width);
       button.style.height = snap(data.height);
+      if (data.radius) button.style.borderRadius = snap(data.radius);
     });
     positionPanel();
   }
@@ -100,9 +99,8 @@
   new ResizeObserver(alignPortraits).observe(canvas);
 
   function pick(clientX, clientY) {
-    // Picking follows the temporarily raised portrait, including its transparent corners.
-    const hitOrder = active ? [active, ...frontToBack.filter(member => member !== active)] : frontToBack;
-    return hitOrder.find(member => {
+    // Match the unchanged visual layer order while portraits move vertically.
+    return frontToBack.find(member => {
       const rect = member.button.getBoundingClientRect();
       let x = clientX - rect.left;
       const y = clientY - rect.top;
@@ -135,13 +133,13 @@
     panel.classList.remove('is-scrollable');
     const collage = canvas.getBoundingClientRect();
     const button = active.button;
-    // Reserve the final enlarged frame before its transition starts.
+    // Reserve the union of the resting frame and its 10px upward hover motion.
     const width = button.offsetWidth;
     const height = button.offsetHeight;
     const target = {
-      left: collage.left + button.offsetLeft - width * .025,
-      right: collage.left + button.offsetLeft + width * 1.025,
-      top: collage.top + button.offsetTop - height * .05,
+      left: collage.left + button.offsetLeft,
+      right: collage.left + button.offsetLeft + width,
+      top: collage.top + button.offsetTop - 10,
       bottom: collage.top + button.offsetTop + height
     };
     const gap = 16;
@@ -202,7 +200,6 @@
     hide();
     active = member;
     panel.scrollTop = 0;
-    member.button.style.zIndex = activeLayer;
     name.textContent = member.data.name;
     description.textContent = member.data.description || '';
     description.hidden = !member.data.description;
@@ -227,7 +224,6 @@
   function hide() {
     clearTimeout(panelLeaveTimer);
     if (active) {
-      active.button.style.zIndex = active.data.layer ?? active.index;
       active.button.classList.remove('is-active');
       active.button.removeAttribute('aria-describedby');
       active.button.setAttribute('aria-expanded', 'false');

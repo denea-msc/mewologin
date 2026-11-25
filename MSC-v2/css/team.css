@@ -16,9 +16,9 @@
   background: transparent;
   appearance: none;
   overflow: hidden;
-  scale: 1;
+  translate: 0 0;
   transform-origin: center bottom;
-  transition: scale 280ms cubic-bezier(.22,1,.36,1);
+  transition: translate 280ms cubic-bezier(.22,1,.36,1);
   /* Pointer picking uses the PNG alpha, not its transparent rectangle. */
   pointer-events: none;
 }
@@ -41,7 +41,7 @@
 .msc-team-composite.has-active .msc-team-member:not(.is-active) img {
   filter: url("#msc-team-muted");
 }
-.msc-team-member.is-active { scale: 1.05; }
+.msc-team-member.is-active { translate: 0 -10px; }
 .msc-team-hover { opacity: 0; }
 .msc-team-member.is-active .msc-team-default { opacity: 0; }
 .msc-team-member.is-active .msc-team-hover { opacity: 1; }
